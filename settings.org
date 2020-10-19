@@ -1,6 +1,5 @@
 * Garrett's Emacs configuration
-** Classic boilerplate stuff in
-cluding use-package config
+** Classic boilerplate stuff including use-package config
  #+BEGIN_SRC emacs-lisp
  (require 'package)
  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -100,7 +99,6 @@ cluding use-package config
      (setq org-todo-keyword-faces
 	     '(("TODO" . "red") ("INPROGRESS" . "orange") ("WAITING" . (:foreground "blue" :weight bold))))
  (setq org-ellipsis "  ")
-
  (add-hook 'org-mode-hook 'evil-org-mode)
  (add-hook 'org-mode-hook 'org-bullets-mode)
  #+END_SRC
@@ -147,7 +145,7 @@ cluding use-package config
 			 bibtex-completion-pdf-field "file")
  #+END_SRC
 ** Setting up writing mode
-  #+BEGIN_SRC emacs-lisp :tangle user-config.el
+  #+BEGIN_SRC emacs-lisp
     ;; (add-hook 'org-mode-hook 'variable-pitch-mode)
     ;; (add-hook 'org-agenda-finalize-hook 'variable-pitch-mode)
      (add-hook 'text-mode-hook 'olivetti-mode)
