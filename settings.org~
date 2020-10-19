@@ -1,0 +1,150 @@
+* Classic boilerplate stuff including use-package config
+#+BEGIN_SRC emacs-lisp
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("1d079355c721b517fdc9891f0fda927fe3f87288f2e6cc3b8566655a64ca5453" "34ed3e2fa4a1cb2ce7400c7f1a6c8f12931d8021435bad841fdc1192bd1cc7da" default))
+ '(evil-undo-system 'undo-tree)
+ '(package-selected-packages
+   '(helm-bibtexkey undo-tree dashboard org-roam-server ivy-bibtex org-roam-bibtex org-ref evil-magit base16-theme treemacs projectile evil-org helm evil)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+(eval-when-compile
+  ;; Following line is not needed if use-package.el is in ~/.emacs.d
+  (require 'use-package))
+#+END_SRC  
+* Install All the packages
+#+BEGIN_SRC emacs-lisp
+    (use-package evil)
+    (use-package base16-theme )
+    (use-package evil-org )
+    (use-package evil-org-agenda )
+    (use-package helm )
+    (use-package treemacs )
+    (use-package evil-leader )
+    (use-package evil-magit )
+    (use-package org-roam-server )
+    (use-package org-roam-bibtex)
+    (use-package helm-bibtex)
+    (use-package org)
+    (use-package ivy)
+    (use-package magit)
+    (use-package org-roam
+	:after org
+	:hook (org-mode . org-roam-mode)
+	:custom
+	(org-roam-directory "/home/garrett/org-roam/")
+	:bind
+	("C-c n l" . org-roam)
+	("C-c n t" . org-roam-today)
+	("C-c n f" . org-roam-find-file)
+	("C-c n i" . org-roam-insert)
+	("C-c n b" . org-roam-buffer-activate)
+	("C-c n c" . org-roam-capture)
+	("C-c n g" . org-roam-show-graph))
+    (defun org-roam/init-org-roam-bibtex ()
+    (use-package org-roam-bibtex
+	:after org-roam
+	:hook (org-roam-mode . org-roam-bibtex-mode)
+	:bind (:map org-mode-map
+	(("C-c n a" . orb-note-actions)))))
+    (use-package dashboard :ensure t :config (dashboard-setup-startup-hook))
+    
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+
+(global-evil-leader-mode)
+(evil-leader/set-leader "<SPC>")
+(evil-leader/set-key
+	"m a" 'org-agenda
+	"f s" 'save-buffer
+	"<SPC>" 'execute-extended-command
+	"g s" 'magit-status-here
+	"w d" 'evil-window-delete
+	"w v" 'evil-window-vsplit
+	"t l" 'toggle-truncate-lines
+	"m i c" 'org-ref-helm-insert-cite-link
+	"b n" 'next-buffer
+	"b p" 'previous-buffer
+	"<right>" 'tab-bar-switch-to-next-tab
+	"<left>" 'tab-bar-switch-to-prev-tab
+	"<up>" 'tab-bar-new-tab
+	"<down>" 'tab-bar-close-tab
+  "p t" 'treemacs)
+
+(evil-mode 1)
+(setq org-todo-keywords
+			'((sequence "TODO" "INPROGRESS" "WAITING" "|" "DONE"))
+			)
+(setq org-todo-keyword-faces
+			'(("TODO" . "red") ("INPROGRESS" . "orange")
+				("WAITING" . (:foreground "blue" :weight bold))))
+
+(setq org-ellipsis "  ")
+(global-display-line-numbers-mode)
+(ivy-mode 1)
+(add-hook 'org-mode-hook 'evil-org-mode)
+(add-hook 'org-mode-hook 'org-bullets-mode)
+(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+(require 'evil-org-agenda)
+(evil-org-agenda-set-keys)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(setq org-roam-completion-system 'ivy)
+(setq dashboard-items '((recents  . 5)
+                        (projects . 5)
+                        (agenda . 5)
+                        ))
+(setq dashboard-center-content t)
+
+(defconst org-roam-packages
+ '(org-roam org-roam-bibtex))
+
+ (setq org-agenda-files (list "/home/garrett/org-roam/20200915220906-topobaric.org"
+																 "/home/garrett/org-roam/20200930130018-school.org" 
+																 "/home/garrett/org-roam/20201002151401-argo_moc.org"
+																 "/home/garrett/org-roam/20201002151401-argo_moc.org"
+																 "/home/garrett/org-roam/20201008200919-deep_inverse_modeling.org"
+																 (concat "/home/garrett/org-roam/" (format-time-string "%Y-%m-%d") ".org" ) 
+																 ;; (concat "~/org-roam/" (let* ((now (current-time))(yesterday (time-add now (* -24 3600))))(format-time-string "%Y-%m-%d" yesterday)) ".org" ) 
+																 "/home/garrett/org-roam/20200915230739-gradapps.org"))
+(setq org-deadline-warning-days 0)
+(setq org-agenda-block-separator (string-to-char " "))
+(setq org-agenda-custom-commands
+			'(("a" "Garrett's Plan"
+				 ((agenda "" ((org-agenda-span 14)))
+					)
+				 )))
+		;; Enable Olivetti for text-related mode such as Org Mode
+
+(setq org-ref-default-bibliography (list "/home/garrett/Zotero/library.bib")
+			org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex)
+(setq bibtex-completion-bibliography (list "/home/garrett/Zotero/library.bib")
+			bibtex-completion-pdf-field "file")
+
+'(org-agenda-prefix-format "   %-6:c ~>  ")
+'(org-agenda-show-all-dates nil)
+'(org-agenda-skip-timestamp-if-deadline-is-shown t)
+'(org-agenda-todo-ignore-with-date t)
+(add-to-list 'default-frame-alist
+             '(font . "Source Code Pro"))
+(menu-bar-mode -1)
+(setq org-return-follows-link t)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+(with-eval-after-load 'evil-maps
+(define-key evil-motion-state-map (kbd "RET") nil))
+(use-package undo-tree)
+(global-undo-tree-mode)
+
+#+END_SRC

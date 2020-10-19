@@ -1,0 +1,34 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/home/garrett/Projects/topobaric-density/" . "source/")
+ ("/home/garrett/Projects/" . "topobaric-density/")
+ ("/home/garrett/" . "Projects/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/home/garrett/Projects/topobaric-density/source/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "field.py"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/home/garrett/Projects/topobaric-density/source/" (24448 52162 166622 952000) "__pycache__/" "loess/" "densjmd95_bsq_second_derivs.py" "jmd95.py" "intersect.py" "field.py" "jmd95_bsq.py" "notes.org" "./" "../")
+
+ ("/home/garrett/Projects/topobaric-density/" (24397 30785 629052 527000) ".gitignore" "README.md" "workspaces/" "source/" "figures/" "./" "../" "data/" "todo.org" ".git/")
+
+ ("/home/garrett/Projects/" (24448 55129 415258 320000) "mld-survey-analysis/" "arcticcirc-pics/" "mountains/" "Pacific3D/" "MLDIdentifierTool/" "ArgoHurricane/" "garrettsmld/" "tb-density-explorations/" "topobaric-density/" "garrettdreyfus.github.io/" "python-holteandtalley/" "./" "ArgoMoc/" "ttkenv/" "circuviz/" "../" "data/" "pygamma_n/" "Pomterm/" "arcticcirc/" "tb-density-logs/" "logParser/")
+
+ ("/home/garrett/" (24461 7162 96655 39000) ".pipewire-media-session/" "Calibre Library/" ".vim/" ".FoxTelem/" "org-roam/" ".Wolfram/" ".steam/" ".gissjava/" ".neovimrc" ".java/" ".gstreamer-0.10/" ".ncviewrc" ".spacemacs.env" ".bash_logout" ".bashrc.aliases" ".swt/" ".elvish/" ".jupyter/" ".zcompdump-xps-5.8" ".steampid" ".xscreensaver" ".googleearth/" ".esd_auth" ".matlab/" "jogl.ex.38803" "Matlab/" ".Mathematica/" ".spacemacs.d/" ".gnuradio/" "Pictures/" ".sambox.cache" ".audacity-data/" ".gtkrc-2.0" "Projects/" ".thunderbird/" "docker/" ".wavemonrc" ".e/" ".cache/" ".zcompdump-xps-5.7" ".bash_history" ".fehbg" "Public/" ".ipython/" ".subversion/" ".cargo/" ".eclipse/" ".GMA/" ".condarc" ".minecraft/" ".conda/" ".empty/" ".Xauthority" ".z" ".dir_colors/" ".openjfx/" ".hplip/" ".bundle/" ".gitconfig" ".tooling/" ".zcompdump-xps-5.7.1" ".gnome/" ".local/" ".vimrc" "Recordings/" ".oh-my-zsh/" "package-lock.json" "matlab_crash_dump.31916-1" ".elementary/" ".xsession-errors" ".rbenv/" ".node_repl_history" ".lesshst" ".docker/" ".steampath" ".zsh_history" ".viminfo" "ttk/" ".gnupg/" ".unidata/" ".netrc" "Desktop/" "./" ".ICEauthority" ".gphoto/" ".bash_profile" ".mongorc.js" ".pulse-cookie" ".xournalpp/" ".pki/" "Documents/" "Zotero/" ".npm/" "jogl.ex.19347" ".neovim/" "../" ".gemrc" ".gem/" ".oracle_jre_usage/" "matlab_crash_dump.217841-1" ".ssh/" "jogl.ex.42569" ".mozilla/" ".dbshell" ".spacemacs (copy)" ".wget-hsts" ".bashrc" ".emacs.d/" ".config/" ".dmrc" "org/" "jogl.ex.13443" ".geomapapp-home" ".zoom/" ".atom/" ".zshrc" ".themes/" "Scrivener ScratchPad/" "Downloads/" ".python_history" ".mono/" ".zcompdump-xps-5.6.2" ".zotero/")
+
+ ("/home/garrett/Documents/" (24460 62881 278671 343000) "Google Backup Codes.txt" "temp/" "B.png" "jobstuff/" "Wolfram Mathematica/" ".emacs~" ".cache/" ".emacs" "misc/" "ArcticManuscipt/" "Cubesat/" "lines.m" "ResNotes/" "OceansPapers/" "graphdump/" "topobaric/" "abstractart/" "./" "SouthAtlanticManuscript/" "mld stuff/" "MATLAB/" "../" ".orhc-bibtex-cache" "Scrivener/" ".emacs.d/" "org/" "SchoolWork/")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t
