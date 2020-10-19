@@ -31,6 +31,8 @@
 (use-package evil-magit )
 (use-package org-roam-server )
 (use-package org-roam-bibtex)
+(use-package org-bullets)
+(use-package olivetti)
 (use-package helm-bibtex)
 (use-package evil-org-agenda)
 (use-package org)
@@ -69,6 +71,7 @@
 	"f s" 'save-buffer
 	"<SPC>" 'execute-extended-command
 	"g s" 'magit-status-here
+	"b b" 'helm-recentf
 	"w d" 'evil-window-delete
 	"w v" 'evil-window-vsplit
 	"t l" 'toggle-truncate-lines
@@ -112,11 +115,10 @@
 (defconst org-roam-packages
  '(org-roam org-roam-bibtex))
 
-(setq dashboard-items '((recents  . 5)
-                        (projects . 5)
-                        (agenda . 5)
-                        ))
+(setq dashboard-items '((recents . 10)))
+(setq dashboard-set-footer nil)
 (setq dashboard-center-content t)
+(setq dashboard-set-init-info nil)
 
 (setq org-ref-default-bibliography (list "/home/garrett/Zotero/library.bib")
     org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex)
