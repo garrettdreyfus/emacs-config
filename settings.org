@@ -13,7 +13,7 @@
     '("1d079355c721b517fdc9891f0fda927fe3f87288f2e6cc3b8566655a64ca5453" "34ed3e2fa4a1cb2ce7400c7f1a6c8f12931d8021435bad841fdc1192bd1cc7da" default))
   '(evil-undo-system 'undo-tree)
   '(package-selected-packages
-    '(helm-bibtexkey undo-tree dashboard org-roam-server ivy-bibtex org-roam-bibtex org-ref evil-magit base16-theme treemacs projectile evil-org helm evil)))
+    '(helm-bibtexkey undo-tree dashboard org-roam-server ivy-bibtex org-roam-bibtex org-ref evil-magit base16-theme treemacs evil-org helm evil)))
  (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -100,7 +100,6 @@
 	     '(("TODO" . "red") ("INPROGRESS" . "orange") ("WAITING" . (:foreground "blue" :weight bold))))
  (setq org-ellipsis "  ")
  (add-hook 'org-mode-hook 'evil-org-mode)
- (add-hook 'org-mode-hook 'org-bullets-mode)
  #+END_SRC
 ** Org agenda settings
  #+BEGIN_SRC emacs-lisp
@@ -112,10 +111,8 @@
      (setq org-agenda-files (list "/home/garrett/org-roam/20200915220906-topobaric.org"
 	 "/home/garrett/org-roam/20200930130018-school.org" 
 	 "/home/garrett/org-roam/20201002151401-argo_moc.org"
-	 "/home/garrett/org-roam/20201002151401-argo_moc.org"
+	 "/home/garrett/org-roam/20201020103239-daily.org"
 	 "/home/garrett/org-roam/20201008200919-deep_inverse_modeling.org"
-	 (concat "/home/garrett/org-roam/" (format-time-string "%Y-%m-%d") ".org" ) 
-	 ;; (concat "~/org-roam/" (let* ((now (current-time))(yesterday (time-add now (* -24 3600))))(format-time-string "%Y-%m-%d" yesterday)) ".org" ) 
 	 "/home/garrett/org-roam/20200915230739-gradapps.org"))
      '(org-agenda-prefix-format "   %-6:c ~>  ")
      '(org-agenda-show-all-dates nil)
@@ -151,11 +148,10 @@
      (add-hook 'text-mode-hook 'olivetti-mode)
      (add-hook 'org-mode-hook 'olivetti-mode)
      (add-hook 'org-agenda-finalize-hook 'olivetti-mode)
-	 (defun org-line-wrap ()
-	 (spacemacs/toggle-visual-line-navigation-on)
-	 (setq-local word-wrap nil))
+     (defun org-line-wrap () (setq-local word-wrap nil))
 
      (add-hook 'org-mode-hook 'org-line-wrap)
+     (add-hook 'org-mode-hook 'org-bullets-mode)
      (setq olivetti-body-width 80)
 
 
