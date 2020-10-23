@@ -23,6 +23,7 @@
 
 (use-package evil)
 (use-package base16-theme )
+(use-package eradio)
 (use-package evil-org )
 (use-package evil-org-agenda )
 (use-package helm )
@@ -46,7 +47,7 @@
     (org-roam-directory "/home/garrett/org-roam/")
     :bind
     ("C-c n l" . org-roam)
-    ("C-c n t" . org-roam-today)
+    ("C-c n t" . (lambda () (interactive) (find-file "~/org-roam/20201020103239-daily.org")))
     ("C-c n f" . org-roam-find-file)
     ("C-c n i" . org-roam-insert)
     ("C-c n b" . org-roam-buffer-activate)
@@ -78,6 +79,8 @@
 	"m i c" 'org-ref-helm-insert-cite-link
 	"b n" 'next-buffer
 	"b p" 'previous-buffer
+	"r p" 'eradio-play
+	"r s" 'eradio-stop
 	"<right>" 'tab-bar-switch-to-next-tab
 	"<left>" 'tab-bar-switch-to-prev-tab
 	"<up>" 'tab-bar-new-tab
@@ -131,6 +134,13 @@
  (add-hook 'org-mode-hook 'org-line-wrap)
  (add-hook 'org-mode-hook 'org-bullets-mode)
  (setq olivetti-body-width 80)
+
+(setq eradio-channels '(("def con - soma fm" . "https://somafm.com/defcon256.pls")
+                      ("cafe - lainon"     . "https://lainon.life/radio/cafe.ogg.m3u")
+                      ("deep space one"     . "http://somafm.com/m3u/deepspaceone130.m3u")
+                      ("7 inch soul"     . "http://somafm.com/m3u/7soul130.m3u")
+		      ("left coast 70s" . "http://somafm.com/m3u/seventies130.m3u")
+		      ("jazz24" . "https://live.wostreaming.net/playlist/ppm-jazz24aac256-ibc1.m3u")))
 
 (ivy-mode 1)
 (global-display-line-numbers-mode)
