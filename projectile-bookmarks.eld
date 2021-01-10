@@ -1,1 +1,1 @@
-nil
+("~/.emacs.d/" "~/org-roam/" "~/Projects/arcticcirc/" "~/Projects/ArgoMoc/Methods/" "~/Projects/ArgoMoc/multiscale-mapping/" "~/Projects/topobaric-density/")

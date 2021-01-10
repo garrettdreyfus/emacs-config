@@ -25,21 +25,28 @@
 (use-package base16-theme )
 (use-package eradio)
 (use-package evil-org )
+(use-package org-download)
 (use-package evil-org-agenda )
+(use-package origami 
+    :hook (global-origami-mode))
 (use-package helm )
 (use-package treemacs )
 (use-package evil-leader )
 (use-package evil-magit )
 (use-package org-roam-server )
-(use-package org-roam-bibtex)
 (use-package org-bullets)
 (use-package olivetti)
 (use-package helm-bibtex)
 (use-package evil-org-agenda)
 (use-package org)
 (use-package ivy)
+(use-package eyebrowse)
 (use-package magit)
-(use-package undo-tree)
+(use-package poet-theme)
+(require 'ls-lisp)
+(setq ls-lisp-use-insert-directory-program nil)
+(use-package undo-tree
+)
 (use-package org-roam
     :after org
     :hook (org-mode . org-roam-mode)
@@ -53,12 +60,11 @@
     ("C-c n b" . org-roam-buffer-activate)
     ("C-c n c" . org-roam-capture)
     ("C-c n g" . org-roam-show-graph))
-(defun org-roam/init-org-roam-bibtex ()
 (use-package org-roam-bibtex
     :after org-roam
-    :hook (org-roam-mode . org-roam-bibtex-mode)
-    :bind (:map org-mode-map
-    (("C-c n a" . orb-note-actions)))))
+    :load-path "~/.emacs.d/lib/org-roam-bibtex/"
+    :hook (org-roam-mode . org-roam-bibtex-mode))
+
 (use-package dashboard :ensure t :config (dashboard-setup-startup-hook))
 
 (evil-mode 1)
@@ -69,6 +75,7 @@
 (evil-org-agenda-set-keys)
 (evil-leader/set-key
 	"m a" 'org-agenda
+	"a a" 'org-archive-done-tasks
 	"f s" 'save-buffer
 	"<SPC>" 'execute-extended-command
 	"g s" 'magit-status-here
@@ -76,15 +83,23 @@
 	"w d" 'evil-window-delete
 	"w v" 'evil-window-vsplit
 	"t l" 'toggle-truncate-lines
-	"m i c" 'org-ref-helm-insert-cite-link
+	"m i c" 'orb-insert
 	"b n" 'next-buffer
 	"b p" 'previous-buffer
 	"r p" 'eradio-play
 	"r s" 'eradio-stop
-	"<right>" 'tab-bar-switch-to-next-tab
-	"<left>" 'tab-bar-switch-to-prev-tab
-	"<up>" 'tab-bar-new-tab
-	"<down>" 'tab-bar-close-tab
+	"c r" 'comment-region
+	"c l" 'comment-line
+	"l w 0 " 'eyebrowse-switch-to-window-config-0
+	"l w 1 " 'eyebrowse-switch-to-window-config-1
+	"l w 2 " 'eyebrowse-switch-to-window-config-2
+	"l w 3 " 'eyebrowse-switch-to-window-config-3
+	"l w 4 " 'eyebrowse-switch-to-window-config-4
+	"l w 5 " 'eyebrowse-switch-to-window-config-5
+	"l w 6 " 'eyebrowse-switch-to-window-config-6
+	"l w 7 " 'eyebrowse-switch-to-window-config-7
+	"l w 8 " 'eyebrowse-switch-to-window-config-8
+	"l w 9 " 'eyebrowse-switch-to-window-config-9
 	"p t" 'treemacs)
 
 (setq org-todo-keywords
@@ -96,9 +111,6 @@
 
 (setq org-agenda-block-separator (string-to-char " "))
 (setq org-deadline-warning-days 0)
-(setq org-agenda-custom-commands '(("a" "Garrett's Plan"
-    ((agenda "" ((org-agenda-span 14)))))))
-(global-set-key (kbd "C-c a") 'org-agenda)
 (setq org-agenda-files (list "/home/garrett/org-roam/20200915220906-topobaric.org"
     "/home/garrett/org-roam/20200930130018-school.org" 
     "/home/garrett/org-roam/20201002151401-argo_moc.org"
@@ -109,6 +121,7 @@
 '(org-agenda-show-all-dates nil)
 '(org-agenda-skip-timestamp-if-deadline-is-shown t)
 '(org-agenda-todo-ignore-with-date t)
+(setq org-agenda-start-on-weekday nil)
 
 (setq org-roam-completion-system 'ivy)
 (defconst org-roam-packages
@@ -124,7 +137,7 @@
 (setq bibtex-completion-bibliography (list "/home/garrett/Zotero/library.bib")
 			bibtex-completion-pdf-field "file")
 
-;; (add-hook 'org-mode-hook 'variable-pitch-mode)
+(add-hook 'org-mode-hook 'variable-pitch-mode)
 ;; (add-hook 'org-agenda-finalize-hook 'variable-pitch-mode)
  (add-hook 'text-mode-hook 'olivetti-mode)
  (add-hook 'org-mode-hook 'olivetti-mode)
@@ -140,10 +153,15 @@
                       ("deep space one"     . "http://somafm.com/m3u/deepspaceone130.m3u")
                       ("7 inch soul"     . "http://somafm.com/m3u/7soul130.m3u")
 		      ("left coast 70s" . "http://somafm.com/m3u/seventies130.m3u")
+		      ("groove salad" . "http://somafm.com/m3u/groovesalad130.m3u")
+		      ("mostwanted" . "http://5.39.71.159:8169/listen.pls" )
 		      ("jazz24" . "https://live.wostreaming.net/playlist/ppm-jazz24aac256-ibc1.m3u")))
 
+(load-theme 'poet-dark t)
+(eyebrowse-mode t)
+(setq-default truncate-lines t)
+(custom-set-variables '(ls-lisp-verbosity nil))
 (ivy-mode 1)
-(global-display-line-numbers-mode)
 (global-undo-tree-mode)
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
@@ -151,3 +169,12 @@
 (setq org-return-follows-link t)
 (add-to-list 'default-frame-alist
 	    '(font . "Source Code Pro"))
+(setq-default ls-lisp-verbosity nil)
+
+(defun org-archive-done-tasks ()
+  (interactive)
+  (org-map-entries
+   (lambda ()
+     (org-archive-subtree)
+     (setq org-map-continue-from (org-element-property :begin (org-element-at-point))))
+   "/DONE" 'tree))
