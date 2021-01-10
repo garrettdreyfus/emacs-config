@@ -1,0 +1,31 @@
+;; Emacs-W3 HTTP cookies file
+;; Automatically generated file!!! DO NOT EDIT!!!
+
+(setq url-cookie-storage
+ '((".nytimes.com"
+  [url-cookie "nyt-geo" "US" "Tue, 03 Nov 2020 02:20:59 GMT" "/" ".nytimes.com" nil]
+  [url-cookie "nyt-gdpr" "0" "Tue, 03 Nov 2020 02:20:59 GMT" "/" ".nytimes.com" nil])
+ (".metafilter.com"
+  [url-cookie "DARK_MODE" "1" "Mon, 24-Oct-2050 18:05:46 GMT" "/" ".metafilter.com" nil]
+  [url-cookie "SSL" "1" "Mon, 24-Oct-2050 18:05:46 GMT" "/" ".metafilter.com" nil])
+ ("www.metafilter.com"
+  [url-cookie "CFTOKEN" "c81f1123db444291-FE5E1021-C69F-B9CE-6431FCC12A151FF2" "Mon, 24-Oct-2050 18:05:46 GMT" "/" "www.metafilter.com" nil]
+  [url-cookie "CFID" "1925925502" "Mon, 24-Oct-2050 18:05:46 GMT" "/" "www.metafilter.com" nil]))
+)
+(setq url-cookie-secure-storage
+ '((".nytimes.com"
+  [url-cookie "datadome" "TOXUH2hU5N27qYJPth6yhd_DrlMMi3C7~JSRzHqNUY8ewPQjZ_a-LwSVByBxjB-fw.Gh0eO-TmqdAbTo~4.u0amOm7A~j.BKSxLip6mcVL" "Sun Oct 31 18:04:30 2021 GMT" "/" ".nytimes.com" t]
+  [url-cookie "nyt-purr" "cfhhcfhhhck" "Tue, 02 Nov 2021 20:20:59 GMT" "/" ".nytimes.com" t]
+  [url-cookie "nyt-a" "CAzEWBlv_JsS4zMj7zfbV7" "Tue, 02 Nov 2021 20:20:59 GMT" "/" ".nytimes.com" t])
+ ("reddit.com"
+  [url-cookie "edgebucket" "hPvPXXnWDF2fjhDaOA" "Mon Oct 31 18:05:03 2022 GMT" "/" "reddit.com" t])
+ (".reddit.com"
+  [url-cookie "csv" "1" "Mon Oct 31 18:05:04 2022 GMT" "/" ".reddit.com" t]
+  [url-cookie "d2_token" "3.e81b92418e9f8e04c99e0170c4dfbbd56df8787a9424d00af5bb3f683e18da01.eyJhY2Nlc3NUb2tlbiI6Ii1STlRpcXYydE5YTl8zNmtZZjFVR1FhZ0lDYlUiLCJleHBpcmVzIjoiMjAyMC0xMC0zMVQxOTowNTowMS4wMDBaIiwibG9nZ2VkT3V0Ijp0cnVlLCJzY29wZXMiOlsiKiIsImVtYWlsIl19" "Mon, 31 Oct 2022 18:05:01 GMT" "/" ".reddit.com" t]
+  [url-cookie "loid" "00000000008p9e1mlt.2.1604167501902.Z0FBQUFBQmZuYWROSnd5dDZBb2xua1c1bGtNeWhBVjc1VFdpa215WmswMmNEWlphRkFtZGxqQ1V6eTFnYVE4RXlHSDVVVjAxcUsydm9VS2liRUwta193eGVHdTdGc0Q4ZDF2eVdvbkhkc1UycWdYeTZhMkwwaE04QklDbXRnc09BeUlxVFYzZW1LQTg" "Mon, 31 Oct 2022 18:05:01 GMT" "/" ".reddit.com" t]))
+)
+
+;; Local Variables:
+;; version-control: never
+;; no-byte-compile: t
+;; End:
