@@ -1,1 +1,1 @@
-("~/.emacs.d/" "~/org-roam/" "~/Projects/arcticcirc/" "~/Projects/ArgoMoc/Methods/" "~/Projects/ArgoMoc/multiscale-mapping/" "~/Projects/topobaric-density/")
+("~/.emacs.d/" "~/org-roam/" "~/Projects/ArgoMoc/multiscale-mapping/" "~/Projects/arcticcirc/" "~/Projects/ArgoMoc/Methods/" "~/Projects/python-holteandtalley/" "~/Projects/topobaric-density/")

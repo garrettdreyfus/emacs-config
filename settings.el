@@ -30,7 +30,7 @@
 (use-package origami 
     :hook (global-origami-mode))
 (use-package helm )
-(use-package treemacs )
+(use-package neotree )
 (use-package evil-leader )
 (use-package evil-magit )
 (use-package org-roam-server )
@@ -43,6 +43,7 @@
 (use-package eyebrowse)
 (use-package magit)
 (use-package poet-theme)
+(use-package apropospriate)
 (require 'ls-lisp)
 (setq ls-lisp-use-insert-directory-program nil)
 (use-package undo-tree
@@ -88,8 +89,11 @@
 	"b p" 'previous-buffer
 	"r p" 'eradio-play
 	"r s" 'eradio-stop
+	"n f" 'org-roam-find-file
+	"n i" 'org-roam-insert
 	"c r" 'comment-region
 	"c l" 'comment-line
+	"c d" 'org-deadline
 	"l w 0 " 'eyebrowse-switch-to-window-config-0
 	"l w 1 " 'eyebrowse-switch-to-window-config-1
 	"l w 2 " 'eyebrowse-switch-to-window-config-2
@@ -100,7 +104,7 @@
 	"l w 7 " 'eyebrowse-switch-to-window-config-7
 	"l w 8 " 'eyebrowse-switch-to-window-config-8
 	"l w 9 " 'eyebrowse-switch-to-window-config-9
-	"p t" 'treemacs)
+	"p t" 'neotree-toggle)
 
 (setq org-todo-keywords
 	    '((sequence "TODO" "INPROGRESS" "WAITING" "|" "DONE")))
@@ -157,7 +161,6 @@
 		      ("mostwanted" . "http://5.39.71.159:8169/listen.pls" )
 		      ("jazz24" . "https://live.wostreaming.net/playlist/ppm-jazz24aac256-ibc1.m3u")))
 
-(load-theme 'poet-dark t)
 (eyebrowse-mode t)
 (setq-default truncate-lines t)
 (custom-set-variables '(ls-lisp-verbosity nil))
