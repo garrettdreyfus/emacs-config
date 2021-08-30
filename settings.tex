@@ -1,0 +1,299 @@
+% Created 2021-03-11 Thu 13:29
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Garrett Finucane}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={Garrett Finucane},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.1 (Org mode 9.3)}, 
+ pdflang={English}}
+\begin{document}
+
+\tableofcontents
+
+\section{Garrett's Emacs configuration}
+\label{sec:org665fa48}
+\subsection{Classic boilerplate stuff including use-package config}
+\label{sec:orgdc1d8a3}
+\begin{verbatim}
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("1d079355c721b517fdc9891f0fda927fe3f87288f2e6cc3b8566655a64ca5453" "34ed3e2fa4a1cb2ce7400c7f1a6c8f12931d8021435bad841fdc1192bd1cc7da" default))
+ '(evil-undo-system 'undo-tree)
+ '(package-selected-packages
+   '(helm-bibtexkey undo-tree dashboard org-roam-server ivy-bibtex org-roam-bibtex org-ref evil-magit base16-theme treemacs evil-org helm evil)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+(eval-when-compile
+  ;; Following line is not needed if use-package.el is in ~/.emacs.d
+  (require 'use-package))
+\end{verbatim}
+\subsection{Install all the packages}
+\label{sec:orgf8d7506}
+\begin{verbatim}
+(use-package evil)
+(use-package base16-theme )
+(use-package eradio)
+(use-package evil-org )
+(use-package org-download)
+(use-package evil-org-agenda )
+(use-package origami 
+    :hook (global-origami-mode))
+(use-package helm )
+(use-package neotree )
+(use-package evil-leader )
+(use-package evil-magit )
+(use-package org-roam-server )
+(use-package org-bullets)
+(use-package olivetti)
+(use-package helm-bibtex)
+(use-package evil-org-agenda)
+(use-package org)
+(use-package ivy)
+(use-package eyebrowse)
+(use-package magit)
+(use-package poet-theme)
+(use-package apropospriate)
+(require 'ls-lisp)
+(setq ls-lisp-use-insert-directory-program nil)
+(use-package undo-tree
+)
+(use-package org-roam
+    :after org
+    :hook (org-mode . org-roam-mode)
+    :custom
+    (org-roam-directory "/home/garrett/org-roam/")
+    :bind
+    ("C-c n l" . org-roam)
+    ("C-c n t" . (lambda () (interactive) (find-file "~/org-roam/20201020103239-daily.org")))
+    ("C-c n f" . org-roam-find-file)
+    ("C-c n i" . org-roam-insert)
+    ("C-c n b" . org-roam-buffer-activate)
+    ("C-c n c" . org-roam-capture)
+    ("C-c n g" . org-roam-show-graph))
+(use-package org-roam-bibtex
+    :after org-roam
+    :load-path "~/.emacs.d/lib/org-roam-bibtex/"
+    :hook (org-roam-mode . org-roam-bibtex-mode))
+
+(use-package dashboard :ensure t :config (dashboard-setup-startup-hook))
+\end{verbatim}
+
+\subsection{Evil mode settings + keybindings}
+\label{sec:orgf6f8090}
+\begin{verbatim}
+(evil-mode 1)
+(with-eval-after-load 'evil-maps (define-key evil-motion-state-map (kbd "RET") nil))
+(global-evil-leader-mode)
+(evil-leader/set-leader "<SPC>")
+(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+(evil-org-agenda-set-keys)
+(evil-leader/set-key
+	"m a" 'org-agenda
+	"a a" 'org-archive-done-tasks
+	"f s" 'save-buffer
+	"<SPC>" 'execute-extended-command
+	"g s" 'magit-status-here
+	"b b" 'helm-recentf
+	"w d" 'evil-window-delete
+	"w v" 'evil-window-vsplit
+	"t l" 'toggle-truncate-lines
+	"m i c" 'orb-insert
+	"b n" 'next-buffer
+	"b p" 'previous-buffer
+	"r p" 'eradio-play
+	"r s" 'eradio-stop
+	"n f" 'org-roam-find-file
+	"n i" 'org-roam-insert
+	"c r" 'comment-region
+	"c l" 'comment-line
+	"c d" 'org-deadline
+	"l w 0 " 'eyebrowse-switch-to-window-config-0
+	"l w 1 " 'eyebrowse-switch-to-window-config-1
+	"l w 2 " 'eyebrowse-switch-to-window-config-2
+	"l w 3 " 'eyebrowse-switch-to-window-config-3
+	"l w 4 " 'eyebrowse-switch-to-window-config-4
+	"l w 5 " 'eyebrowse-switch-to-window-config-5
+	"l w 6 " 'eyebrowse-switch-to-window-config-6
+	"l w 7 " 'eyebrowse-switch-to-window-config-7
+	"l w 8 " 'eyebrowse-switch-to-window-config-8
+	"l w 9 " 'eyebrowse-switch-to-window-config-9
+	"p t" 'neotree-toggle)
+\end{verbatim}
+\subsection{Org mode settings}
+\label{sec:org0296b40}
+\begin{verbatim}
+    (setq org-todo-keywords
+	    '((sequence "TODO" "INPROGRESS" "WAITING" "|" "DONE")))
+    (setq org-todo-keyword-faces
+	    '(("TODO" . "red") ("INPROGRESS" . "orange") ("WAITING" . (:foreground "blue" :weight bold))))
+(setq org-ellipsis "  ")
+(add-hook 'org-mode-hook 'evil-org-mode)
+\end{verbatim}
+\subsection{Org agenda settings}
+\label{sec:orgd65d71d}
+\begin{verbatim}
+(setq org-agenda-block-separator (string-to-char " "))
+(setq org-deadline-warning-days 0)
+(setq org-agenda-files (list "/home/garrett/org-roam/20200915220906-topobaric.org"
+    "/home/garrett/org-roam/20200930130018-school.org" 
+    "/home/garrett/org-roam/20201002151401-argo_moc.org"
+    "/home/garrett/org-roam/20201020103239-daily.org"
+    "/home/garrett/org-roam/20201008200919-deep_inverse_modeling.org"
+    "/home/garrett/org-roam/20200915230739-gradapps.org"))
+'(org-agenda-prefix-format "   %-6:c ~>  ")
+'(org-agenda-show-all-dates nil)
+'(org-agenda-skip-timestamp-if-deadline-is-shown t)
+'(org-agenda-todo-ignore-with-date t)
+(setq org-agenda-start-on-weekday nil)
+\end{verbatim}
+
+\subsection{Org roam settings}
+\label{sec:org4b44e19}
+\begin{verbatim}
+(setq org-roam-completion-system 'ivy)
+(defconst org-roam-packages
+ '(org-roam org-roam-bibtex))
+\end{verbatim}
+
+\subsection{Dashboard settings}
+\label{sec:orgafe6776}
+\begin{verbatim}
+(setq dashboard-items '((recents . 10)))
+(setq dashboard-set-footer nil)
+(setq dashboard-center-content t)
+(setq dashboard-set-init-info nil)
+\end{verbatim}
+\subsection{Org ref + bibtex settings}
+\label{sec:org93ef5ac}
+\begin{verbatim}
+(setq org-ref-default-bibliography (list "/home/garrett/Zotero/library.bib")
+    org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex)
+(setq bibtex-completion-bibliography (list "/home/garrett/Zotero/library.bib")
+			bibtex-completion-pdf-field "file")
+\end{verbatim}
+\subsection{Setting up writing mode}
+\label{sec:orge6f32db}
+\begin{verbatim}
+ (add-hook 'org-mode-hook 'variable-pitch-mode)
+;; (add-hook 'org-agenda-finalize-hook 'variable-pitch-mode)
+ (add-hook 'text-mode-hook 'olivetti-mode)
+ (add-hook 'org-mode-hook 'olivetti-mode)
+ (add-hook 'org-agenda-finalize-hook 'olivetti-mode)
+ (defun org-line-wrap () (setq-local word-wrap nil))
+
+ (add-hook 'org-mode-hook 'org-line-wrap)
+ (add-hook 'org-mode-hook 'org-bullets-mode)
+ (setq olivetti-body-width 80)
+
+
+\end{verbatim}
+\subsection{Eradio}
+\label{sec:org4ec981d}
+\begin{verbatim}
+(setq eradio-channels '(("def con - soma fm" . "https://somafm.com/defcon256.pls")
+		      ("cafe - lainon"     . "https://lainon.life/radio/cafe.ogg.m3u")
+		      ("deep space one"     . "http://somafm.com/m3u/deepspaceone130.m3u")
+		      ("7 inch soul"     . "http://somafm.com/m3u/7soul130.m3u")
+		      ("left coast 70s" . "http://somafm.com/m3u/seventies130.m3u")
+		      ("groove salad" . "http://somafm.com/m3u/groovesalad130.m3u")
+		      ("mostwanted" . "http://5.39.71.159:8169/listen.pls" )
+		      ("jazz24" . "https://live.wostreaming.net/playlist/ppm-jazz24aac256-ibc1.m3u")))  
+\end{verbatim}
+\subsection{Misc}
+\label{sec:orga8e0800}
+\begin{verbatim}
+(eyebrowse-mode t)
+(setq-default truncate-lines t)
+(custom-set-variables '(ls-lisp-verbosity nil))
+(ivy-mode 1)
+(global-undo-tree-mode)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(setq org-return-follows-link t)
+(add-to-list 'default-frame-alist
+	    '(font . "Source Code Pro"))
+(setq-default ls-lisp-verbosity nil)
+\end{verbatim}
+\subsection{Archive all done todos}
+\label{sec:org4cad991}
+\begin{verbatim}
+(defun org-archive-done-tasks ()
+  (interactive)
+  (org-map-entries
+   (lambda ()
+     (org-archive-subtree)
+     (setq org-map-continue-from (org-element-property :begin (org-element-at-point))))
+   "/DONE" 'tree))
+\end{verbatim}
+\subsection{Custom Set Variables}
+\label{sec:org7e0ea37}
+\begin{quote}
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["\#19171c" "\#be4678" "\#2a9292" "\#a06e3b" "\#576ddb" "\#955ae7" "\#576ddb" "\#8b8792"])
+ '(custom-enabled-themes nil)
+ '(custom-safe-themes
+   '("9be1d34d961a40d94ef94d0d08a364c3d27201f3c98c9d38e36f10588469ea57" "cea3ec09c821b7eaf235882e6555c3ffa2fd23de92459751e18f26ad035d2142" "3de3f36a398d2c8a4796360bfce1fa515292e9f76b655bb9a377289a6a80a132" "bf798e9e8ff00d4bf2512597f36e5a135ce48e477ce88a0764cfb5d8104e8163" "36ca8f60565af20ef4f30783aa16a26d96c02df7b4e54e9900a5138fb33808da" "fec45178b55ad0258c5f68f61c9c8fd1a47d73b08fb7a51c15558d42c376083d" "fede08d0f23fc0612a8354e0cf800c9ecae47ec8f32c5f29da841fe090dfc450" "36746ad57649893434c443567cb3831828df33232a7790d232df6f5908263692" "31e9b1ab4e6ccb742b3b5395287760a0adbfc8a7b86c2eda4555c8080a9338d9" "69e7e7069edb56f9ed08c28ccf0db7af8f30134cab6415d5cf38ec5967348a3c" "a85e40c7d2df4a5e993742929dfd903899b66a667547f740872797198778d7b5" "60e09d2e58343186a59d9ed52a9b13d822a174b33f20bdc1d4abb86e6b17f45b" "732ccca2e9170bcfd4ee5070159923f0c811e52b019106b1fc5eaa043dff4030" "0961d780bd14561c505986166d167606239af3e2c3117265c9377e9b8204bf96" "a61109d38200252de49997a49d84045c726fa8d0f4dd637fce0b8affaa5c8620" "c614d2423075491e6b7f38a4b7ea1c68f31764b9b815e35c9741e9490119efc0" "1d079355c721b517fdc9891f0fda927fe3f87288f2e6cc3b8566655a64ca5453" "34ed3e2fa4a1cb2ce7400c7f1a6c8f12931d8021435bad841fdc1192bd1cc7da" default))
+ '(evil-undo-system 'undo-tree)
+ '(orb-insert-frontend 'helm-bibtex)
+ '(org-agenda-window-setup 'current-window)
+ '(org-file-apps
+   '((auto-mode . emacs)
+     ("$\backslash$\.mm$\backslash$\'" . default)
+     ("$\backslash$\.x?html?$\backslash$\'" . default)
+     ("$\backslash$\.pdf$\backslash$\'" . "evince \%s")))
+ '(org-format-latex-options
+   '(:foreground default :background default :scale 1.6 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
+		 ("begin" "\(1" "\)" "\$\$" "$\backslash$\(" "\\[")))
+ '(org-publish-project-alist '((publishing-directory . "~/org-roam/exports/")))
+ '(org-roam-server-mode t)
+ '(package-selected-packages
+   '(eyebrowse centaur-tabs cl-libify yasnippet-classic-snippets minimap vterm ample-theme eradio swiper-helm helm-bibtexkey undo-tree dashboard org-roam-server ivy-bibtex org-roam-bibtex org-ref evil-magit base16-theme treemacs projectile evil-org helm evil))
+ '(projectile-mode t nil (projectile))
+ '(tramp-password-prompt-regexp
+   "^.*\\(\\(?:adgangskode\\|contrase\\(?:\\(?:ny\\|\303\261\\)a$\backslash$\)$\backslash$\|geslo$\backslash$\|h$\backslash$\(?:\\(?:as\305\202\\|esl\\)o$\backslash$\)$\backslash$\|iphasiwedi$\backslash$\|Token$\backslash$\|jelsz$\backslash$303$\backslash$263$\backslash$\|l$\backslash$\(?:ozinka\\|\303\266senord\\)$\backslash$\|m$\backslash$\(?:ot de passe\\|\341\272\255t kh\341\272\251u\\)$\backslash$\|p$\backslash$\(?:a\\(?:rola\\|s\\(?:ahitza\\|s\\(?: phrase\\|code\\|ord\\|phrase\\|wor[dt]\\)$\backslash$\|vorto$\backslash$\)$\backslash$\)$\backslash$\|in$\backslash$\)$\backslash$\|s$\backslash$\(?:alasana\\|enha\\|lapta\305\276odis\\)$\backslash$\|wachtwoord$\backslash$\|$\backslash$320$\backslash$273$\backslash$320$\backslash$276$\backslash$320$\backslash$267$\backslash$320$\backslash$270$\backslash$320$\backslash$275$\backslash$320$\backslash$272$\backslash$320$\backslash$260$\backslash$\|$\backslash$320$\backslash$277$\backslash$320$\backslash$260$\backslash$321$\backslash$200$\backslash$320$\backslash$276$\backslash$320$\backslash$273$\backslash$321$\backslash$214$\backslash$\|$\backslash$327$\backslash$241$\backslash$327$\backslash$241$\backslash$327$\backslash$236$\backslash$327$\backslash$224$\backslash$\|$\backslash$331$\backslash$203$\backslash$331$\backslash$204$\backslash$331$\backslash$205$\backslash$330$\backslash$251 $\backslash$330$\backslash$247$\backslash$331$\backslash$204$\backslash$330$\backslash$263$\backslash$330$\backslash$261$\backslash$\|$\backslash$340$\backslash$244$\backslash$227$\backslash$340$\backslash$245$\backslash$201$\backslash$340$\backslash$244$\backslash$252$\backslash$340$\backslash$245$\backslash$215$\backslash$340$\backslash$244$\backslash$244$\backslash$340$\backslash$244$\backslash$266$\backslash$340$\backslash$244$\backslash$254$\backslash$340$\backslash$245$\backslash$215$\backslash$340$\backslash$244$\backslash$246$\backslash$\|$\backslash$340$\backslash$244$\backslash$266$\backslash$340$\backslash$244$\backslash$254$\backslash$340$\backslash$245$\backslash$215$\backslash$340$\backslash$244$\backslash$246$\backslash$340$\backslash$244$\backslash$225$\backslash$340$\backslash$245$\backslash$202$\backslash$340$\backslash$244$\backslash$237$\backslash$\|$\backslash$340$\backslash$246$\backslash$227$\backslash$340$\backslash$247$\backslash$201$\backslash$340$\backslash$246$\backslash$252$\backslash$340$\backslash$247$\backslash$215$\backslash$340$\backslash$246$\backslash$244$\backslash$340$\backslash$246$\backslash$266$\backslash$340$\backslash$246$\backslash$254$\backslash$340$\backslash$247$\backslash$215$\backslash$340$\backslash$246$\backslash$246$\backslash$\|$\backslash$340$\backslash$246$\backslash$252$\backslash$340$\backslash$246$\backslash$276$\backslash$340$\backslash$246$\backslash$270$\backslash$340$\backslash$246$\backslash$223$\backslash$340$\backslash$247$\backslash$237$\backslash$340$\backslash$246$\backslash$276$\backslash$340$\backslash$246$\backslash$260$\backslash$340$\backslash$247$\backslash$215$\backslash$340$\backslash$246$\backslash$241$\backslash$\|$\backslash$340$\backslash$250$\backslash$252$\backslash$340$\backslash$250$\backslash$276$\backslash$340$\backslash$250$\backslash$270$\backslash$340$\backslash$250$\backslash$265$\backslash$340$\backslash$250$\backslash$260$\backslash$340$\backslash$250$\backslash$241$\backslash$\|$\backslash$340$\backslash$252$\backslash$252$\backslash$340$\backslash$252$\backslash$276$\backslash$340$\backslash$252$\backslash$270$\backslash$340$\backslash$252$\backslash$265$\backslash$340$\backslash$252$\backslash$260$\backslash$340$\backslash$253$\backslash$215$\backslash$340$\backslash$252$\backslash$241$\backslash$\|$\backslash$340$\backslash$254$\backslash$252$\backslash$340$\backslash$255$\backslash$215$\backslash$340$\backslash$254$\backslash$260$\backslash$340$\backslash$254$\backslash$254$\backslash$340$\backslash$255$\backslash$207$\backslash$340$\backslash$254$\backslash$266 $\backslash$340$\backslash$254$\backslash$270$\backslash$340$\backslash$254$\backslash$231$\backslash$340$\backslash$255$\backslash$215$\backslash$340$\backslash$254$\backslash$225$\backslash$340$\backslash$255$\backslash$207$\backslash$340$\backslash$254$\backslash$244$\backslash$\|$\backslash$340$\backslash$256$\backslash$225$\backslash$340$\backslash$256$\backslash$237$\backslash$340$\backslash$256$\backslash$265$\backslash$340$\backslash$257$\backslash$201$\backslash$340$\backslash$256$\backslash$232$\backslash$340$\backslash$257$\backslash$215$\backslash$340$\backslash$256$\backslash$232$\backslash$340$\backslash$257$\backslash$212$\backslash$340$\backslash$256$\backslash$262$\backslash$340$\backslash$257$\backslash$215$\backslash$\|$\backslash$340$\backslash$260$\backslash$270$\backslash$340$\backslash$260$\backslash$202$\backslash$340$\backslash$260$\backslash$225$\backslash$340$\backslash$261$\backslash$207$\backslash$340$\backslash$260$\backslash$244$\backslash$340$\backslash$260$\backslash$252$\backslash$340$\backslash$260$\backslash$246$\backslash$340$\backslash$260$\backslash$256$\backslash$340$\backslash$261$\backslash$201$\backslash$\|$\backslash$340$\backslash$262$\backslash$227$\backslash$340$\backslash$263$\backslash$201$\backslash$340$\backslash$262$\backslash$252$\backslash$340$\backslash$263$\backslash$215$\backslash$340$\backslash$262$\backslash$244$\backslash$340$\backslash$262$\backslash$252$\backslash$340$\backslash$262$\backslash$246$\backslash$\|$\backslash$340$\backslash$264$\backslash$205$\backslash$340$\backslash$264$\backslash$237$\backslash$340$\backslash$264$\backslash$257$\backslash$340$\backslash$264$\backslash$276$\backslash$340$\backslash$264$\backslash$263$\backslash$340$\backslash$264$\backslash$265$\backslash$340$\backslash$264$\backslash$276$\backslash$340$\backslash$264$\backslash$225$\backslash$340$\backslash$265$\backslash$215$\backslash$340$\backslash$264$\backslash$225$\backslash$340$\backslash$265$\backslash$215$\backslash$\|$\backslash$340$\backslash$266$\backslash$273$\backslash$340$\backslash$267$\backslash$204$\backslash$340$\backslash$267$\backslash$203$\backslash$340$\backslash$267$\backslash$212$\backslash$340$\backslash$266$\backslash$264$\backslash$340$\backslash$266$\backslash$257$\backslash$340$\backslash$266$\backslash$272$\backslash$\|$\backslash$341$\backslash$236$\backslash$226$\backslash$341$\backslash$236$\backslash$266$\backslash$341$\backslash$236$\backslash$200$\backslash$341$\backslash$237$\backslash$222$\backslash$341$\backslash$236$\backslash$231$\backslash$341$\backslash$236$\backslash$237$\backslash$341$\backslash$236$\backslash$230$\backslash$341$\backslash$237$\backslash$222$\backslash$341$\backslash$236$\backslash$204$\backslash$341$\backslash$236$\backslash$266$\backslash$341$\backslash$236$\backslash$217$\backslash$341$\backslash$237$\backslash$213$\backslash$\|$\backslash$343$\backslash$203$\backslash$221$\backslash$343$\backslash$202$\backslash$271$\backslash$343$\backslash$203$\backslash$257$\backslash$343$\backslash$203$\backslash$274$\backslash$343$\backslash$203$\backslash$211$\backslash$\|$\backslash$345$\backslash$257$\backslash$206[$\backslash$347$\backslash$240$\backslash$201$\backslash$347$\backslash$242$\backslash$274]$\backslash$\|$\backslash$354$\backslash$225$\backslash$224$\backslash$355$\backslash$230$\backslash$270$\backslash$\)$\backslash$\).*: ? *"))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-document-title ((t (:foreground "midnight blue" :weight bold :height 1.6))))
+ '(org-level-1 ((t (:inherit outline-1 :weight semi-bold :height 1))))
+ '(org-scheduled ((t (:foreground "dark orange"))))
+ '(variable-pitch ((t (:family "Source Serif Pro")))))
+\end{quote}
+\end{document}
