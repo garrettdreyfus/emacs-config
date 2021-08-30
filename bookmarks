@@ -3,8 +3,8 @@
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored"
- (filename . "~/org-roam/20210308093015-density_article.org")
- (front-context-string . "#+title: Density")
+ (filename . "~/org-roam/20210803133040-lft.org")
+ (front-context-string . "#+title: lft\n\ncu")
  (rear-context-string)
  (position . 1))
 )

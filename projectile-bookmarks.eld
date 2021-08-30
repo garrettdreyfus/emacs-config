@@ -1,1 +1,1 @@
-("~/.emacs.d/" "~/org-roam/" "~/Projects/ArgoMoc/multiscale-mapping/" "~/Projects/arcticcirc/" "~/Projects/ArgoMoc/Methods/" "~/Projects/python-holteandtalley/" "~/Projects/topobaric-density/")
+("~/Projects/arcticcirc/" "~/org-roam/" "~/.emacs.d/" "~/Projects/neutral-surfaces-python/" "~/Projects/garrettdreyfus.github.io/" "~/Projects/ArgoMoc/multiscale-mapping/" "~/Projects/topobaric-density/" "~/Projects/pygamma_n/" "~/Projects/python-holteandtalley/")

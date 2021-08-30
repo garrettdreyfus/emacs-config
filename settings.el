@@ -21,52 +21,63 @@
   ;; Following line is not needed if use-package.el is in ~/.emacs.d
   (require 'use-package))
 
-(use-package evil)
-(use-package base16-theme )
-(use-package eradio)
-(use-package evil-org )
-(use-package org-download)
-(use-package evil-org-agenda )
-(use-package origami 
-    :hook (global-origami-mode))
-(use-package helm )
-(use-package neotree )
-(use-package evil-leader )
-(use-package evil-magit )
-(use-package org-roam-server )
-(use-package org-bullets)
-(use-package olivetti)
-(use-package helm-bibtex)
-(use-package evil-org-agenda)
-(use-package org)
-(use-package ivy)
-(use-package eyebrowse)
-(use-package magit)
-(use-package poet-theme)
-(use-package apropospriate)
-(require 'ls-lisp)
-(setq ls-lisp-use-insert-directory-program nil)
-(use-package undo-tree
-)
-(use-package org-roam
-    :after org
-    :hook (org-mode . org-roam-mode)
-    :custom
-    (org-roam-directory "/home/garrett/org-roam/")
-    :bind
-    ("C-c n l" . org-roam)
-    ("C-c n t" . (lambda () (interactive) (find-file "~/org-roam/20201020103239-daily.org")))
-    ("C-c n f" . org-roam-find-file)
-    ("C-c n i" . org-roam-insert)
-    ("C-c n b" . org-roam-buffer-activate)
-    ("C-c n c" . org-roam-capture)
-    ("C-c n g" . org-roam-show-graph))
-(use-package org-roam-bibtex
-    :after org-roam
-    :load-path "~/.emacs.d/lib/org-roam-bibtex/"
-    :hook (org-roam-mode . org-roam-bibtex-mode))
+(use-package evil
+:ensure t
+:init
+(setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+(setq evil-want-keybinding nil)
+:config
+(evil-mode 1))
 
-(use-package dashboard :ensure t :config (dashboard-setup-startup-hook))
+(use-package evil-collection
+:after evil
+:ensure t
+:config
+(evil-collection-init))
+    (use-package base16-theme )
+    (use-package eradio)
+    (use-package evil-org )
+    (use-package org-download)
+    (use-package evil-org-agenda )
+    (use-package origami 
+	:hook (global-origami-mode))
+    (use-package helm )
+    (use-package neotree )
+    (use-package evil-leader )
+    ;(use-package evil-magit )
+    (use-package org-roam-server )
+    (use-package org-bullets)
+    (use-package olivetti)
+    (use-package helm-bibtex)
+    (use-package evil-org-agenda)
+    (use-package org)
+    (use-package ivy)
+    (use-package eyebrowse)
+    (use-package magit)
+    (use-package poet-theme)
+    (use-package apropospriate)
+    (require 'ls-lisp)
+    (setq ls-lisp-use-insert-directory-program nil)
+    (use-package undo-tree
+    )
+    (use-package org-roam
+	:after org
+	:hook (org-mode . org-roam-mode)
+	:custom
+	(org-roam-directory "/home/gdreyfus/org-roam/")
+	:bind
+	("C-c n l" . org-roam)
+	("C-c n t" . (lambda () (interactive) (find-file "~/org-roam/20201020103239-daily.org")))
+	("C-c n f" . org-roam-find-file)
+	("C-c n i" . org-roam-insert)
+	("C-c n b" . org-roam-buffer-activate)
+	("C-c n c" . org-roam-capture)
+	("C-c n g" . org-roam-show-graph))
+    (use-package org-roam-bibtex
+	:after org-roam
+	:load-path "~/.emacs.d/lib/org-roam-bibtex/"
+	:hook (org-roam-mode . org-roam-bibtex-mode))
+    (use-package dashboard :ensure t :config (dashboard-setup-startup-hook))
 
 (evil-mode 1)
 (with-eval-after-load 'evil-maps (define-key evil-motion-state-map (kbd "RET") nil))
@@ -104,6 +115,7 @@
 	"l w 7 " 'eyebrowse-switch-to-window-config-7
 	"l w 8 " 'eyebrowse-switch-to-window-config-8
 	"l w 9 " 'eyebrowse-switch-to-window-config-9
+	"e" 'mu4e
 	"p t" 'neotree-toggle)
 
 (setq org-todo-keywords
@@ -115,12 +127,12 @@
 
 (setq org-agenda-block-separator (string-to-char " "))
 (setq org-deadline-warning-days 0)
-(setq org-agenda-files (list "/home/garrett/org-roam/20200915220906-topobaric.org"
-    "/home/garrett/org-roam/20200930130018-school.org" 
-    "/home/garrett/org-roam/20201002151401-argo_moc.org"
-    "/home/garrett/org-roam/20201020103239-daily.org"
-    "/home/garrett/org-roam/20201008200919-deep_inverse_modeling.org"
-    "/home/garrett/org-roam/20200915230739-gradapps.org"))
+(setq org-agenda-files (list "/home/gdreyfus/org-roam/20200915220906-topobaric.org"
+    "/home/gdreyfus/org-roam/20200930130018-school.org" 
+    "/home/gdreyfus/org-roam/20201002151401-argo_moc.org"
+    "/home/gdreyfus/org-roam/20201020103239-daily.org"
+    "/home/gdreyfus/org-roam/20201008200919-deep_inverse_modeling.org"
+    "/home/gdreyfus/org-roam/20200915230739-gradapps.org"))
 '(org-agenda-prefix-format "   %-6:c ~>  ")
 '(org-agenda-show-all-dates nil)
 '(org-agenda-skip-timestamp-if-deadline-is-shown t)
@@ -136,9 +148,9 @@
 (setq dashboard-center-content t)
 (setq dashboard-set-init-info nil)
 
-(setq org-ref-default-bibliography (list "/home/garrett/Zotero/library.bib")
+(setq org-ref-default-bibliography (list "/home/gdreyfus/Zotero/library.bib")
     org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex)
-(setq bibtex-completion-bibliography (list "/home/garrett/Zotero/library.bib")
+(setq bibtex-completion-bibliography (list "/home/gdreyfus/Zotero/library.bib")
 			bibtex-completion-pdf-field "file")
 
 (add-hook 'org-mode-hook 'variable-pitch-mode)
@@ -161,18 +173,92 @@
 		      ("mostwanted" . "http://5.39.71.159:8169/listen.pls" )
 		      ("jazz24" . "https://live.wostreaming.net/playlist/ppm-jazz24aac256-ibc1.m3u")))
 
-(eyebrowse-mode t)
-(setq-default truncate-lines t)
-(custom-set-variables '(ls-lisp-verbosity nil))
-(ivy-mode 1)
-(global-undo-tree-mode)
-(toggle-scroll-bar -1)
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(setq org-return-follows-link t)
-(add-to-list 'default-frame-alist
-	    '(font . "Source Code Pro"))
-(setq-default ls-lisp-verbosity nil)
+(load-theme 'base16-tomorrow-night t)
+   (eyebrowse-mode t)
+
+   (setq-default truncate-lines t)
+   (custom-set-variables '(ls-lisp-verbosity nil))
+   (ivy-mode 1)
+   (global-undo-tree-mode)
+   (toggle-scroll-bar -1)
+   (tool-bar-mode -1)
+   (menu-bar-mode -1)
+   (setq org-return-follows-link t)
+   (add-to-list 'default-frame-alist
+	       '(font . "Source Code Pro"))
+   (setq-default ls-lisp-verbosity nil)
+(setq line-number-mode t)
+
+(require 'mu4e)
+     (load-file "~/.emacs.d/lib/mu4e-thread-folding/mu4e-thread-folding.el")
+     (define-key mu4e-headers-mode-map (kbd "<tab>")     'mu4e-headers-toggle-thread-folding)
+     (define-key mu4e-headers-mode-map (kbd "<backtab>")     'mu4e-headers-fold-all)
+	;; use mu4e for e-mail in emacs
+	(setq mail-user-agent 'mu4e-user-agent)
+
+	(setq mu4e-drafts-folder "/[Gmail].Drafts")
+	(setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+	(setq mu4e-trash-folder  "/[Gmail].Trash")
+
+	(setq mu4e-update-interval 120)
+	;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+	(setq mu4e-sent-messages-behavior 'delete)
+
+	;; (See the documentation for `mu4e-sent-messages-behavior' if you have
+	;; additional non-Gmail addresses and want assign them different
+	;; behavior.)
+
+	;; setup some handy shortcuts
+	;; you can quickly switch to your Inbox -- press ``ji''
+	;; then, when you want archive some messages, move them to
+	;; the 'All Mail' folder by pressing ``ma''.
+
+	(setq mu4e-maildir-shortcuts
+	    '( (:maildir "/INBOX"              :key ?i)
+	       (:maildir "/[Gmail].Sent Mail"  :key ?s)
+	       (:maildir "/[Gmail].Trash"      :key ?t)
+	       (:maildir "/[Gmail].Archive"      :key ?r)
+	       (:maildir "/[Gmail].All Mail"   :key ?a)))
+
+	;; allow for updating mail using 'U' in the main view:
+	(setq mu4e-get-mail-command "offlineimap")
+
+	;; something about ourselves
+	(setq
+	   user-mail-address "garrettdreyfus@gmail.com"
+	   user-full-name  "Garrett Finucane"
+	   mu4e-compose-signature
+	    (concat
+	      ""
+	      ""))
+
+	;; sending mail -- replace USERNAME with your gmail username
+	;; also, make sure the gnutls command line utils are installed
+	;; package 'gnutls-bin' in Debian/Ubuntu
+
+	(require 'smtpmail)
+	(setq message-send-mail-function 'smtpmail-send-it
+	   starttls-use-gnutls t
+	   smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+	   smtpmail-auth-credentials
+	     '(("smtp.gmail.com" 587 "garrettdreyfus@gmail.com" nil))
+	   smtpmail-default-smtp-server "smtp.gmail.com"
+	   smtpmail-smtp-server "smtp.gmail.com"
+	   smtpmail-smtp-service 587)
+
+	;; alternatively, for emacs-24 you can use:
+	;;(setq message-send-mail-function 'smtpmail-send-it
+	;;     smtpmail-stream-type 'starttls
+	;;     smtpmail-default-smtp-server "smtp.gmail.com"
+	;;     smtpmail-smtp-server "smtp.gmail.com"
+	;;     smtpmail-smtp-service 587)
+
+	;; don't keep message buffers around
+	(setq message-kill-buffer-on-exit t)
+(setq mail-user-agent 'mu4e-user-agent)
+   (require 'org-msg)
+   (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
+	  org-msg-startup "hidestars indent inlineimages")
 
 (defun org-archive-done-tasks ()
   (interactive)
