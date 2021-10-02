@@ -1,2 +1,0 @@
-;;; Generated package description from /home/garrett/.emacs.d/elpa/eradio-20201123.1933/eradio.el  -*- no-byte-compile: t -*-
-(define-package "eradio" "20201123.1933" "A simple Internet radio player" '((emacs "24.1")) :commit "8c7be58ecad683875735b5623c79aeb0645bd5fe" :authors '(("Olav Fosse" . "mail@olavfosse.no")) :maintainer '("Olav Fosse" . "mail@olavfosse.no") :url "https://github.com/olav35/eradio")

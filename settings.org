@@ -13,7 +13,7 @@
 	 '("1d079355c721b517fdc9891f0fda927fe3f87288f2e6cc3b8566655a64ca5453" "34ed3e2fa4a1cb2ce7400c7f1a6c8f12931d8021435bad841fdc1192bd1cc7da" default))
        '(evil-undo-system 'undo-tree)
        '(package-selected-packages
-	 '(helm-bibtexkey undo-tree dashboard org-roam-server ivy-bibtex org-roam-bibtex org-ref evil-magit base16-theme treemacs evil-org helm evil)))
+	 '(helm-bibtexkey undo-tree dashboard ivy-bibtex org-roam-bibtex org-ref evil-magit base16-theme treemacs evil-org helm evil)))
       (custom-set-faces
        ;; custom-set-faces was added by Custom.
        ;; If you edit it by hand, you could mess it up, so be careful.
@@ -27,106 +27,103 @@
  #+END_SRC  
 ** Install all the packages
  #+BEGIN_SRC emacs-lisp
-	 (use-package evil
-	 :ensure t
-	 :init
-	 (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
-	 (setq evil-want-keybinding nil)
-	 :config
-	 (evil-mode 1))
+   (use-package evil
+   :ensure t
+   :init
+   (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+   (setq evil-want-keybinding nil)
+   :config
+   (evil-mode 1))
+   (use-package evil-collection
+   :after evil
+   :ensure t
+   :config
+   (evil-collection-init))
+       (use-package base16-theme )
+       (use-package eradio)
+       (use-package evil-org )
+       (use-package org-download)
+       (use-package evil-org-agenda )
+       (use-package origami 
+	   :hook (global-origami-mode))
+       (use-package helm )
+       (use-package neotree )
+       (use-package evil-leader )
+       ;(use-package evil-magit )
+       (use-package org-bullets)
+       (use-package olivetti)
+       (use-package helm-bibtex)
+       (use-package evil-org-agenda)
+       (use-package org)
+       (use-package ivy)
+       (use-package eyebrowse)
+       (use-package magit)
+       (use-package poet-theme)
+       (use-package apropospriate)
+       (require 'ls-lisp)
+       (setq ls-lisp-use-insert-directory-program nil)
+       (use-package undo-tree
+       )
+       (use-package org-roam
+	   :after org
+	   :custom
+	   (setq org-roam-directory (file-truename "/home/gdreyfus/org-roam/"))
+	   :bind
+	   ("C-c n l" . org-roam)
+	   ("C-c n t" . (lambda () (interactive) (find-file "~/org-roam/20201020103239-daily.org")))
+	   ("C-c n f" . org-roam-node-find)
+	   ("C-c n i" . org-roam-node-insert)
+	   ("C-c n b" . org-roam-buffer-toggle)
+	   )
+       (use-package org-roam-bibtex
+	   :config (org-roam-db-autosync-mode) (require 'org-ref)
+	   :after org-roam)
 
-	 (use-package evil-collection
-	 :after evil
-	 :ensure t
-	 :config
-	 (evil-collection-init))
-	     (use-package base16-theme )
-	     (use-package eradio)
-	     (use-package evil-org )
-	     (use-package org-download)
-	     (use-package evil-org-agenda )
-	     (use-package origami 
-		 :hook (global-origami-mode))
-	     (use-package helm )
-	     (use-package neotree )
-	     (use-package evil-leader )
-	     ;(use-package evil-magit )
-	     (use-package org-roam-server )
-	     (use-package org-bullets)
-	     (use-package olivetti)
-	     (use-package helm-bibtex)
-	     (use-package evil-org-agenda)
-	     (use-package org)
-	     (use-package ivy)
-	     (use-package eyebrowse)
-	     (use-package magit)
-	     (use-package poet-theme)
-	     (use-package apropospriate)
-	     (require 'ls-lisp)
-	     (setq ls-lisp-use-insert-directory-program nil)
-	     (use-package undo-tree
-	     )
-	     (use-package org-roam
-		 :after org
-		 :hook (org-mode . org-roam-mode)
-		 :custom
-		 (org-roam-directory "/home/gdreyfus/org-roam/")
-		 :bind
-		 ("C-c n l" . org-roam)
-		 ("C-c n t" . (lambda () (interactive) (find-file "~/org-roam/20201020103239-daily.org")))
-		 ("C-c n f" . org-roam-find-file)
-		 ("C-c n i" . org-roam-insert)
-		 ("C-c n b" . org-roam-buffer-activate)
-		 ("C-c n c" . org-roam-capture)
-		 ("C-c n g" . org-roam-show-graph))
-	     (use-package org-roam-bibtex
-		 :after org-roam
-		 :load-path "~/.emacs.d/lib/org-roam-bibtex/"
-		 :hook (org-roam-mode . org-roam-bibtex-mode))
-	     (use-package dashboard :ensure t :config (dashboard-setup-startup-hook))
+       (use-package dashboard :ensure t :config (dashboard-setup-startup-hook))
 
  #+END_SRC
  
 ** Evil mode settings + keybindings
  #+BEGIN_SRC emacs-lisp
-      (evil-mode 1)
-      (with-eval-after-load 'evil-maps (define-key evil-motion-state-map (kbd "RET") nil))
-      (global-evil-leader-mode)
-      (evil-leader/set-leader "<SPC>")
-      (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
-      (evil-org-agenda-set-keys)
-      (evil-leader/set-key
-	      "m a" 'org-agenda
-	      "a a" 'org-archive-done-tasks
-	      "f s" 'save-buffer
-	      "<SPC>" 'execute-extended-command
-	      "g s" 'magit-status-here
-	      "b b" 'helm-recentf
-	      "w d" 'evil-window-delete
-	      "w v" 'evil-window-vsplit
-	      "t l" 'toggle-truncate-lines
-	      "m i c" 'orb-insert
-	      "b n" 'next-buffer
-	      "b p" 'previous-buffer
-	      "r p" 'eradio-play
-	      "r s" 'eradio-stop
-	      "n f" 'org-roam-find-file
-	      "n i" 'org-roam-insert
-	      "c r" 'comment-region
-	      "c l" 'comment-line
-	      "c d" 'org-deadline
-	      "l w 0 " 'eyebrowse-switch-to-window-config-0
-	      "l w 1 " 'eyebrowse-switch-to-window-config-1
-	      "l w 2 " 'eyebrowse-switch-to-window-config-2
-	      "l w 3 " 'eyebrowse-switch-to-window-config-3
-	      "l w 4 " 'eyebrowse-switch-to-window-config-4
-	      "l w 5 " 'eyebrowse-switch-to-window-config-5
-	      "l w 6 " 'eyebrowse-switch-to-window-config-6
-	      "l w 7 " 'eyebrowse-switch-to-window-config-7
-	      "l w 8 " 'eyebrowse-switch-to-window-config-8
-	      "l w 9 " 'eyebrowse-switch-to-window-config-9
-	      "e" 'mu4e
-	      "p t" 'neotree-toggle)
+   (evil-mode 1)
+   (with-eval-after-load 'evil-maps (define-key evil-motion-state-map (kbd "RET") nil))
+   (global-evil-leader-mode)
+   (evil-leader/set-leader "<SPC>")
+   (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+   (evil-org-agenda-set-keys)
+   (evil-leader/set-key
+	   "m a" 'org-agenda
+	   "a a" 'org-archive-done-tasks
+	   "f s" 'save-buffer
+	   "<SPC>" 'execute-extended-command
+	   "g s" 'magit-status-here
+	   "b b" 'helm-recentf
+	   "w d" 'evil-window-delete
+	   "w v" 'evil-window-vsplit
+	   "t l" 'toggle-truncate-lines
+	   "m i c" 'orb-insert
+	   "b n" 'next-buffer
+	   "b p" 'previous-buffer
+	   "r p" 'eradio-play
+	   "r s" 'eradio-stop
+	   "n f" 'org-roam-node-find
+	   "n i" 'org-roam-node-insert
+	   "n b" 'org-roam-buffer-toggle
+	   "c r" 'comment-region
+	   "c l" 'comment-line
+	   "c d" 'org-deadline
+	   "l w 0 " 'eyebrowse-switch-to-window-config-0
+	   "l w 1 " 'eyebrowse-switch-to-window-config-1
+	   "l w 2 " 'eyebrowse-switch-to-window-config-2
+	   "l w 3 " 'eyebrowse-switch-to-window-config-3
+	   "l w 4 " 'eyebrowse-switch-to-window-config-4
+	   "l w 5 " 'eyebrowse-switch-to-window-config-5
+	   "l w 6 " 'eyebrowse-switch-to-window-config-6
+	   "l w 7 " 'eyebrowse-switch-to-window-config-7
+	   "l w 8 " 'eyebrowse-switch-to-window-config-8
+	   "l w 9 " 'eyebrowse-switch-to-window-config-9
+	   ;; "e" 'mu4e
+	   "p t" 'neotree-toggle)
 
  #+END_SRC
 ** Org mode settings
@@ -135,31 +132,34 @@
 	     '((sequence "TODO" "INPROGRESS" "WAITING" "|" "DONE")))
      (setq org-todo-keyword-faces
 	     '(("TODO" . "red") ("INPROGRESS" . "orange") ("WAITING" . (:foreground "blue" :weight bold))))
- (setq org-ellipsis "  ")
  (add-hook 'org-mode-hook 'evil-org-mode)
  #+END_SRC
 ** Org agenda settings
  #+BEGIN_SRC emacs-lisp
-     (setq org-agenda-block-separator (string-to-char " "))
-     (setq org-deadline-warning-days 0)
-     (setq org-agenda-files (list "/home/gdreyfus/org-roam/20200915220906-topobaric.org"
-	 "/home/gdreyfus/org-roam/20200930130018-school.org" 
-	 "/home/gdreyfus/org-roam/20201002151401-argo_moc.org"
-	 "/home/gdreyfus/org-roam/20201020103239-daily.org"
-	 "/home/gdreyfus/org-roam/20201008200919-deep_inverse_modeling.org"
-	 "/home/gdreyfus/org-roam/20200915230739-gradapps.org"))
-     '(org-agenda-prefix-format "   %-6:c ~>  ")
-     '(org-agenda-show-all-dates nil)
-     '(org-agenda-skip-timestamp-if-deadline-is-shown t)
-     '(org-agenda-todo-ignore-with-date t)
-     (setq org-agenda-start-on-weekday nil)
+	(setq org-agenda-block-separator (string-to-char " "))
+	(setq org-deadline-warning-days 0)
+
+    	(setq org-agenda-files (list "/home/gdreyfus/org-roam/20200915220906-topobaric.org"
+    	    "/home/gdreyfus/org-roam/20200930130018-school.org" 
+    	    "/home/gdreyfus/org-roam/20201002151401-argo_moc.org"
+    "/home/gdreyfus/org-roam/20201008200919-deep_inverse_modeling.org"
+    	    "/home/gdreyfus/org-roam/20201020103239-daily.org"
+    	    "/home/gdreyfus/org-roam/20200915230739-gradapps.org"))
+	'(org-agenda-prefix-format "   %-6:c ~>  ")
+	'(org-agenda-show-all-dates nil)
+	'(org-agenda-skip-timestamp-if-deadline-is-shown t)
+	'(org-agenda-todo-ignore-with-date t)
+	(setq org-agenda-hide-tags-regexp "inverse\\|daily\\|school\\|")
+	(setq org-agenda-start-on-weekday nil)
  #+END_SRC
 
 ** Org roam settings
  #+BEGIN_SRC emacs-lisp
- (setq org-roam-completion-system 'ivy)
- (defconst org-roam-packages
-  '(org-roam org-roam-bibtex))
+
+   (setq org-roam-v2-ack t)
+      (setq org-roam-completion-system 'ivy)
+      (defconst org-roam-packages
+       '(org-roam org-roam-bibtex))
  #+END_SRC
 
 ** Dashboard settings
@@ -179,10 +179,10 @@
 ** Setting up writing mode
   #+BEGIN_SRC emacs-lisp
      (add-hook 'org-mode-hook 'variable-pitch-mode)
-    ;; (add-hook 'org-agenda-finalize-hook 'variable-pitch-mode)
+    ; (add-hook 'org-agenda-finalize-hook 'variable-pitch-mode)
+     (add-hook 'org-agenda-finalize-hook 'olivetti-mode)
      (add-hook 'text-mode-hook 'olivetti-mode)
      (add-hook 'org-mode-hook 'olivetti-mode)
-     (add-hook 'org-agenda-finalize-hook 'olivetti-mode)
      (defun org-line-wrap () (setq-local word-wrap nil))
 
      (add-hook 'org-mode-hook 'org-line-wrap)
@@ -206,7 +206,7 @@
  #+BEGIN_SRC emacs-lisp
    (load-theme 'base16-tomorrow-night t)
    (eyebrowse-mode t)
-
+(global-display-line-numbers-mode)
    (setq-default truncate-lines t)
    (custom-set-variables '(ls-lisp-verbosity nil))
    (ivy-mode 1)
@@ -220,80 +220,80 @@
    (setq-default ls-lisp-verbosity nil)
 (setq line-number-mode t) 
  #+END_SRC
-** mu4e
- #+BEGIN_SRC emacs-lisp
-	   (require 'mu4e)
-	(load-file "~/.emacs.d/lib/mu4e-thread-folding/mu4e-thread-folding.el")
-	(define-key mu4e-headers-mode-map (kbd "<tab>")     'mu4e-headers-toggle-thread-folding)
-	(define-key mu4e-headers-mode-map (kbd "<backtab>")     'mu4e-headers-fold-all)
-	   ;; use mu4e for e-mail in emacs
-	   (setq mail-user-agent 'mu4e-user-agent)
+# ** mu4e
+#  #+BEGIN_SRC emacs-lisp
+# 	   (require 'mu4e)
+# 	(load-file "~/.emacs.d/lib/mu4e-thread-folding/mu4e-thread-folding.el")
+# 	(define-key mu4e-headers-mode-map (kbd "<tab>")     'mu4e-headers-toggle-thread-folding)
+# 	(define-key mu4e-headers-mode-map (kbd "<backtab>")     'mu4e-headers-fold-all)
+# 	   ;; use mu4e for e-mail in emacs
+# 	   (setq mail-user-agent 'mu4e-user-agent)
 
-	   (setq mu4e-drafts-folder "/[Gmail].Drafts")
-	   (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-	   (setq mu4e-trash-folder  "/[Gmail].Trash")
+# 	   (setq mu4e-drafts-folder "/[Gmail].Drafts")
+# 	   (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+# 	   (setq mu4e-trash-folder  "/[Gmail].Trash")
 
-	   (setq mu4e-update-interval 120)
-	   ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-	   (setq mu4e-sent-messages-behavior 'delete)
+# 	   (setq mu4e-update-interval 120)
+# 	   ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+# 	   (setq mu4e-sent-messages-behavior 'delete)
 
-	   ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
-	   ;; additional non-Gmail addresses and want assign them different
-	   ;; behavior.)
+# 	   ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
+# 	   ;; additional non-Gmail addresses and want assign them different
+# 	   ;; behavior.)
 
-	   ;; setup some handy shortcuts
-	   ;; you can quickly switch to your Inbox -- press ``ji''
-	   ;; then, when you want archive some messages, move them to
-	   ;; the 'All Mail' folder by pressing ``ma''.
+# 	   ;; setup some handy shortcuts
+# 	   ;; you can quickly switch to your Inbox -- press ``ji''
+# 	   ;; then, when you want archive some messages, move them to
+# 	   ;; the 'All Mail' folder by pressing ``ma''.
 
-	   (setq mu4e-maildir-shortcuts
-	       '( (:maildir "/INBOX"              :key ?i)
-		  (:maildir "/[Gmail].Sent Mail"  :key ?s)
-		  (:maildir "/[Gmail].Trash"      :key ?t)
-		  (:maildir "/[Gmail].Archive"      :key ?r)
-		  (:maildir "/[Gmail].All Mail"   :key ?a)))
+# 	   (setq mu4e-maildir-shortcuts
+# 	       '( (:maildir "/INBOX"              :key ?i)
+# 		  (:maildir "/[Gmail].Sent Mail"  :key ?s)
+# 		  (:maildir "/[Gmail].Trash"      :key ?t)
+# 		  (:maildir "/[Gmail].Archive"      :key ?r)
+# 		  (:maildir "/[Gmail].All Mail"   :key ?a)))
 
-	   ;; allow for updating mail using 'U' in the main view:
-	   (setq mu4e-get-mail-command "offlineimap")
+# 	   ;; allow for updating mail using 'U' in the main view:
+# 	   (setq mu4e-get-mail-command "offlineimap")
 
-	   ;; something about ourselves
-	   (setq
-	      user-mail-address "garrettdreyfus@gmail.com"
-	      user-full-name  "Garrett Finucane"
-	      mu4e-compose-signature
-	       (concat
-		 ""
-		 ""))
+# 	   ;; something about ourselves
+# 	   (setq
+# 	      user-mail-address "garrettdreyfus@gmail.com"
+# 	      user-full-name  "Garrett Finucane"
+# 	      mu4e-compose-signature
+# 	       (concat
+# 		 ""
+# 		 ""))
 
-	   ;; sending mail -- replace USERNAME with your gmail username
-	   ;; also, make sure the gnutls command line utils are installed
-	   ;; package 'gnutls-bin' in Debian/Ubuntu
+# 	   ;; sending mail -- replace USERNAME with your gmail username
+# 	   ;; also, make sure the gnutls command line utils are installed
+# 	   ;; package 'gnutls-bin' in Debian/Ubuntu
 
-	   (require 'smtpmail)
-	   (setq message-send-mail-function 'smtpmail-send-it
-	      starttls-use-gnutls t
-	      smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-	      smtpmail-auth-credentials
-		'(("smtp.gmail.com" 587 "garrettdreyfus@gmail.com" nil))
-	      smtpmail-default-smtp-server "smtp.gmail.com"
-	      smtpmail-smtp-server "smtp.gmail.com"
-	      smtpmail-smtp-service 587)
+# 	   (require 'smtpmail)
+# 	   (setq message-send-mail-function 'smtpmail-send-it
+# 	      starttls-use-gnutls t
+# 	      smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+# 	      smtpmail-auth-credentials
+# 		'(("smtp.gmail.com" 587 "garrettdreyfus@gmail.com" nil))
+# 	      smtpmail-default-smtp-server "smtp.gmail.com"
+# 	      smtpmail-smtp-server "smtp.gmail.com"
+# 	      smtpmail-smtp-service 587)
 
-	   ;; alternatively, for emacs-24 you can use:
-	   ;;(setq message-send-mail-function 'smtpmail-send-it
-	   ;;     smtpmail-stream-type 'starttls
-	   ;;     smtpmail-default-smtp-server "smtp.gmail.com"
-	   ;;     smtpmail-smtp-server "smtp.gmail.com"
-	   ;;     smtpmail-smtp-service 587)
+# 	   ;; alternatively, for emacs-24 you can use:
+# 	   ;;(setq message-send-mail-function 'smtpmail-send-it
+# 	   ;;     smtpmail-stream-type 'starttls
+# 	   ;;     smtpmail-default-smtp-server "smtp.gmail.com"
+# 	   ;;     smtpmail-smtp-server "smtp.gmail.com"
+# 	   ;;     smtpmail-smtp-service 587)
 
-	   ;; don't keep message buffers around
-	   (setq message-kill-buffer-on-exit t)
-   (setq mail-user-agent 'mu4e-user-agent)
-      (require 'org-msg)
-      (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
-	     org-msg-startup "hidestars indent inlineimages")
+# 	   ;; don't keep message buffers around
+# 	   (setq message-kill-buffer-on-exit t)
+#    (setq mail-user-agent 'mu4e-user-agent)
+#       (require 'org-msg)
+#       (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
+# 	     org-msg-startup "hidestars indent inlineimages")
 
- #+END_SRC
+#  #+END_SRC
 ** Archive all done todos
 #+BEGIN_SRC emacs-lisp
 (defun org-archive-done-tasks ()
@@ -317,7 +317,7 @@
  '(custom-safe-themes
    '("9be1d34d961a40d94ef94d0d08a364c3d27201f3c98c9d38e36f10588469ea57" "cea3ec09c821b7eaf235882e6555c3ffa2fd23de92459751e18f26ad035d2142" "3de3f36a398d2c8a4796360bfce1fa515292e9f76b655bb9a377289a6a80a132" "bf798e9e8ff00d4bf2512597f36e5a135ce48e477ce88a0764cfb5d8104e8163" "36ca8f60565af20ef4f30783aa16a26d96c02df7b4e54e9900a5138fb33808da" "fec45178b55ad0258c5f68f61c9c8fd1a47d73b08fb7a51c15558d42c376083d" "fede08d0f23fc0612a8354e0cf800c9ecae47ec8f32c5f29da841fe090dfc450" "36746ad57649893434c443567cb3831828df33232a7790d232df6f5908263692" "31e9b1ab4e6ccb742b3b5395287760a0adbfc8a7b86c2eda4555c8080a9338d9" "69e7e7069edb56f9ed08c28ccf0db7af8f30134cab6415d5cf38ec5967348a3c" "a85e40c7d2df4a5e993742929dfd903899b66a667547f740872797198778d7b5" "60e09d2e58343186a59d9ed52a9b13d822a174b33f20bdc1d4abb86e6b17f45b" "732ccca2e9170bcfd4ee5070159923f0c811e52b019106b1fc5eaa043dff4030" "0961d780bd14561c505986166d167606239af3e2c3117265c9377e9b8204bf96" "a61109d38200252de49997a49d84045c726fa8d0f4dd637fce0b8affaa5c8620" "c614d2423075491e6b7f38a4b7ea1c68f31764b9b815e35c9741e9490119efc0" "1d079355c721b517fdc9891f0fda927fe3f87288f2e6cc3b8566655a64ca5453" "34ed3e2fa4a1cb2ce7400c7f1a6c8f12931d8021435bad841fdc1192bd1cc7da" default))
  '(evil-undo-system 'undo-tree)
- '(orb-insert-frontend 'helm-bibtex)
+ '(orb-insert-interface 'helm-bibtex)
  '(org-agenda-window-setup 'current-window)
  '(org-file-apps
    '((auto-mode . emacs)
@@ -328,9 +328,8 @@
    '(:foreground default :background default :scale 1.6 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
 		 ("begin" "$1" "$" "$$" "\\(" "\\[")))
  '(org-publish-project-alist '((publishing-directory . "~/org-roam/exports/")))
- '(org-roam-server-mode t)
  '(package-selected-packages
-   '(eyebrowse centaur-tabs cl-libify yasnippet-classic-snippets minimap vterm ample-theme eradio swiper-helm helm-bibtexkey undo-tree dashboard org-roam-server ivy-bibtex org-roam-bibtex org-ref evil-magit base16-theme treemacs projectile evil-org helm evil))
+   '(eyebrowse centaur-tabs cl-libify yasnippet-classic-snippets minimap vterm ample-theme eradio swiper-helm helm-bibtexkey undo-tree dashboard ivy-bibtex org-roam-bibtex org-ref evil-magit base16-theme treemacs projectile evil-org helm evil))
  '(projectile-mode t nil (projectile))
  '(tramp-password-prompt-regexp
    "^.*\\(\\(?:adgangskode\\|contrase\\(?:\\(?:ny\\|\303\261\\)a\\)\\|geslo\\|h\\(?:\\(?:as\305\202\\|esl\\)o\\)\\|iphasiwedi\\|Token\\|jelsz\303\263\\|l\\(?:ozinka\\|\303\266senord\\)\\|m\\(?:ot de passe\\|\341\272\255t kh\341\272\251u\\)\\|p\\(?:a\\(?:rola\\|s\\(?:ahitza\\|s\\(?: phrase\\|code\\|ord\\|phrase\\|wor[dt]\\)\\|vorto\\)\\)\\|in\\)\\|s\\(?:alasana\\|enha\\|lapta\305\276odis\\)\\|wachtwoord\\|\320\273\320\276\320\267\320\270\320\275\320\272\320\260\\|\320\277\320\260\321\200\320\276\320\273\321\214\\|\327\241\327\241\327\236\327\224\\|\331\203\331\204\331\205\330\251 \330\247\331\204\330\263\330\261\\|\340\244\227\340\245\201\340\244\252\340\245\215\340\244\244\340\244\266\340\244\254\340\245\215\340\244\246\\|\340\244\266\340\244\254\340\245\215\340\244\246\340\244\225\340\245\202\340\244\237\\|\340\246\227\340\247\201\340\246\252\340\247\215\340\246\244\340\246\266\340\246\254\340\247\215\340\246\246\\|\340\246\252\340\246\276\340\246\270\340\246\223\340\247\237\340\246\276\340\246\260\340\247\215\340\246\241\\|\340\250\252\340\250\276\340\250\270\340\250\265\340\250\260\340\250\241\\|\340\252\252\340\252\276\340\252\270\340\252\265\340\252\260\340\253\215\340\252\241\\|\340\254\252\340\255\215\340\254\260\340\254\254\340\255\207\340\254\266 \340\254\270\340\254\231\340\255\215\340\254\225\340\255\207\340\254\244\\|\340\256\225\340\256\237\340\256\265\340\257\201\340\256\232\340\257\215\340\256\232\340\257\212\340\256\262\340\257\215\\|\340\260\270\340\260\202\340\260\225\340\261\207\340\260\244\340\260\252\340\260\246\340\260\256\340\261\201\\|\340\262\227\340\263\201\340\262\252\340\263\215\340\262\244\340\262\252\340\262\246\\|\340\264\205\340\264\237\340\264\257\340\264\276\340\264\263\340\264\265\340\264\276\340\264\225\340\265\215\340\264\225\340\265\215\\|\340\266\273\340\267\204\340\267\203\340\267\212\340\266\264\340\266\257\340\266\272\\|\341\236\226\341\236\266\341\236\200\341\237\222\341\236\231\341\236\237\341\236\230\341\237\222\341\236\204\341\236\266\341\236\217\341\237\213\\|\343\203\221\343\202\271\343\203\257\343\203\274\343\203\211\\|\345\257\206[\347\240\201\347\242\274]\\|\354\225\224\355\230\270\\)\\).*: ? *"))
