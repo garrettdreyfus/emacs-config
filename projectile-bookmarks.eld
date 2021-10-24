@@ -1,1 +1,1 @@
-("~/.emacs.d/" "~/Projects/arcticcirc/" "~/org-roam/" "~/Projects/garrettdreyfus.github.io/")
+("~/.emacs.d/" "~/org-roam/" "~/Projects/arcticcirc/" "~/Projects/garrettdreyfus.github.io/")
