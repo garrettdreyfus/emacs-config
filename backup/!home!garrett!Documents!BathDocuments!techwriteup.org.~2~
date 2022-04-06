@@ -1,0 +1,44 @@
+ 
+* Grounding Line Points
+  Given an ice mask I, let the set of grounding line points gl be the set of all points with floating sea ice with at least one adjacent landfast sea ice point.
+  
+* Labelling connected components
+  Labelling the connected components of a binary matrix is important throughout this writeup. Given a binary matrix M (a matrix composed completely of 1's and 0's). We'll construct a new matrix L. All points that are 0 in M are 0 in L. Every disconnected set of points in M is labelled in increasing natural numbers.
+
+* Finding Bathtubs (GLIBs)
+** The exhaustive method
+   - let p be a grounding line point in the set gl.
+   - let d_p be the bed depth at the grounding line point p
+   - let N = 0
+   - * Consider the boolean matrix B of all bedvalues under d_p + N
+   - let L be the labelled connected components of B
+   - let ocean_regions be the set of all labels L[x] such that bed_depth[x]<-2000 and I[x] != ice
+   - If L[p] is in ocean_regions
+     - p is connected to the open ocean.
+     - If N=0, there is no GLIB
+     - If N!=0, the GLIB depth is d_p +N and the GLIB is the set of all points x s.t. L[x] == L[p]
+   - If L[p] is not in ocean_regions
+     - Increase N by the step size (in testing 20 meters)
+     - Go to *
+   - *Pros*
+     - Simple.
+   - *Cons*
+     - Less cool than contour tree
+     - Somewhat slow, although quite fast really if you precompute labels on given stepsize.
+     - A bit myopic in that you really only learn about grounding line points
+** The contour tree method
+   - consider the set of bedvalues
+   - let all bedvalues under -2000 be set to -2000 to reduce bathymetric complexity offshore.
+   - let N=-2000
+   - let previous_slice be a matrix of zeros of the shape bedvalues
+   - for n from -2000 to 0 by stepsize
+     - let B be the boolean matrix of all bedvalues under n
+     - let L be the labelled connected components of B
+     - for every l in L
+       - consider the set of labels, P =  previous_slice[l] (the projection of the current depth slice's region on the previous depth step)
+       - if P is all zero (our first slice) or if P contains more than one non-zero value
+	 - Create a new region R_n with depth n
+	 - R_n is the parent of all regions in P
+	 - all regions of P are descendents of R_n
+	 - the 
+       

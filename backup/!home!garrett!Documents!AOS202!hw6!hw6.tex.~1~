@@ -1,0 +1,60 @@
+% Created 2022-02-18 Fri 09:45
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Garrett Finucane}
+\date{\today}
+\title{AOS 202A - Homework 6}
+\hypersetup{
+ pdfauthor={Garrett Finucane},
+ pdftitle={AOS 202A - Homework 6},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.4.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+
+\section{}
+\label{sec:orgaadfee9}
+
+$$ \frac{dN}{dt} = \frac{\mu_p*I(t)*N}{k+N}*P + (1-\gamma)*\mu_z*P*Z + S(t) $$
+$$ \frac{dP}{dt} = \frac{\mu_p*I(t)*N}{k+N}*P - \mu_z*P*Z $$
+$$ \frac{dZ}{dt} = \gamma*\mu_z*P*Z - \epsilon*Z $$
+
+
+\begin{itemize}
+\item k
+\item \(\mu\)\textsubscript{Z} * P * Z
+\begin{itemize}
+\item Is the rate of zooplankton grazing dependent on the amount of primary producers and zooplankton and some constant \(\mu\)\textsubscript{z}
+\end{itemize}
+\item \(\mu\)\textsubscript{P}
+\item i\textsubscript{m}
+\item S\textsubscript{0}
+\item s\textsubscript{m}
+\item \(\gamma\)
+\begin{itemize}
+\item Zooplankton assimilation. How much they eat they are able to turn into biomass
+\end{itemize}
+\item \(\epsilon\) * Z
+\begin{itemize}
+\item The loss transfer function. Quadratic (non-linear) density dependent.
+\end{itemize}
+\item 
+\end{itemize}
+\end{document}

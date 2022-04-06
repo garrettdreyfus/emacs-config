@@ -1,0 +1,64 @@
+#+title: AOS 202A - Homework 4
+#+author: Garrett Finucane
+  
+#+OPTIONS: toc:nil
+
+* DONE 1
+* DONE 2
+* TODO 3
+* TODO 4
+* TODO 5
+* TODO 6
+* TODO 7
+* TODO 8
+
+* 
+** Calculations
+WF Q12.1 tells us we can use the equation $\rho * C_p \Delta\theta *T$ where T is volume transport in $m^3s^{-1}$.
+We can treat \rho and C_p as constants with values $1025.0 \frac{kg}{m^3}$ and $3850 \frac{J}{kg K}$
+Let's use the North Atlantic values from WFQ12.1
+ 
+ - Mid latitude Gyre (MLG)
+   - $\Delta\theta = 2K$
+   - $T = 30 Sv$
+ - Meridional Overturning Circulation (MOC)
+   - $\Delta\theta = 15K$
+   - $T = 15 Sv$
+ 
+So heat transport for the each is:
+
+$HT_{MLG} = 1025.0 \frac{kg}{m^3} * 3850 \frac{J}{kg K} * 2K * 30 Sv = 236.8 TW$
+
+$HT_{MOC} = 1025.0 \frac{kg}{m^3} * 3850 \frac{J}{kg K} * 15K * 15 Sv = 887.9 TW$
+
+** Discussion of sensitivity
+   I would expect the equations to be relatively insensitive to variations in the actual density and heat capacity. Here we treated them as constants that are invariant with depth and location. They of course vary but probably by less than 1% of their total value. Out of the transport and the temperature gradient it seems that the temperature gradient is the more important/sensitive quantity. The MOC and MLG differ in transport by a factor of 2, but differ in temperature gradient by a factor of 7.5. 
+
+* 
+
+** Qualitative
+   Without  loss of generality let's focus on the Northern Hemisphere. In the Northern Hemisphere water the balance between pressure gradient force and the coriolis acceleration drives geostrophic velocitys 90 degrees to the right of the pressure gradient. So for the overturning circulation in the northern hemisphere which has water going poleward at the surface and equatorward at depth we would expect $\frac{dP}{dx}$ to be positive at the surface (increasing eastward) and negative at depth (increasing westward).
+   
+** Quantitative
+   Following WF12.2 we can define the total meridional transport by $\int_{-d_{ref}}^{z=0} \int_{x_w}^{x_e} v_g dxdz$. Substituting in the geostrophic relation $\frac{1}{\rho_0 f}*\frac{dP}{dx} = v_g$
+   
+   $T_{MOC} = \int_{-d_{ref}}^{z=0} \int_{x_w}^{x_e} \frac{1}{\rho_0 f}*\frac{dP}{dx}  dxdz$
+   
+   $T_{MOC} = \frac{1}{\rho_0 f} * \int_{-d_{ref}}^{z=0} \int_{x_w}^{x_e} \frac{dP}{dx}  dxdz$
+   
+   $T_{MOC} = \frac{1}{\rho_0 f} * \int_{-d_{ref}}^{z=0} (P(x_e)-P(x_w)) dz$
+
+   So using the estimate of 15 Sv as the volume transport of the MOC in the northern hemisphere, we can estimate the pressure gradient by assuming its constant to the level of no motion (it has to reverse underneath the level of no motion to drive water equatorward at depth). Let the level of no motion be about 2500m.
+
+   $$(P(x_e)-P(x_w)) = \frac{T_{MOC}*(\rho_0*f)}{d_{ref}} \approx 0.03 dbar \approx 3 cm $$
+
+   That means we'd expect a very small 3cm difference between the eastern and western boundary which seems about right.
+
+* 
+* 
+
+ 
+
+ 
+
+ 

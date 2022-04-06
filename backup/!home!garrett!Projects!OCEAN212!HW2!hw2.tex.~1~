@@ -1,0 +1,35 @@
+% Created 2022-01-28 Fri 10:51
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Garrett Finucane}
+\date{\today}
+\title{AOS 212A - Homework 2}
+\hypersetup{
+ pdfauthor={Garrett Finucane},
+ pdftitle={AOS 212A - Homework 2},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.4.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+\section{Problem 1}
+\label{sec:org1b18a4d}
+
+\url{./FTBS-round.gif}
+\end{document}

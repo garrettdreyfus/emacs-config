@@ -1,0 +1,17 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch main
+# Changes to be committed:
+#	modified:   bathtub.py
+#	modified:   cdw.py
+#	modified:   winds.py
+#	new file:   woa.py
+#	modified:   workspace.py
+#
+# Untracked files:
+#	__pycache__/bathtub.cpython-310.pyc
+#	__pycache__/cdw.cpython-310.pyc
+#	__pycache__/winds.cpython-310.pyc
+#

@@ -1,0 +1,289 @@
+using Statistics
+using JLD
+using BandedMatrices
+import LinearAlgebra: norm
+using LinearAlgebra
+using Plots
+using SparseArrays
+using LaTeXStrings
+using Printf
+
+function vortex_creator(x0,y0,mat,xs,a,gammaterm)
+    for i in 1:size(mat,1)
+        for j in 1:size(mat,2)
+            x=xs[i]
+            y=xs[j]
+            mat[i,j] = gammaterm*exp(-((x-x0)^2 + (y-y0)^2)/a^2)
+        end
+    end
+    return mat
+end
+
+function phi_initial_condition(deltax,type,b=0.3,a=0.09,gammaterm=1)
+    unknowns = Integer((1/deltax))+1
+    xs = LinRange(0,1,unknowns)
+    if type==0
+    	template = Matrix{Float64}(undef,unknowns,unknowns)
+	vortex1 = vortex_creator(0.5+b/2,0.5+b/2,template,xs,a,gammaterm)
+	template = Matrix{Float64}(undef,unknowns,unknowns)
+	vortex2 = vortex_creator(0.5-b/2,0.5-b/2,template,xs,a,gammaterm)
+	return vortex1 + vortex2 
+    elseif type ==1
+    	template = Matrix{Float64}(undef,unknowns,unknowns)
+	vortex1 = vortex_creator(0.5+b/2,0.5+b/2,template,xs,a,gammaterm)
+	template = Matrix{Float64}(undef,unknowns,unknowns)
+	vortex2 = vortex_creator(0.5-b/2,0.5-b/2,template,xs,a,gammaterm)
+	return vortex1 - vortex2 
+    elseif type==2
+    	template = Matrix{Float64}(undef,unknowns,unknowns)
+	vortex1 = vortex_creator(0.5+b/2,0.5+b/2,template,xs,a*2,gammaterm)
+	template = Matrix{Float64}(undef,unknowns,unknowns)
+	vortex2 = vortex_creator(0.5-b/2,0.5-b/2,template,xs,a*2,gammaterm)
+	return vortex1 + vortex2 
+    end
+
+end
+
+function phi_KH(deltax)
+    unknowns = Integer((1/deltax))+1
+    xs = LinRange(0,1,unknowns)
+    template = Matrix{Float64}(undef,unknowns,unknowns)
+    template[Integer(floor(unknowns/2)):end,:] .= 0
+    template[1:Integer(floor(unknowns/2)),:] .= 1
+    return template
+end
+
+
+function valley(deltax,b=0.3,a=0.09,gammaterm=1)
+    unknowns = Integer((1/deltax))+1
+    xs = LinRange(0,1,unknowns)
+    template = Matrix{Float64}(undef,unknowns,unknowns)
+    vortex1 = (10^6) * vortex_creator(0.1,0.1,template,xs,a*5,gammaterm)
+    return vortex1
+end
+
+function checkerboard(deltax,b=0.3,a=0.09,gammaterm=1)
+    unknowns = Integer((1/deltax))+1
+    xs = LinRange(0,1,unknowns)
+    mat = Matrix{Float64}(undef,unknowns,unknowns) 
+    mat.=0
+    template = Matrix{Float64}(undef,unknowns,unknowns)
+    template.=0
+    for i in 1:4
+        for k in 1:4
+            mat += (10^6) * vortex_creator(i*0.2,k*0.2,template,xs,a/2,gammaterm)
+        end
+    end
+    plt = heatmap(mat)
+    gui(plt)
+    readline()
+    return mat
+end
+function notopo(deltax,b=0.3,a=0.09,gammaterm=1)
+    unknowns = Integer((1/deltax))+1
+    xs = LinRange(0,1,unknowns)
+    template = Matrix{Float64}(undef,unknowns,unknowns)
+    template .= 0
+    return template
+end
+
+function neighbor_indexes(i,j,LI)
+    above = LI[i-1,j]
+    below = LI[i+1,j]
+    center = LI[i,j]
+    left = LI[i,j-1]
+    right = LI[i,j+1]
+    return above, below, center, left, right
+end
+
+function poisson_matrix_creator(delta,phi)
+    ## define our stencil 
+    unknowns = Integer((1/delta)+1)
+    xs = LinRange(0,1,unknowns)
+
+    ## Let Julia know its a banded matrix so we can efficiently invert it 
+    A = BandedMatrix{Float64}(undef,(unknowns*unknowns,unknowns*unknowns),(unknowns+1,unknowns+1))
+
+    LI = LinearIndices(phi)
+    A[1:end,1:end] = zeros(unknowns*unknowns,unknowns*unknowns)
+    #create our b in Ax=b
+    for i in range(1,length=unknowns)
+        for j in range(1,length=unknowns)
+            center = LI[i,j]
+            # Set an arbitrary point to its exact solution for fun.
+            if i !=1 && i != unknowns && j !=1 && j!= unknowns
+                above,below,center,left,right = neighbor_indexes(i,j,LI)
+                A[center,above] = 1
+                A[center,below] = 1
+                A[center,left] = 1
+                A[center,right] = 1
+                A[center,center] = -4
+            #Boundary Conditions!
+            elseif i==1 || i==unknowns || j==1 || j==unknowns
+                A[center,center] = 1
+            end
+        end
+    end
+    return A,inv(A), LI
+end
+
+function b_vector_creator(delta,phi,LI)
+    unknowns = Integer((1/delta)+1)
+    b = zeros(unknowns*unknowns)
+    for i in range(1,length=unknowns)
+        for j in range(1,length=unknowns)
+            center = LI[i,j]
+            if i !=1 && i != unknowns && j !=1 && j!= unknowns
+                b[center] = phi[i,j]*(delta^2)
+            else
+                b[center] = 0
+            end
+        end
+    end
+    return b
+end
+
+function multiply_assemble(delta,invA,b)
+    # Calculate A and b
+    unknowns = Integer((1/delta)+1)
+    solution_mat = Matrix{Float64}(undef,unknowns,unknowns)
+    LI = LinearIndices(solution_mat)
+    solution = invA * b
+    #Restructure into matrix
+    for i in range(1,length=unknowns)
+        for j in range(1,length=unknowns)
+            center = LI[i,j]
+            solution_mat[i,j] = solution[center]
+        end
+    end
+    return solution_mat
+end
+
+function periodic_dx(mat,delta)
+    mat1 = -circshift(mat,(1,0))
+    mat2 = circshift(mat,(-1,0))
+    mat1[1,:] .=0
+    mat2[end,:] .=0
+    return ( mat1 .+ mat2)/(delta*2)
+end
+
+function periodic_dy(mat,delta)
+    mat1 = -circshift(mat,(0,1))
+    mat2 = circshift(mat,(0,-1))
+    mat1[:,1] .=0
+    mat2[:,end] .=0
+    return ( mat1 .+ mat2)/(delta*2)
+end
+
+function periodic_dx2(mat,delta)
+    mat1 = circshift(mat,(1,0))
+    mat2 = circshift(mat,(-1,0))
+    mat1[1,:] .=0
+    mat2[end,:] .=0
+    return ( mat1 .- 2*mat .+ mat2)/(delta^2)
+end
+
+function periodic_dy2(mat,delta)
+    mat1 = circshift(mat,(0,1))
+    mat2 = circshift(mat,(0,-1))
+    mat1[:,1] .=0
+    mat2[:,end] .=0
+    return ( mat1 .- 2*mat .+ mat2)/(delta^2)
+end
+
+function j(psi,phi,delta,boundary)
+    dpsidx = periodic_dx(psi,delta)
+    dpsidy = periodic_dy(psi,delta)
+    dphidx = periodic_dx(phi,delta)
+    dphidy = periodic_dy(phi,delta)
+    return dpsidx.*dphidy.-dpsidy.*dphidx
+end
+function jhat(psi,phi,delta,boundary)
+    dphidx = periodic_dx(phi,delta)
+    dphidy = periodic_dy(phi,delta)
+    part1 = periodic_dx(psi.*dphidy,delta)
+    part2 = periodic_dy(psi.*dphidx,delta)
+    return part1-part2
+end
+function jtilda(psi,phi,delta,boundary)
+    dpsidx = periodic_dx(psi,delta)
+    dpsidy = periodic_dy(psi,delta)
+    part1 = periodic_dy(phi.*dpsidx,delta)
+    part2 = periodic_dx(phi.*dpsidy,delta)
+    return part1 - part2
+end
+function jarakawa(psi,phi,delta,boundary="inviscid")
+    return (1/3)*(j(psi,phi,delta,boundary) + jhat(psi,phi,delta,boundary) + jtilda(psi,phi,delta,boundary))
+end
+function viscous_term(phi,delta)
+    return (periodic_dx2(phi,delta) + periodic_dy2(phi,delta))
+end
+### AB3 Solution
+function AB3(initialphi,delta,deltat,topo,debug=false,type="periodic")
+    unknowns = size(initialphi,1)
+
+    @time A,invA,LI = poisson_matrix_creator(delta,phi)
+    b = b_vector_creator(delta,initialphi,LI)
+    psi = multiply_assemble(delta,invA,b)
+    uk = copy(initialphi)
+    uk1 = copy(initialphi)
+    uk2 = copy(initialphi)
+
+    coeff = [5/12,-16/12,23/12]
+
+    ke = Float64[]
+    umin = Float64[]
+    uint = Float64[]
+    timestamps = Float64[]
+    anim = Plots.Animation()
+    t=0
+    f,rho,g = 10^(-4),1025,10
+    psi = Matrix{Float64}(undef,unknowns,unknowns)
+    while t<1000
+        t+=deltat
+        q=zeros(size(uk))
+
+        b = b_vector_creator(delta,uk2,LI)
+        psi[:]= invA * b
+        #psi = multiply_assemble(delta,invA,b)
+        q = -(jarakawa(psi,uk,delta,"inviscid").*coeff[1] + jarakawa(psi,uk1,delta,"inviscid").*coeff[2] + jarakawa(psi,uk2,delta,"inviscid").*coeff[3])
+        q += -(f*g/(rho)).*(jarakawa(psi,topo,delta,"inviscid").*coeff[1] + jarakawa(psi,topo,delta,"inviscid").*coeff[2] + jarakawa(psi,topo,delta,"inviscid").*coeff[3])
+
+        #q = (j(psi,uk,delta,"inviscid").*coeff[1] + j(psi,uk1,delta,"inviscid").*coeff[2] + j(psi,uk2,delta,"inviscid").*coeff[3])
+        #q += 0.01*(viscous_term(uk,delta).*coeff[1] + viscous_term(uk1,delta).*coeff[2] + viscous_term(uk2,delta).*coeff[3])
+
+        uk3 = uk2.+ q.*deltat
+
+        if round(t/deltat)%100 == 0
+	    mag = periodic_dx(psi,delta).^2+periodic_dy(psi,delta).^2
+	    push!(ke, sum(mag^2))
+	    push!(uint, sum(uk3.^2))
+            push!(timestamps, t)
+            println("t:"*string(t))
+
+            l = @layout [a ; b]
+	    plt1 = heatmap(uk3,label=@sprintf("zeta: %f",round(t,digits=2)),clim=(-1,1))
+	    plt2 = heatmap(psi,label=@sprintf("psi: %f",round(t,digits=2)))
+            plt = plot(plt1, plt2, layout = l)
+            Plots.frame(anim)
+        end
+        uk=uk1
+        uk1=uk2
+        uk2=uk3
+    end
+    gif(anim, "topo.gif", fps = 15)
+    l = @layout [a ; b]
+    plt1 = plot(timestamps,ke,label="Kinetic Energy",xlabel="t",title="Diagnostics")
+    plt2 = plot(timestamps,uint,label="Enstrophy")
+    plt = plot(plt1, plt2, layout = l)
+    gui(plt)
+    readline()
+
+end
+display("start")
+
+delta = 0.01
+deltat = 0.01
+#phi = phi_initial_condition(delta,1)
+phi = phi_KH(delta)
+AB3(phi,delta,deltat,checkerboard(delta))

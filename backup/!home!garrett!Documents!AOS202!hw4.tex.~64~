@@ -1,0 +1,177 @@
+% Created 2022-02-09 Wed 12:23
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Garrett Finucane}
+\date{\today}
+\title{AOS 202A - Homework 4}
+\hypersetup{
+ pdfauthor={Garrett Finucane},
+ pdftitle={AOS 202A - Homework 4},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.4.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+\section{}
+\label{sec:org0ff1c5d}
+\subsection{Calculations}
+\label{sec:orga84540a}
+WF Q12.1 tells us we can use the equation \(\rho * C_p \Delta\theta *T\) where T is volume transport in \(m^3s^{-1}\).
+We can treat \(\rho\) and C\textsubscript{p} as constants with values \(1025.0 \frac{kg}{m^3}\) and \(3850 \frac{J}{kg K}\)
+Let's use the North Atlantic values from WFQ12.1
+
+\begin{itemize}
+\item Mid latitude Gyre (MLG)
+\begin{itemize}
+\item \(\Delta\theta = 2K\)
+\item \(T = 30 Sv\)
+\end{itemize}
+\item Meridional Overturning Circulation (MOC)
+\begin{itemize}
+\item \(\Delta\theta = 15K\)
+\item \(T = 15 Sv\)
+\end{itemize}
+\end{itemize}
+
+So heat transport for the each is:
+
+\(HT_{MLG} = 1025.0 \frac{kg}{m^3} * 3850 \frac{J}{kg K} * 2K * 30 Sv = 236.8 TW\)
+
+\(HT_{MOC} = 1025.0 \frac{kg}{m^3} * 3850 \frac{J}{kg K} * 15K * 15 Sv = 887.9 TW\)
+
+\subsection{Discussion of sensitivity}
+\label{sec:org254c9cb}
+I would expect the equations to be relatively insensitive to variations in the actual density and heat capacity. Here we treated them as constants that are invariant with depth and location. They of course vary but probably by less than 1\% of their total value. Out of the transport and the temperature gradient it seems that the temperature gradient is the more important/sensitive quantity. The MOC and MLG differ in transport by a factor of 2, but differ in temperature gradient by a factor of 7.5. 
+
+\section{}
+\label{sec:orge731bce}
+\subsection{Qualitative}
+\label{sec:org8f10a97}
+Without  loss of generality let's focus on the Northern Hemisphere. In the Northern Hemisphere water the balance between pressure gradient force and the coriolis acceleration drives geostrophic velocitys 90 degrees to the right of the pressure gradient. So for the overturning circulation in the northern hemisphere which has water going poleward at the surface and equatorward at depth we would expect \(\frac{dP}{dx}\) to be positive at the surface (increasing eastward) and negative at depth (increasing westward).
+
+\subsection{Quantitative}
+\label{sec:orgd05aae3}
+Following WF12.2 we can define the total meridional transport by \(\int_{-d_{ref}}^{z=0} \int_{x_w}^{x_e} v_g dxdz\). Substituting in the geostrophic relation \(\frac{1}{\rho_0 f}*\frac{dP}{dx} = v_g\)
+
+\(T_{MOC} = \int_{-d_{ref}}^{z=0} \int_{x_w}^{x_e} \frac{1}{\rho_0 f}*\frac{dP}{dx}  dxdz\)
+
+\(T_{MOC} = \frac{1}{\rho_0 f} * \int_{-d_{ref}}^{z=0} \int_{x_w}^{x_e} \frac{dP}{dx}  dxdz\)
+
+\(T_{MOC} = \frac{1}{\rho_0 f} * \int_{-d_{ref}}^{z=0} (P(x_e)-P(x_w)) dz\)
+
+So using the estimate of 15 Sv as the volume transport of the MOC in the northern hemisphere, we can estimate the pressure gradient by assuming its constant to the level of no motion (it has to reverse underneath the level of no motion to drive water equatorward at depth). Let the level of no motion be about 2500m.
+
+$$(P(x_e)-P(x_w)) = \frac{T_{MOC}*(\rho_0*f)}{d_{ref}} \approx 0.03 dbar \approx 3 cm $$
+
+That means we'd expect a very small 3cm difference between the eastern and western boundary which seems about right.
+
+\section{}
+\label{sec:orge5d0bfc}
+\subsection{}
+\label{sec:org42c7b8a}
+$$\omega \frac{dT}{dz} = \kappa \frac{d T^2}{d z^2} \approx \omega \frac{T}{H} = \kappa \frac{T}{Hz^2^2} \implies \omega = \frac{\kappa}{H}$$ 
+\subsection{}
+\label{sec:org68ce037}
+$$ \beta *v = f \frac{d\omega}{dz} \approx  v = f \frac{\omega}{H * \beta}$$ 
+
+$$ v = f \frac{\omega}{H * \beta} \approx  f \frac{k}{H^2 * \beta} $$ 
+\subsection{}
+\label{sec:org30da1bc}
+$$\omega = \frac{\kappa}{H} \approx \frac{10^{-4} m^2 s^{-1}}{3000m} \approx 3.333 * 10^{-8} m s^{-1}$$
+let f = 10\textsuperscript{-4} s\textsuperscript{-1} and \(\beta\) = 10\textsuperscript{-11} s\textsuperscript{-1} m\textsuperscript{-1}
+$$v = f \frac{\omega}{H * \beta} \approx  10^{-4} s^{-1} * \frac{3.333 * 10^{-8} m s^{-1}}{3000m * 10^{-11} s^{-1} m^{-1}} \approx 1.1*10^{-4} m s^{-1}$$
+$$ T = v*H*L_x = 1.1*10^{-4} m s^{-1}*3000 m * 5000000 m = 1.65 Sv$$
+\subsection{}
+\label{sec:org11981ca}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./3d.png}
+\end{center}
+\subsection{}
+\label{sec:org6b636bd}
+A larger mixing value on the eastern boundary would drive more velocity and more transport on the eastern side of the basin. This would mean the meridional component of velocity in the interior would be very small (meaning mostly zonal).
+\subsection{}
+\label{sec:orgf733d78}
+I would say the Stommel-Aarons model gives a great first approximation of abyssal ocean circulation. It doesn't account for the complications of topography, both due to mixing and the change in vorticity (see QG model). I think the model does allow for changes in the mixing coefficient but our simple implementation of it doesn't. It really only applies to large spatial scale, large temporal scale abyssal flows. 
+
+\section{}
+\label{sec:orgf872742}
+
+The two main ingredients for growth in the euphotic zone are light and nutrients.
+
+To carry out photosynthesis phytoplankton need light. The amount of light available to them is a function of the light available at the surface, and how deep the mixed surface layer is. Even if there are high amounts of light in the surface layer, phytoplankton which have limited mobility, can end up light deprived if they are mixed too far beneath the euphotic zone. Geographically the closer to the equator phytoplankton they are the more sunlight they get. Seasonally, phytoplankton receive more sunlight in the spring and summer, and there is less deeper mixing.
+
+Phytoplankton also require nutrients. Some nutrients such as nitrate and phosphate are primarily sourced from deeper waters, whereas more terrestial sediments like iron come from dust from the continents. Upwelling or deep mixing can supply phytoplankton with the nitrate and phosphate they need but getting iron requires being downwind of a continental source like a desert. The southern ocean while having no shortage of upwelling, has a hard time finding iron.
+
+The interplay of nutrient and light availability drives the spring time bloom in primary productivity. The deep mixing during the winter brings nutrients to the euphotic zone, but it is only when there is more sun and shallower mixing depths that the phytoplankton are able to feast on their food. The bloom eventually kills itself off once it eats up the nutrients.
+
+Zooplankton grazing reduces phytoplankton productivity but not by much.
+
+\section{}
+\label{sec:org00b1ed2}
+The full equation of life as written in the slides is
+$$106CO_2 + 16HNO_3 + H_3PO_4 + 78H_2O \leftrightarrow C_{106}H_{175}O_{42}N_{16}P + 15 O_2 $$
+
+\textbf{Photosynthesis}
+
+Going from the left hand side of the equation to the right handside is the process of photosynthesis. Where CO2, water and some nutrients (here phosphate and nitrite) are turned into glucose and some water using sunlight. This is how photosynthetic organisms turn inorganic carbon into organic carbon which they can use. It also produces oxygen
+
+\textbf{Respiration}
+
+Going right to left in this equation is respiration. Heterotrophs turn sugars like glucose into carbon dioxide and water using oxygen. This process is also called remineralisation. Orgranisms break down organic matter into its inorganic components. This process makes nutrients available to photosynthetic organisms again. It also produces carbon dioxide.
+
+Putting these together, organic matter is produced in the euphotic zone when sunlight and nutrients are present. This consumes disolved carbon dioxide, as well the nutrients. This feeds the photosynthetic organisms and helps them reproduce. Meanwhile, heterotrophs are looking to eat these primary producers or feast on their carcasses. They are able to do this using the oxygen created by the primary producers. When they eat this organic matter they remineralise the nutrients locked up in the primary producers sugars making them available to primary producers again. They also produce CO\textsubscript{2} which the primary producers can use again. It is a cycle!
+
+\section{}
+\label{sec:orge8875f0}
+The most productive regions in the world are in subtropical coastal oceans. Both eastern and western boundarys are sites of upwelling which provide phytoplankton with the nutrients they need to thrive. The proximity to the continents also gives phytoplankton a ready supply of terrigenous sediments from rivers and aiborne dust particles. Subtropical systems also receive their fair share of sunlight which is of great importance to the phytoplankton.
+
+The least productive regions are in the center of subtropical gyres, and at the poles. In subtropical gyres, convergent ekman currents drives downwelling which deprives organisms there of nutrients. These gyres are effectively ocean deserts. At the poles, both the southern and arctic ocean have a ready supply of nutrients but an extreme dirth of sunlight making photosynthesis challenging. The southern ocean has the additional obstacle of being iron depleted due to its distance from any land (with dust).
+
+\section{}
+\label{sec:org6b49fe2}
+At the surface oxygen concentrations vary strongly with the SST. This is due to the inverse relationship between temperature and oxygen solubility. This means, like SST, surface oxygen is largely a function of latitude.
+
+In the interior things are very different. Oxygen which is subducted into the ocean interior is respired by heterotrophs which are eating the carcasses and waste of primary producers which live above them. This means that the amount of oxygen is a function of the "age" of the water (older water had more time to be respired), and the amount of respiration it has seen in its "lifetime". This means there is high oxygen in the North Atlantic at the sites of deep water formation, and in the Southern Ocean due to some bottom water formation and a lack of primary productivity due to a lack of sunlight. Conversely, there is low oxygen at eastern boundaries where upwelling leads to high nutrients and high productivity. The northern subtropical pacific gyre has very old water, but also has little primary production so it has a medium amount of oxygen.
+
+Assuming viability refers to the viability of life, I found \url{https://oceanservice.noaa.gov/hazards/hypoxia/} which is a NOAA article on the prevalence of hypoxic conditions (oxygen under 2 milligrams per liter of oxygen. Hypoxic deadzones are most common when anthroprogenic nutrient pollution causes massive phytoplankton blooms. When the phytoplankton from the bloom die they sink to the bottom and are respired by heterotrophs and microbes which use up all the available oxygen.
+
+\section{}
+\label{sec:orgb999504}
+I'm going to use the equations from the slides and then plug it into a computer! I used Sagemath and here was my setup.
+
+\begin{verbatim}
+
+sage: D = 2100
+sage: A = 2300
+sage: f1 = C1 + C2 + C3
+sage: f2 = C2 + 2 * C3 - H
+sage: f3 = C1 / pC
+sage: f4 = (C2 * H) / C1
+sage: f5 = (C3 * H) / C2
+sage: K0 = 0.033
+sage: K1 = 1.3*(10^-6)
+sage: K2 = (9.1) * (10 ^ -10)
+sage: solve([f1 == D, f2 == A, f3 == K0, f4 == K1, f5 == K2], C1, C2, C3, H, pC)
+\end{verbatim}
+Plugging all that in and converting [H] to pH, with D=2100, and A=2300 the \textbf{pH is 8.09}
+
+If we run that again but with D=2200, and A=2300 we get that the \textbf{pH is 7.82}
+
+So it became more acidic!
+\end{document}

@@ -1,0 +1,81 @@
+#+title: AOS 202A - Homework 7
+#+author: Garrett Finucane
+  
+#+OPTIONS: toc:nil
+
+* DONE 
+** 
+   Potential Energy = $\int \rho g dz$
+  
+   Change in potential energy after mixing:
+  
+   $$\Delta PE = g(\rho_a*z_a + \rho_b*z_b) - g(\rho_a*z_b + \rho_b*z_a)$$
+  
+   $$\Delta PE = g(\rho_a - \rho_b)*(z_a-z_b)$$
+  
+   There are two angles we care about. The angle of the isopycnals \phi and the angle of parcel exchange \alpha.
+
+   We can assume that both angles are very small compared to the vertical displacement \Delta z . This means we can approximate sin(\alpha) as \alpha and cos(\alpha) as 1. 
+
+   $$\Delta \rho = \Delta y * \frac{d\rho}{dy} + \Delta z * \frac{d\rho}{dz} = L*cos(\alpha) * cos(\alpha)*\frac{d\rho}{dy} + L*sin(\alpha)*\frac{d\rho}{dz} = L* \frac{d\rho}{dy} + L*\alpha*\frac{d\rho}{dz}$$
+  
+   $$\Delta PE = g(\Delta \rho)*(\Delta z) = g*\alpha*L*(L* \frac{d\rho}{dy} + L*\alpha*\frac{d\rho}{dz})$$
+   $$\Delta PE = g*\alpha*L^2*(1-\frac{\alpha}{\phi}) -$$
+
+   So change in potential energy is 0 when alpha is 0 or it stirs along isopycnals.
+  
+** 
+   First lets find \phi.
+   $$ \phi = -\frac{d\rho}{dy}/\frac{d\rho}{dz}$$
+   That's really just the slope of the isopycnal
+   $$ \phi \approx \frac{400m}/{2*111000m} = 0.0018$$
+
+   Let's choose the maximum kinetic energy scenario where \alpha = \phi/2.
+
+   Then $$\Delta PE = \frac{g\alpha L^2}{2}\frac{d\rho}{dy} \approx \frac{9.8 ms^{-2} * 0.0009 * 2*111000}{2}\frac{0.6 kg m^{-3}}{2*111000 m} = 1174 J m^{-3}$$
+
+   From there we can calculate the change in velocity for the fluid parcel as $$\Delta PE = \Delta KE == \bar{\rho}*\Delta v ^2 $$
+   So $$\Delta v = (1174 J/s * 1027.3 kg m^{-3})  =1.07 m s^{-1}$$
+
+   But that is not the eddy velocity! Working off of Box 9.3 from WF, we can see that $$U_{eddy} = \frac{H}{2} |\frac{du}{dz}|$$. From the velocity depth profile on the same slide of the circulation lecture.
+
+   $$ U_{eddy} \approx \frac{500m}{2} \frac{0.75-0.1}{500m} = 0.325$$
+   
+   
+* DONE 
+  Eddy kinetic energy is largest the western boundary currents, near the equator and in the southern ocean. Coincidentally this is exactly where surface currents are strongest. I think this makes alot of intuitive sense especially after we saw how the Gulf Stream pinches off eddies. It also matches with the approximation in box 9.3 from WF which says that eddie velocity is proportional to the velocity shear. We know that bottom currents are orders of magnitude smaller than surface currents, so areas of large surface currents would have larger shear as well and higher velocities. Also, the mean surface currents are largely driven by isopycnal gradients which allow for baroclinic instability. 
+
+  
+* TODO 
+
+* TODO 
+
+* TODO 
+
+* DONE 
+  - Baroclinic and Barotopic instabiilties of "mean currents"
+    - These instabilities extract energy from large scale mean current isopycnal gradients
+    - They are the source of mesoscale eddies throughout the ocean
+    - They are the result of unstable modes in the mean flow and limit the mean flows magnitude
+  - Tropical instability waves
+    - These occur due to the barotropic instability of shear at the equator
+    - Directly at the equator the water is moving west, but just north of it the North Equatorial Counter Current is going east. This creates a shear and then instability.
+    - They result in meriodinal currents which create cusps in the SST pattern
+  - Submesoscale instabilities
+    - Submesoscale instabilities have a number of causes:
+    - One is island wakes
+    - Another is frontogenesis in which mesoscale features create convergence and "mixed-layer" baroclinic instabilities
+  - Stratified shear instabilities (Kelvin Helmholtz)
+    - Stratified shear instabilities occur whenever the Reynolds number which is the ratio of stratification to vertical shear is less than 0.25. It can create vortex rollups that drive mixing.
+
+      
+* TODO 
+  - Double diffusion
+  - Inertial waves
+    - Bathymetry
+  - SCV
+* TODO 
+- Questions
+  - wind jet shit
+  - eddie intuition check
+  

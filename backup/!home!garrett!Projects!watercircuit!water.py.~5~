@@ -1,0 +1,95 @@
+import PySpice.Logging.Logging as Logging
+logger = Logging.setup_logging()
+import numpy as np
+from PySpice.Spice.Netlist import Circuit
+from PySpice.Unit import *
+from matplotlib import pyplot as plt
+from matplotlib import animation
+circuit = Circuit('Water')
+Nx =10
+Ny=10
+cap = 0.05*(10**-2)@u_F
+res = 0.075@u_Ω
+induc = 0.16*(10**-2)@u_H
+
+Rcount =0
+Induccount = 0
+source = circuit.PulseVoltageSource('input', 'Cin0', circuit.gnd,
+                        initial_value=0@u_V, pulsed_value=1@u_V,
+                        pulse_width=3@u_ms, period=30@u_ms)
+mask = [[0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,1,0,1,1,0,0,0],
+        [0,0,0,0,0,1,1,0,0,0],
+        [0,0,0,1,0,1,1,0,0,0],
+        [0,0,1,1,0,1,1,0,0,0],
+        [0,0,0,0,0,1,1,0,0,0], 
+        [0,0,0,1,1,1,1,0,0,0],
+        [0,0,0,1,1,1,1,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0]]
+
+mask = np.asarray(mask,dtype=bool)
+
+for i in range(Nx):
+    for j in range(Ny):
+        print(mask[i,j])
+        if ~mask[i,j]:
+            cnum = str(i*Nx+j)
+            circuit.C("C"+cnum,"Cin"+cnum, circuit.gnd, cap)
+            if j!=0 and ~mask[i,j-1]:
+                circuit.R("Rx"+cnum,"Cin"+str(i*Nx+j-1), "Rxout"+cnum, res)
+                circuit.L("Lx"+cnum,"Rxout"+cnum, "Cin"+cnum, induc)
+            if i!=0 and ~mask[i-1,j]:
+                circuit.R("Ry"+cnum,"Cin"+str((i-1)*Nx+j), "Ryout"+cnum, res)
+                circuit.L("Ly"+cnum,"Ryout"+cnum, "Cin"+cnum, induc)
+
+simulator = circuit.simulator(temperature=25, nominal_temperature=25)
+analysis = simulator.operating_point()
+step_time = 2@u_us
+analysis = simulator.transient(step_time=step_time, end_time=source.period*3)
+def make_grid(Nx,Ny,analysis):
+    grid_out = np.empty((Nx,Ny,len(analysis["Cin0"])),dtype=np.float64)
+    for i in range(Nx):
+        for j in range(Ny):
+            if ~mask[i,j]:
+                grid_out[i,j,:] = analysis["Cin"+str(i*Nx+j)]
+            if mask[i,j]:
+                grid_out[i,j,:] = np.nan
+    return grid_out
+
+grid = make_grid(Nx,Ny,analysis)
+
+plt.plot(analysis["Cin0"])
+print(len(analysis["Cin0"]))
+plt.plot(analysis["Cin1"])
+plt.plot(analysis["Cin2"])
+plt.plot(analysis["Cin3"])
+plt.plot(analysis["Cin4"])
+plt.show()
+
+fig = plt.figure()
+im=plt.imshow(grid[:,:,0],interpolation='none')
+im.set_clim(0,1)
+
+print(grid.shape)
+# initialization function: plot the background of each frame
+def init():
+    im.set_data(grid[:,:,0])
+    return [im]
+
+# animation function.  This is called sequentially
+def animate(i):
+    print(i)
+    print(np.nanmax(grid[:,:,i*100]))
+    im.set_array(grid[:,:,i*100])
+    return [im]
+# call the animator.  blit=True means only re-draw the parts that have changed.
+anim = animation.FuncAnimation(fig, animate, init_func=init,
+                               frames=int(grid.shape[2]/100), interval=20, blit=True)
+
+
+# installed.  The extra_args ensure that the x264 codec is used, so that
+# the video can be embedded in html5.  You may need to adjust this for
+# your system: for more information, see
+# http://matplotlib.sourceforge.net/api/animation_api.html
+anim.save('basic_animation.mp4', fps=30, extra_args=['-vcodec', 'libx264'])

@@ -1,0 +1,3 @@
+import scipy.io
+mat = scipy.io.loadmat("data/AMPS_winds.mat")
+

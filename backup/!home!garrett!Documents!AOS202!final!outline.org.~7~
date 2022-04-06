@@ -1,0 +1,71 @@
+#+LATEX_HEADER: \usepackage{setspace}
+#+title: AOS 202A - Hydraulic Control
+#+author: Garrett Finucane
+  
+#+OPTIONS: toc:nil
+
+My aim in this paper is to provide a whirlwind tour of hydraulic control of rotating fluids and briefly try my own hand at estimating whether ice shelf cavities are hydraulically controlled. Much of the background summary information comes from Whitehead and Pratt's "Rotating Hydraulics", I then discuss Whitehead 1973, and Zhao 2019 before presenting work of my own.
+
+* Basic Summary
+
+In class much of our discussion of ocean dynamics was set in the large ocean interior where water is able to move more or less freely constrained only by the size of the basin. In the hydraulically controlled case, the circulation is fundamentally altered (controlled really) by the presence of an obstruction in its way. In Whitehead and Pratt's "Rotating Hydraulics" they begin with a discussion of the flow of information propagation along the flow. Below (Figure 1) is an example of a hydraulically controlled flow over a dam. One can imagine that if we were to start with the water surface in the shape of Figure 1 ,  we'd expect the water to equilibrate to be driven horizontal by surface gravity waves in no time especially down stream of the dam where the surface is nearly vertical. In the hydraulically controlled case where there is a significant up stream velocity which only accelerates as it passes over the dam the water is travelling faster than surface gravity waves and therefore whatever is happening downstream of the dam does not affect what is happening up stream. When the velocity of the flow exceeds the velocity of the waves it is dubbed /supercritical/, when the velocity is less than the speed of the waves the flow is /subcritical/, and when the velocity is equivalent to the speed of the waves such that they are frozen in space the flow is /critical/.
+
+#+CAPTION[Figure 1.]: Schematic diagram of Whitehead and Pratt's "Rotating Hydraulics" (Figure I.1)
+[[./Figure1.png]]
+
+* Whitehead et al. (1974)
+
+While dam's are fun to look at for the curious fluid dynamics student, the chance that one would see this phenomenon in the ocean can at first seem small. Afterall an ocean current would have to  exceed 30 m/s even in a relatiavely shallow 100m depth to exceed the speed of surface gravity waves. However, if we consider the chance that an ocean current would exceed the speed of the propagation of internal gravity waves which travel along density interfaces with a speed relative to the background vertical density gradient, it becomes far less far fetched. 
+
+The 1974 paper "Rotating Hydraulics of Strait and Sill Flows" written by Whitehead et al. explores the theory of the hydraulic control of a rotating two layer fluid. Their idealised setup considers the flow from one basin to another (Figure 2) through a constriction, in which the cross stream flow is geostrophically balanced, the flow is hydrostatic, and potential vorticity is conserved. In other words it is semi-geostrophic. Both resevoirs and constrictions are rectangular.
+
+#+CAPTION[Figure 2.]: Theoretical geometrical setup for from Whitehead et al. 1974 (Figure 1)
+[[./Figure2.png]]
+
+By manipulating the governing equations of their setup Whitehead et al. split the solution space into two regimes: one which is dominated by rotation and one where rotation is weak. The weakly rotating limit occurs when the systems internal Rossby deformation radius $L_R = (\frac{2*g'*h_u}{f^2}})^{1/2}$ (where g' is the reduced gravity of the interface between the two layers and h_u is the upstream height of the interface) is much larger than the width of the channel b. Conversely, the strongly rotating limit occurs when $L_R$ is much less than b. In the weakly rotating case the transport is __ and in the strongly rotating case it is __.
+
+Whitehead et al. go on to explore these results in several real life oceanographic contexts. For example, they consider the Denmark straits, approximate it as a rectangular channel, calculate it's internal rossby deformation radius to determine whether it is in a weakly or strongly regime, and then use the corresponding equation to calculate the bottom layer transport [fn:1]. They also do so for the Strait of Gibraltr and Anegada Passage, and find that the prediction has some skill. The authors make sure to note that "any close numerical agreement between observations and the present theory is fortuitous" and that rough topography will probably always inject an uncertainty of at least a few tens of percent into the values of width and depth of the sill."
+
+So we have seen that while the roots of hydraulic control theory are in very idealized rectangular geometries and uniform potential vorticity, the diagnostic equations from the theory may give us some into sight into the dynamics of stratified flow over obstactles in a wide range of settings. One area of interest which is not addressed in Whitehead et al. 1974 is the hydraulic control of water into ice shelf cavities.
+
+
+* Zhao et al. (2019)
+  "Sill-influenced Exchange Flows in Ice Shelf Cavities" explores the affect of differently sized sills in a two layer hydrostatic model of a channel which is large enough to be dominated by rotation through numerical modelling.
+  
+  urthermore, we've seen that the diagnostic equations can give insight into a (simulated) sill constrained ice shelf cavity specifically. To me this begged the question whether we could apply similar techniques to the circulation of Circumpolar Deep Water (CDW) in the Antarctic. 
+  
+* Misadventures in assessing the viability of hydraulic control in ice shelf cavity
+  
+  In the Antartic the warm but relatively saline CDW, lies underneath fresher more cold water. CDW's access to Antarctic ice shelf cavities is thought to be a factor behind the basal melt rate of marine ice shelfs. While the CDW can freely access some ice shelf's groundling lines, for others it must navigate complex and steeply sloping bathymetry. Where in Antarctica may CDW be hydraullically controlled. Let's try to find out! [fn:2]
+
+** Subtle Sills
+   Unlike in the idealized work discussed above, there is no dataset of clearly defined set of sill depths for every ice shelf cavity in Antarctica. One approach would be to estimate the sill height of each ice shelf cavity by eye like in Whitehead et al. (1974) but this is practically impossible when we wish to determine sill heights for the coastline of a whole continent. Instead we will have to put forth a more mathematical decision.
+   
+   Here I will define the sill height of any point x along the groundling line of an ice shelf to be the greatest depth h_s at which x is not simply path connected to the open ocean. This quantity could be thought of more abstractly as the depth at which the ocean would have to be filled to (assuming it had been emptied first) until it reached x. More mathematically, we could capture the topology of the bottom of the Southern Ocean as a contour tree and ask what the shallowest ancestor of the region containg x is that does not have any descendents which are in the open ocean.
+   
+   Using this definition we can calculate sill heights (and the region which they confine) from a bathymetric dataset of the Antarctic such as bedmap2 (which I have done below).  
+#+CAPTION[Figure 4.]: Map of sill height, and the region which they enclose, for grounding line points across Antarctica. Colored by depth.
+[[./Figure3.png]]
+   
+** Where do layers lie
+   
+   
+** Froude Number
+   
+   $$ Fr_i = \frac{u}{\sqrt{g'h_i}} $$
+   $$ 1 = \frac{u}{\sqrt{g'h_i}} $$
+   $$ 1 = \frac{\sqrt{g'h_i}}{u} $$
+   $$ u^2 = g'h_i $$
+   $$ \frac{u^2}{g'} = h_i $$
+   
+
+** Transport estimates (where appropriate)
+   
+
+
+
+
+
+[fn:1] It is not mentioned in the paper itself as far as I can tell, but I would assume that some calculation that the froude number is large is done to select these locations.
+
+[fn:2] Some of the work here was done before this final project and class for my work with Andrew. Namely, the code that finds the sills, and the code that determines an average hydrographic profile offshore at the 2000 dbar contour. The estimation of their Froude numbers, and transport estimates that those that may be hydraulically controlled was done for this paper specifically.

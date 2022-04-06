@@ -1,0 +1,97 @@
+ 
+* Grounding Line Points
+  Given an ice mask I, let the set of grounding line points gl be the set of all points with floating sea ice with at least one adjacent landfast sea ice point.
+  
+* Labelling connected components
+  Labelling the connected components of a binary matrix is important throughout this writeup. Given a binary matrix M (a matrix composed completely of 1's and 0's). We'll construct a new matrix L. All points that are 0 in M are 0 in L. Every disconnected set of points in M is labelled in increasing natural numbers.
+
+* Finding Bathtubs (GLIBs)
+** The exhaustive method
+   - let p be a grounding line point in the set gl.
+   - let d_p be the bed depth at the grounding line point p
+   - let N = 0
+   - * Consider the boolean matrix B of all bedvalues under d_p + N
+   - let L be the labelled connected components of B
+   - let ocean_regions be the set of all labels L[x] such that bed_depth[x]<-2000 and I[x] != ice
+   - If L[p] is in ocean_regions
+     - p is connected to the open ocean.
+     - If N=0, there is no GLIB
+     - If N!=0, the GLIB depth is d_p +N and the GLIB is the set of all points x s.t. L[x] == L[p]
+       - For any point g not yet considered from gl, if L[g] == L[p] then d_p+n is also the GLIB of g
+   - If L[p] is not in ocean_regions
+     - Increase N by the step size (in testing 20 meters)
+     - Go to *
+   - *Pros*
+     - Simple.
+   - *Cons*
+     - Less cool than contour tree
+     - Somewhat slow, although quite fast really if you precompute labels on given stepsize.
+     - A bit myopic in that you really only learn about grounding line points
+** The contour tree method
+   - consider the set of bedvalues
+   - let all bedvalues under -2000 be set to -2000 to reduce bathymetric complexity offshore.
+   - let N=-2000
+   - let previous\_slice be a matrix of zeros of the shape bedvalues
+   - let region_map be a matrix of zeros of the shape bedvalues
+   - Let's construct the contour tree
+   - for n from -2000 to 0 by stepsize
+     - let B be the boolean matrix of all bedvalues under n
+     - let L be the labelled connected components of B
+     - for every l in L
+       - consider the set of labels, P =  previous-slice[l] (the projection of the current depth slice's region on the previous depth step)
+       - if P is all zero (our first slice) or if P contains more than one non-zero value
+	 - Create a new region R_n with depth n
+	 - R_n is the parent of all regions in P
+	 - all regions of P are descendents of R_n
+	 - let region_map[(l and previous-slice==0)] = R_n
+	 - let the depth of R_n be n
+       - if P contains one non-zero value
+	 - let region_map[(l and previous-slice==0)] = R_n
+     - previous-slice = L
+     - (I ignore the intricacies of actually making sure that the labelled connected components of B are labelled with the correct region_id)
+   - finding the GLIB
+   - let the ocean regions be all regions which are deeper than 2000 and not completely coverd by ice.
+   - let p be a grounding line point in the set gl.
+   - let R_p be the contour tree region p is in, easily found by R_p = region_map[p] ( the region id is really a function of x,y,z but because the groundline line point is at its bedvalue z is given by x and y)
+   - if R_p has any descendents that are open ocean regions
+     - it is connected to the open ocean and there is no GLIB
+   - if R_p has no descendents that are open ocean regions
+     - * take R_{parent} to be the parent region of R_p
+     - if R_{parent} has any open ocean regions as descendents
+       - then the GLIB is the depth of R_parent
+     - else
+       - let R_p be R_parent and go to *
+   - *pros*
+     - really just quite fun
+     - Very very fast after you've calculated the contour tree to find the GLIBs
+     - Gives you alot of information about the complete domain not just the groundling line
+       - Say you want to calculate the amount of polyna production in places that are not connected to the open ocean, but not necessarily connected to the grounding line. This would be prohibitively hard in the exhaustive case, or at least take as much time as calculating the GLIB at a grounding line point. In contrast, if we have the contour tree lying around it is very easy to do this.
+       - Also allows you to solve for GLIB for middepth points
+   - *cons*
+     - Maybe slightly slower than the completely optimized version of the exhaustive way
+     - A bit slow to calculate contour tree
+* Calculating Heat content
+  - Mean offshore profile by shelf
+    - let shelf_ST be a dictionary between shelf name and hydrographic profiles
+    - for shelf S in all shelves, where S is a polygon from rignot
+      - take all profiles within an arbitrary radius R of the centroid of S (R is 10^6 in epsg3031)
+      - take the mean S(z) and T(z) within that radius from woa
+      - let shelf_ST[S] = (S(z),T(z))
+  - consider the set of grounding line points gl
+  - let gl_z be the set of grounding line points depths
+  - let gl_{glib} be the set of greatest lower isobounds at grounding line points gl, and nan where there is no greatest lower isobath
+  - let Z be the gl_{glib} where gl_{glib} is not nan and gl_z where it is
+  - let heat-content-by-shelf be a dictionary between shelf names and a list of heat points
+  - let r be an arbitrary depth range to integrate over (5-100) seem to be pretty similar
+  - for every point p in gl and its associated p_z from Z:
+    - let S be the closest shelf to point p (from rignot polygons)
+    - let f be the freezing point function
+    - let $$ H = \int_{p_z-r}^{p_z+r} T(z)-f(z,S(z)) dz$$
+    - add H to heat-content-by-shelf[S]
+  - In practice:
+    - For every S in shelves,
+      - heats = heat-content-by-shelf[S]
+      - filtered-heats = heats[heats>median(heats)-2*std(heats) and heats<median(heats)+2*std(heats)]
+      - heat-content-by-shelf = np.mean(filtered-heats)
+    
+       

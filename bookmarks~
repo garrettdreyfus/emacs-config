@@ -3,8 +3,8 @@
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored"
- (filename . "~/org-roam/20210926090456-idealized_ice_shelf_modelling.org")
+ (filename . "~/org-roam/20220104190306-modelling_landfast_sea_ice_and_its_influence_on_ocean_ice_interactions_in_the_area_of_the_totten_glacier_east_antarctica.org")
  (front-context-string)
- (rear-context-string . "shelf modelling\n")
- (position . 107))
+ (rear-context-string . "East Antarctica\n")
+ (position . 199))
 )

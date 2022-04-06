@@ -1,0 +1,85 @@
+:PROPERTIES:
+:ID:       a4dd09c5-163a-4b55-8573-9f3cda1c5dc6
+:END:
+#+title: Deep inverse modelling
+
+:PROPERTIES:
+:ID:       035c6dc9-3a99-43f9-b278-9dbce5323e7c
+:END:
+#+title: Deep Inverse Modeling
+#+CATEGORY: Inverse
+#+filetags: :inverse:
+* TODO 
+** TODO work on readme
+   DEADLINE: <2022-01-16 Sun>
+* Literature Review
+  :PROPERTIES:
+  :ID:       c79a1cc8-4f39-4acb-8890-1dee11e60123
+  :END:
+  - [[id:6d55a7f1-1d24-4a2b-a653-cc1b9a16b105][Direct measurement of the deep circulation within the Brazil Basin]]
+  - [[id:3fc11ae1-ecc8-46c4-ac9d-f8a89b6eac1b][Buoyancy Forcing by Turbulence above Rough Topography in the Abyssal Brazil Basin]]
+  - [[id:bb0271e6-89e5-4119-85a4-8c7bbb79f708][Spatial Variability of Turbulent Mixing in the Abyssal Ocean]]
+  - [[id:b093a029-1f2e-45e0-809c-2cb84bad9879][The upper, deep, abyssal and overturning circulation in the Atlantic Ocean at 30°S in 2003 and 2011]] 
+  - [[id:573a53a6-4235-4aee-94ec-9a59f9509b65][Abyssal Mixing in the Brazil Basin]] 
+  - [[id:42c76e62-5ac0-45d3-acdf-d3d778e4e35d][On the circulation of bottom water in the region of the Vema Channel]] 
+  - *[[id:b5adfbd3-52d6-4512-8f16-a36b6c3c1785][Flow and recirculation of Antarctic Intermediate Water across the Rio Grande Rise]]*
+  - [[id:e22f66fd-6c94-4ac5-9817-d202124003a9][The fate of the Deep Western Boundary Current in the South Atlantic]]
+  - 
+    
+* Short Form Paper Outline
+  
+** Figure 1) Station locations, and existing schematics of flow around RGR
+   - Introductory discussion of previous work in the basin
+     - Previous proposed circulations drawn on map.
+   - Brief description of inverse method, it's strengths, its limitations etc...
+** Figure 2) GAM vs neutral depths along A23 and A10 (two panel?)
+   - Discussion of how the approximate neutral surfaces are constructed
+   - Discussion of GAM interpolation and its performance in the figure
+     - particularly important to note the lack of boundary current resolution mentioned above
+       - Choice of spline made visually, and by graphing error. Settled on 40 splines.
+       - Also mapped neutrality error of surfaces
+       - Maybe the error curves could be included in a supplement....
+   - Maybe worth highlighting which surfaces are actually included in the inverse.
+** Figure 3) Bubble cross section of transport. Zonal and meridional, Yomaha and inverse. Include 2C isotherm?
+   - Here we get to point out our main feature, the circulation around the RGR
+     - Consistent with that mudwave paper
+     - It's existence in both the inverse and the Yomaha referenced velocity cross sections is compelling
+     - Worth noting that this feature changed in strength but remained present when we changed pretty much any parameter including:
+       - inclusion of mixing
+       - initial reference station
+       - number of splines of interpolation (this one probably mattered most but had same outcome)
+       - Reference level
+     - Note the similarities/differences with Hernandez-Guerra and Talley paper.
+       - Include in this a discussion of the 2C isoterm
+
+** Figure 4) Our schematic of transport with boundary currents added in dashed lines
+   - A discussion of the difference in basin wide mixing budgets (Morris) would be nice here
+     - May be worthwhile to do those budgets with inverse transport values and Yomaha transport values
+     - Compare to inverses mixing values?
+   - Discuss how the inverse is still consistent with float studies in shallower reference levels
+
+** Conclusion
+   - The absolute geostrophic velocity of the inverse model, and referencing the shear to Yomaha velocity both suggest that there is a cyclonic circulation around the Rio Grande Rise.
+   - This reduces the mixing budget in the Brazil Basin
+
+* Sensitivity Study
+  
+** Variables
+     - [X] Reference Level
+     - [X] H_0
+     - [X] Column weighting (one order of magnitude
+     - [X] Upper bound , lower bound
+     - [X] inclusion of mixing at all
+     - [X] Gaussian Noise on NS pressure (for fun!) (also already built in?)
+     - [X] Reference Station choice
+     - [X] Grid resolution
+** Metrics
+     + Condition
+     + Error
+     + Negative diffusivity percentage
+     + Transport below 2C East of RGR
+     + Average Diffusivity
+* Notes for 10/11 meeting
+  - need correct neutrality error citation will message geoff
+  - question about second transport fixing technique
+

@@ -1,0 +1,76 @@
+% Created 2022-02-20 Sun 12:31
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Garrett Finucane}
+\date{\today}
+\title{AOS 212A - Homework 3}
+\hypersetup{
+ pdfauthor={Garrett Finucane},
+ pdftitle={AOS 212A - Homework 3},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.4.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+\section{Discretization}
+\label{sec:org638f771}
+\begin{itemize}
+\item I used a second order centered in space for discretizing the jacobian. I used the Arakawa jacobian and AB3 to solve for vorticity.
+\item In order to solve the poisson problem I directly inverted the matrix once to find A\textsuperscript{-1} and then just multiplied by that every loop iteration instead of using an iterative solver. I figured this would be faster and when its all said and done easier.
+\item I didn't end up using/needing a viscous term
+\end{itemize}
+
+
+\section{Default experiment (vorticity on top stream function on bottom for all animations)}
+\label{sec:org80ee187}
+\begin{itemize}
+\item file name: default.gif
+\item The vortexs clearly merge. I found it interesting how there was so much more structure in the PV graph than the stream function graph. Makes sense but still interesting to see.
+\end{itemize}
+
+\section{Half radius experiment}
+\label{sec:org90cbdba}
+\begin{itemize}
+\item file name: half-radius.gif
+\item Vortices interact significantly less
+\item Looks alright though
+\end{itemize}
+
+\section{Opposite sign vortices experiment}
+\label{sec:org4c4f63a}
+\begin{itemize}
+\item file name: opposite-sign.gif
+\item The radiuses are slightly constrained by the domain.
+\item It seems they are traveling in the same direction (up and to the left) but then recirculate within the box.
+\item Quite cool!
+\end{itemize}
+
+\section{Topography experiment}
+\label{sec:org7511654}
+\begin{itemize}
+\item file name: topo.gif
+\item Tried to go all out on this one!
+\item The initial vorticity set up is basically a shock with half the domain set to 1 and half to 0.
+\begin{itemize}
+\item I wanted to see if I could get something like kelvin-helmholtz instability
+\end{itemize}
+\item The topography underneath is a checkerboard of 4x4 super high mountains
+\item In the simulation you can see the topography cause wakes as the flow passes over it.
+\end{itemize}
+\end{document}

@@ -1,0 +1,5 @@
+
+256 spectral
+ 14.880716 seconds (60.46 M allocations: 1.993 GiB, 3.86% gc time, 56.32% compilation time)
+256 finite diff
+135.187445 seconds (913.17 M allocations: 22.613 GiB, 3.06% gc time, 6.25% compilation time)

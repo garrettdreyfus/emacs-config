@@ -1,0 +1,90 @@
+% Created 2022-02-21 Mon 12:59
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Garrett Finucane}
+\date{\today}
+\title{AOS 202A - Homework 6}
+\hypersetup{
+ pdfauthor={Garrett Finucane},
+ pdftitle={AOS 202A - Homework 6},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.4.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+
+\section{}
+\label{sec:orgc7ee3b0}
+\begin{itemize}
+\item \textbf{inprogress}
+\end{itemize}
+$$ \frac{dP}{dt} = \frac{\mu_p*I(t)*N}{k+N}*P - \mu_z*P*Z $$
+\begin{itemize}
+\item \(\frac{dZ}{dt}\) is the change of phytoplankton concentration with time
+\item \(\mu_z*P*Z\) is \(\mu\)\textsubscript{z}, the coefficient that sets how effective zooplankton are at grazing, times the product of the amount of phytoplankton times the amount of zooplankton. How many phytoplankton are eaten basically
+
+\item $$ \frac{dZ}{dt} = \gamma*\mu_z*P*Z - \epsilon*Z $$
+\item \(\frac{dZ}{dt}\) is the change of zooplankton concentration with time
+\item \(\gamma*\mu_z*P*Z\) is the zooplankton effiency \(\gamma\) (how mich the zooplankton eat is made into biomass) times the amount of zooplankton grazing (discussed above).
+\item \(\epsilon*Z\) is the quadratic (non-linear) density dependent function of zooplankton mortality.
+
+\item $$ \frac{dN}{dt} = -\frac{\mu_p*I(t)*N}{k+N}*P + (1-\gamma)*\mu_z*P*Z + S(t) $$
+
+\item \(-\frac{\mu_p*I(t)*N}{k+N}*P\) the amount of nutrients being used by phytoplankton (discussed above)
+\item \((1-\gamma)*\mu_z*P*Z\) the nutrients eaten by zooplankton but not assimilated. Think messy feeding.
+\item \(S(z)\) source of nutrients from deep boundary layer mixing
+\item \textbf{Unit list}
+\begin{itemize}
+\item \(\epsilon\) : \(\frac{1}{days}\)
+\item \(\mu\)\textsubscript{z} : \((\frac{\mu M}{kg})^{-1}*s^{-1}\)
+\item \(\mu\)\textsubscript{p} : \(\frac{1}{days}\)
+\item \(\gamma\) dimensionless
+\item s\textsubscript{m} dimensionless
+\item S(t)/S\textsubscript{0} : \((\frac{\mu M}{kg})*s^{-1}\)
+\end{itemize}
+\end{itemize}
+\section{}
+\label{sec:org005f507}
+\begin{itemize}
+\item S\textsubscript{0}= 0.1, s\textsubscript{m}=0.25, i\textsubscript{m}=0.5 ,\(\mu\)\textsubscript{p}=0.03 ,\(\mu\)\textsubscript{z}=0.0075 , \(\gamma\)=0.9, k=1, \(\epsilon\)=0.05
+\item N\textsubscript{0} = 30, Z\textsubscript{0}=10, P\textsubscript{0}=10
+\end{itemize}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./one_bloom.png}
+\end{center}
+\begin{itemize}
+\item S\textsubscript{0}= 0.1, s\textsubscript{m}=0.25, i\textsubscript{m}=0.5 ,\(\mu\)\textsubscript{p}=0.06 ,\(\mu\)\textsubscript{z}=0.015 , \(\gamma\)=0.8, k=1, \(\epsilon\)=0.05
+\item N\textsubscript{0} = 30, Z\textsubscript{0}=10, P\textsubscript{0}=10
+\end{itemize}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./two_bloom.png}
+\end{center}
+\section{}
+\label{sec:org9eba971}
+To me the model felt pretty delicate and not robust. But, I suspect that was largely because I don't have the requisite background knowledge about the real life ranges of each parameter. I also think model's that deal with boom and bust cycles of exponential growth are going to inherently be pretty delicate.
+\section{}
+\label{sec:orgaf0e6bf}
+Getting a better handle on the parameters would certainly help you model a real bloom. I think mu\textsubscript{z} and mu\textsubscript{p} could be studied in the laboratory. Obviously, S and I could be ascertained from climate data and ship measurements. Epsilon may be pretty hard to find though I suspect. Just because mortality of zooplankton is definitely not some simple fraction of their population per timestep. 
+
+I also wonder if you could be tricky and basically sweep the parameter space to find the best fit to a certain plankton bloom. Then you could see if the parameters you find generalize well to other blooms in other regions.
+
+\section{}
+\label{sec:org2da4437}
+First, I think this model can just be really unphysical. If your parameters aren't correct you can easily get infinite nutrient growth so straight from the get go this model will show things that don't actuall happen in the wild. This is also beacuse the model doesn't have all the checks and balances of the real ocean. It doesn't consider oxygen or CO2 and ignores predation of zooplankton etc\ldots{} 
+\end{document}

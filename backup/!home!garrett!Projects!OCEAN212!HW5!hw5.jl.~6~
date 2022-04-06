@@ -1,0 +1,48 @@
+using FFTW
+using Plots
+
+#f = (1/2)*im*exp.(-im*π*xj) - (1/2)*im*exp.(im*π*xj)
+
+# original_k = 1:N
+# shifted_k = fftshift(fftfreq(N)*N)
+
+# original_fft = fft(f)
+# shifted_fft = fftshift(fft(f))
+function spectral()
+    N = 32*2
+    xj = 2*(0:N-1)./N
+    f = -sin.(π*xj)
+    #k = fftshift(fftfreq(N))
+    #uk = fftshift(fft(f))
+    #k = fftshift(fftfreq(N))#*N
+    shifted_k = fftshift(fftfreq(N)*N)
+    println(shifted_k)
+    uk = fftshift(fft(f))
+    deltat=0.0001
+    t = 0
+    anim = Plots.Animation()
+    while true
+        t = t+deltat
+        dukdt = Array{Complex{Float64}}(undef,N)
+
+        advective= -((1/2).*im.*shifted_k.*fftshift(fft(ifft(ifftshift(uk)).^2)))
+        diffusive = -(0.003).*(shifted_k.^2).*uk
+        dukdt = advective.+diffusive
+        uk = uk.+(dukdt.*deltat)
+        # display(ifft(uk,N))
+        # plot(N,ifft(uk,N))
+        if (floor(t/deltat)%10000) ==0
+            sol = real(ifft(ifftshift(uk)))
+            if maximum(sol) > 10 || maximum(sol)<0.2 || t>1000
+                break
+            end
+            display(t)
+            println(maximum(sol))
+            plt = plot(sol,ylim=(-1.2,1.2))
+            Plots.frame(anim)
+        end
+    end
+    gif(anim, "first_try.gif", fps = 50)
+end
+
+spectral()

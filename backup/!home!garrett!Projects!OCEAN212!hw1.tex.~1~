@@ -1,0 +1,40 @@
+% Created 2022-01-20 Thu 15:04
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.4.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\tableofcontents
+
+\section{Homework 1 AOS 212A}
+\label{sec:org6152562}
+
+\subsubsection{Problem 1}
+\label{sec:org9d422e8}
+
+\begin{enumerate}
+\item a
+\label{sec:org5b2765a}
+\end{enumerate}
+\end{document}

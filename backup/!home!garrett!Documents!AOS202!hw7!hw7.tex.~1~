@@ -1,0 +1,69 @@
+% Created 2022-02-27 Sun 13:06
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Garrett Finucane}
+\date{\today}
+\title{AOS 202A - Homework 7}
+\hypersetup{
+ pdfauthor={Garrett Finucane},
+ pdftitle={AOS 202A - Homework 7},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.4.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+\section{}
+\label{sec:orged5067b}
+Potential Energy = \(\int \rho g dz\)
+
+Change in potential energy after mixing:
+
+$$\Delta PE = g(\rho_a*z_a + \rho_b*z_b) - g(\rho_a*z_b + \rho_b*z_a)$$
+
+$$\Delta PE = g(\rho_a - \rho_b)*(z_a-z_b)$$
+
+There are two angles we care about. The angle of the isopycnals \(\phi\) and the angle of parcel exchange \(\alpha\).
+
+We can assume that both angles are very small compared to the vertical displacement \(\Delta\) z . This means we can approximate sin(\(\alpha\)) as \(\alpha\) and cos(\(\alpha\)) as 1. 
+
+$$\Delta \rho = \Delta y * \frac{d\rho}{dy} + \Delta z * \frac{d\rho}{dz} = L*cos(\alpha) * cos(\alpha)*\frac{d\rho}{dy} + L*sin(\alpha)*\frac{d\rho}{dz} = L* \frac{d\rho}{dy} + L*\alpha*\frac{d\rho}{dz}$$
+
+
+
+\section{}
+\label{sec:org1ea0b2c}
+
+\section{}
+\label{sec:orga67af23}
+
+\section{}
+\label{sec:org28a6d09}
+
+\section{}
+\label{sec:orgad35e46}
+
+\section{}
+\label{sec:orge1724f0}
+
+\section{}
+\label{sec:orgb0a33c8}
+
+\section{}
+\label{sec:org8f6db44}
+\end{document}

@@ -1,0 +1,173 @@
+% Created 2022-02-15 Tue 06:41
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.4.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\tableofcontents
+
+\section{Grounding Line Points}
+\label{sec:orgc14083b}
+Given an ice mask I, let the set of grounding line points gl be the set of all points with floating sea ice with at least one adjacent landfast sea ice point.
+
+\section{Labelling connected components}
+\label{sec:org1278b8b}
+Labelling the connected components of a binary matrix is important throughout this writeup. Given a binary matrix M (a matrix composed completely of 1's and 0's). We'll construct a new matrix L. All points that are 0 in M are 0 in L. Every disconnected set of points in M is labelled in increasing natural numbers.
+
+\section{Finding Bathtubs (GLIBs)}
+\label{sec:orgb8472eb}
+\subsection{The exhaustive method}
+\label{sec:org9e8fea4}
+\begin{itemize}
+\item let p be a grounding line point in the set gl.
+\item let d\textsubscript{p} be the bed depth at the grounding line point p
+\item let N = 0
+\item * Consider the boolean matrix B of all bedvalues under d\textsubscript{p} + N
+\item let L be the labelled connected components of B
+\item let ocean\textsubscript{regions} be the set of all labels L[x] such that bed\textsubscript{depth}[x]<-2000 and I[x] != ice
+\item If L[p] is in ocean\textsubscript{regions}
+\begin{itemize}
+\item p is connected to the open ocean.
+\item If N=0, there is no GLIB
+\item If N!=0, the GLIB depth is d\textsubscript{p} +N and the GLIB is the set of all points x s.t. L[x] == L[p]
+\begin{itemize}
+\item For any point g not yet considered from gl, if L[g] == L[p] then d\textsubscript{p}+n is also the GLIB of g
+\end{itemize}
+\end{itemize}
+\item If L[p] is not in ocean\textsubscript{regions}
+\begin{itemize}
+\item Increase N by the step size (in testing 20 meters)
+\item Go to *
+\end{itemize}
+\item \textbf{Pros}
+\begin{itemize}
+\item Simple.
+\end{itemize}
+\item \textbf{Cons}
+\begin{itemize}
+\item Less cool than contour tree
+\item Somewhat slow, although quite fast really if you precompute labels on given stepsize.
+\item A bit myopic in that you really only learn about grounding line points
+\end{itemize}
+\end{itemize}
+\subsection{The contour tree method}
+\label{sec:org14ba84c}
+\begin{itemize}
+\item consider the set of bedvalues
+\item let all bedvalues under -2000 be set to -2000 to reduce bathymetric complexity offshore.
+\item let N=-2000
+\item let previous\textsubscript{slice} be a matrix of zeros of the shape bedvalues
+\item let region\textsubscript{map} be a matrix of zeros of the shape bedvalues
+\item Let's construct the contour tree
+\item for n from -2000 to 0 by stepsize
+\begin{itemize}
+\item let B be the boolean matrix of all bedvalues under n
+\item let L be the labelled connected components of B
+\item for every l in L
+\begin{itemize}
+\item consider the set of labels, P =  previous\textsubscript{slice}[l] (the projection of the current depth slice's region on the previous depth step)
+\item if P is all zero (our first slice) or if P contains more than one non-zero value
+\begin{itemize}
+\item Create a new region R\textsubscript{n} with depth n
+\item R\textsubscript{n} is the parent of all regions in P
+\item all regions of P are descendents of R\textsubscript{n}
+\item let region\textsubscript{map}[(l and previous\textsubscript{slice}==0)] = R\textsubscript{n}
+\item let the depth of R\textsubscript{n} be n
+\end{itemize}
+\item if P contains one non-zero value
+\begin{itemize}
+\item let region\textsubscript{map}[(l and previous\textsubscript{slice}==0)] = R\textsubscript{n}
+\end{itemize}
+\end{itemize}
+\item previous\textsubscript{slice} = L
+\item (I ignore the intricacies of actually making sure that the labelled connected components of B are labelled with the correct region\textsubscript{id})
+\end{itemize}
+\item finding the GLIB
+\item let the ocean regions be all regions which are deeper than 2000 and not completely coverd by ice.
+\item let p be a grounding line point in the set gl.
+\item let R\textsubscript{p} be the contour tree region p is in, easily found by R\textsubscript{p} = region\textsubscript{map}[p] ( the region id is really a function of x,y,z but because the groundline line point is at its bedvalue z is given by x and y)
+\item if R\textsubscript{p} has any descendents that are open ocean regions
+\begin{itemize}
+\item it is connected to the open ocean and there is no GLIB
+\end{itemize}
+\item if R\textsubscript{p} has no descendents that are open ocean regions
+\begin{itemize}
+\item * take R\textsubscript{parent} to be the parent region of R\textsubscript{p}
+\item if R\textsubscript{parent} has any open ocean regions as descendents
+\begin{itemize}
+\item then the GLIB is the depth of R\textsubscript{parent}
+\end{itemize}
+\item else
+\begin{itemize}
+\item let R\textsubscript{p} be R\textsubscript{parent} and go to *
+\end{itemize}
+\end{itemize}
+\item \textbf{pros}
+\begin{itemize}
+\item really just quite fun
+\item Very very fast after you've calculated the contour tree to find the GLIBs
+\item Gives you alot of information about the complete domain not just the groundling line
+\end{itemize}
+\item \textbf{cons}
+\begin{itemize}
+\item Maybe slightly slower than the completely optimized version of the exhaustive way
+\item A bit slow to calculate contour tree
+\end{itemize}
+\end{itemize}
+\section{Calculating Heat content}
+\label{sec:org3f2a1df}
+\begin{itemize}
+\item Mean offshore profile by shelf
+\begin{itemize}
+\item let shelf\textsubscript{ST} be a dictionary between shelf name and hydrographic profiles
+\item for shelf S in all shelves, where S is a polygon from rignot
+\begin{itemize}
+\item take all profiles within an arbitrary radius R of the centroid of S (R is 10\textsuperscript{6} in epsg3031)
+\item take the mean S(z) and T(z) within that radius from woa
+\item let shelf\textsubscript{ST}[S] = (S(z),T(z))
+\end{itemize}
+\end{itemize}
+\item consider the set of grounding line points gl
+\item let gl\textsubscript{z} be the set of grounding line points depths
+\item let gl\textsubscript{glib} be the set of greatest lower isobounds at grounding line points gl, and nan where there is no greatest lower isobath
+\item let Z be the gl\textsubscript{glib} where gl\textsubscript{glib} is not nan and gl\textsubscript{z} where it is
+\item let heat\textsubscript{content}\textsubscript{by}\textsubscript{shelf} be a dictionary between shelf names and a list of heat points
+\item let r be an arbitrary depth range to integrate over (5-100) seem to be pretty similar
+\item for every point p in gl and its associated p\textsubscript{z} from Z:
+\begin{itemize}
+\item let S be the closest shelf to point p (from rignot polygons)
+\item let f be the freezing point function
+\item let $$ H = \int_{p_z-r}^{p_z+r} T(z)-f(z,S(z)) dz$$
+\item add H heat\textsubscript{content}\textsubscript{by}\textsubscript{shelf}[S]
+\end{itemize}
+\item In practice:
+\begin{itemize}
+\item For every S,
+\begin{itemize}
+\item heats = heat\textsubscript{content}\textsubscript{by}\textsubscript{shelf}[S]
+\item filtered\textsubscript{heats} = heats[heats>median(heats)-2*std(heats) and heats<median(heats)+2*std(heats)]
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{document}

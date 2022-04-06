@@ -1,0 +1,99 @@
+% Created 2022-02-04 Fri 17:17
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Garrett Finucane}
+\date{\today}
+\title{AOS 212A - Homework 2}
+\hypersetup{
+ pdfauthor={Garrett Finucane},
+ pdftitle={AOS 212A - Homework 2},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.4.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+\section{FTBS}
+\label{sec:orgba6d87c}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./FTBS-r-c.png}
+\end{center}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./FTBS-r-d.png}
+\end{center}
+
+\begin{itemize}
+\item To make this stable I needed a \(delta_t\) of 0.001 to make this stable.
+\item Clearly diffuses in the cross stream direction.
+\item The maximum diffuses quickly (exponentially).
+\item The pulse slouches backwards in the along stream direction.
+\item The error increases linearly.
+\item It seems to conserve total U pretty well.
+\end{itemize}
+
+\section{AB3}
+\label{sec:org084104a}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./AB3-r-c.png}
+\end{center}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./AB3-r-d.png}
+\end{center}
+
+\begin{itemize}
+\item To make this stable I needed a \(delta_t\) of 0.00075 to make this stable. So clearly a smaller than FTBS.
+\item Doesn't diffuse much in the cross stream direction.
+\item Moves forward a tiny bit in the along stream direction.
+\item Does a great job at retaining the maximum.
+\item Error grows slower.
+\item Conserves total U very well.
+\end{itemize}
+
+
+\section{square}
+\label{sec:orgd6f7dc9}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./FTBS-s-c.png}
+\end{center}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./FTBS-s-d.png}
+\end{center}
+
+\begin{itemize}
+\item Immediately becomes very non square and diffuses super fast in both directions
+\item The maximum u value decreases very fast
+\item The error is larger than total U by the end of 10 cycles
+\end{itemize}
+
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./Ab3-s-c.png}
+\end{center}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./AB3-s-d.png}
+\end{center}
+
+\begin{itemize}
+\item CRAZY!!!
+\item Immediately becomes super funky.
+\item Alot of small scale noise almost like an aliasing error
+\item The maximum U is oddly discontinuous
+\item The minimum U goes below 0 which it doesn't do in any of ther other runs
+\item Error eclipses integrated U pretty quickly
+\end{itemize}
+\end{document}

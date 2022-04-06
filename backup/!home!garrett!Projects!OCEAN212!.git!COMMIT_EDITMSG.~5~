@@ -1,0 +1,21 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch main
+# Changes to be committed:
+#	renamed:    hw1.jl -> HW1/hw1.jl
+#	new file:   HW1/hw1.org
+#	new file:   HW1/hw1.pdf
+#	new file:   HW1/hw1.tex
+#	new file:   HW1/p2_a.png
+#	new file:   HW1/p2_b.png
+#	new file:   HW1/p2_errors.png
+#	new file:   HW1/p2_overview.png
+#	new file:   HW1/problem1_first.png
+#	new file:   HW1/problem1_richardson.png
+#	new file:   HW1/problem1_second.png
+#	new file:   HW2/FTBS.gif
+#	new file:   HW2/hw2.jl
+#	new file:   HW2/tutorial_anim_fps30.gif
+#

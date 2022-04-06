@@ -1,0 +1,122 @@
+% Created 2022-04-04 Mon 15:40
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\date{\today}
+\title{AOS 200D}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={AOS 200D},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.1 (Org mode 9.5.2)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+
+\section{Homework 1}
+\label{sec:orgf52b19d}
+Identify what you think the key story points are.
+Did the authors do good job of highlighting that story?
+How far along the flow from data to understanding did the paper go?
+Could they have taken it further?
+
+\subsection{Step 1}
+\label{sec:org60ba9c6}
+\subsubsection{Necessary Conditions for Warm Inflow Toward the Filchner Ice Shelf, Weddell Sea (Daae et al. 2020)}
+\label{sec:org6a5fee0}
+\begin{itemize}
+\item \textbf{What are the key story points?}
+\begin{itemize}
+\item Currently melt rates in the Filchner-Ronne ice shelf are low. What would conditions would need to be met for that to change?
+\item To investigate a regional model is setup and the effects of three changes independently and combined are explored: (i) lifting of the thermocline (ii) fresher surface waters due to melt (iii) changes in surface stress.
+\item They find that (i) and (ii) independently do little, but together they do a lot.
+\end{itemize}
+\item \textbf{Did the authors do good job of highlighting that story?}
+\begin{itemize}
+\item I think they did a very good job of highlighting the story. I enjoyed how they laid out exactly what they would do and then the results with little equivocating. It followed the scientific maxim of saying what you're going to do, doing what you said you'd do, and then saying what you did.
+\end{itemize}
+\item \textbf{How far along the flow from data to understanding did the paper go?}
+\begin{itemize}
+\item I think it went very far. It clearly outlined what mechanisms are required to change conditions in the Filchner-Ronne. It didn't explain how/when those conditions would be met but that was out of scope of their study.
+\end{itemize}
+\item \textbf{Could they have taken it further?}
+\begin{itemize}
+\item I think it is a perfect length because it clearly and concisely answers the question it was interested in. Any further work would have required widening the scope of the study.
+\end{itemize}
+\end{itemize}
+\subsubsection{Topography-mediated Transport of Warm Deep Water across the Continental Shelf Slope, East Antarctica (Liu et al. 2022)}
+\label{sec:org8087084}
+\begin{itemize}
+\item What are the key story points?
+\item Did the authors do good job of highlighting that story?
+\item How far along the flow from data to understanding did the paper go?
+\item Could they have taken it further?
+\end{itemize}
+\subsubsection{Multidecadal warming of Antarctic waters (Schmidtko et al. 2014)}
+\label{sec:orgbf20b75}
+\begin{itemize}
+\item What are the key story points?
+\item Did the authors do good job of highlighting that story?
+\item How far along the flow from data to understanding did the paper go?
+\item Could they have taken it further?
+\end{itemize}
+\subsubsection{Bistability of the Filchner-Ronne Ice Shelf Cavity Circulation and Basal Melt (Stewart et al. 2020)}
+\label{sec:org2f68af7}
+\begin{itemize}
+\item What are the key story points?
+\item Did the authors do good job of highlighting that story?
+\item How far along the flow from data to understanding did the paper go?
+\item Could they have taken it further?
+\end{itemize}
+
+\subsection{Step 2}
+\label{sec:org1ff146a}
+\subsubsection{}
+\label{sec:orgc5c12e9}
+In the Antarctic warm salty water which has the heat required to melt ice shelves from below lies underneath cold fresh water. Human caused climate change is warming this water and making it more shallow. Understanding how this warm water is able to access the grounding line of ice shelves is essential to predicting future melt. 
+\subsubsection{}
+\label{sec:orgf8c04eb}
+Can we estimate the mass loss of an ice shelf solely from the shape of its bathymetry and the depth of warm water at the shelf break?
+\subsubsection{}
+\label{sec:orgc7aeb2c}
+\begin{itemize}
+\item We have introduced a metric called the GLIB which estimates the depth which warm water must reach to access the grounding line of an ice shelf.
+\end{itemize}
+
+\subsubsection{}
+\label{sec:org03cdcc7}
+
+\subsection{Step 2}
+\label{sec:org9478474}
+\subsubsection{}
+\label{sec:org5878af0}
+In the Antarctic warm salty water which has the heat required to melt ice shelves from below lies underneath cold fresh water. Human caused climate change is warming this water and making it more shallow. Understanding how this warm water is able to access the grounding line of ice shelves is essential to predicting future melt. 
+\subsubsection{}
+\label{sec:org62f8dd4}
+Can we estimate the mass loss of an ice shelf solely from the shape of its bathymetry and the depth of warm water at the shelf break?
+\subsubsection{}
+\label{sec:org49b2583}
+\begin{itemize}
+\item We have introduced a metric called the GLIB which estimates the depth which warm water must reach to access the grounding line of an ice shelf.
+\item We have shown with observations that ice shelves whose GLIB's lie beneath the depth of the warm water have significantly more ice shelf mass loss.
+\item We have demonstrated the dynamics that drive the relationships we found in observations with numerically modelling.
+\end{itemize}
+\subsubsection{}
+\label{sec:org7e07f2d}
+In this work we have shown through observations and numerical modelling that the relationship between the depth of warm water off the shelf and the bathymetry of an ice shelf is the most important factor for ocean driven ice shelf melting. Using the relationship we have found between the ice shelf's bathymetry and ice shelf mass loss will allow us to make predictions of future melt.
+\end{document}

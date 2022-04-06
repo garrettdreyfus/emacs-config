@@ -1,0 +1,24 @@
+#+LATEX_HEADER: \usepackage{setspace}
+#+LATEX_HEADER: \doublespacing
+
+My aim in this paper is to provide a whirlwind tour of early literature addressing hydraulic control of rotating fluids and briefly try my own hand at estimating whether certain setups are hydraulically controlled
+
+* Sources
+  - definition of hydraulic:
+    - at the risk of being cliche: denoting, relating to, or operated by a liquid moving in a confined space under pressure. 
+  - Whitehead 1973 https://www.tandfonline.com/doi/abs/10.1080/03091927409365790
+    - aim not to produce detailed models but understanding the most elementary schemes
+    - laboratory experiments
+    - cool estimates of real life sills
+  - Gill 2006 https://www.cambridge.org/core/journals/journal-of-fluid-mechanics/article/abs/hydraulics-of-rotatingchannel-flow/9F60E4E7F489AB8B0E6A29F722F1913F
+  - Zhao 2019
+  - Pratt and Armi https://doi.org/10.1007/BF00876224
+  - the book andrew sent
+
+
+- Talk about Gil
+  - one layer
+- Talk about Whitehead
+  - two layer
+- Talk about Zhao
+- Do some scale analysis with GLIBs

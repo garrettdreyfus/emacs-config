@@ -1,0 +1,10 @@
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*-
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("org-capture-last-stored"
+ (filename . "~/org-roam/20220118103323-deep_inverse_modelling.org")
+ (front-context-string . "* TODO \n** TODO ")
+ (rear-context-string . "verse modelling\n")
+ (position . 100))
+)

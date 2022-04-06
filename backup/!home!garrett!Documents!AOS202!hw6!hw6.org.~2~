@@ -1,0 +1,29 @@
+#+title: AOS 202A - Homework 6
+#+author: Garrett Finucane
+  
+#+OPTIONS: toc:nil
+
+
+* 
+
+
+
+  
+  - *inprogress*
+  $$ \frac{dP}{dt} = \frac{\mu_p*I(t)*N}{k+N}*P - \mu_z*P*Z $$
+  - $\frac{dZ}{dt}$ is the change of phytoplankton concentration with time
+  - $\mu_z*P*Z$ is \mu_z, the coefficient that sets how effective zooplankton are at grazing, times the product of the amount of phytoplankton times the amount of zooplankton. How many phytoplankton are eaten basically
+  
+  - *done*
+  $$ \frac{dZ}{dt} = \gamma*\mu_z*P*Z - \epsilon*Z $$
+  - $\frac{dZ}{dt}$ is the change of zooplankton concentration with time
+  - $\gamma*\mu_z*P*Z$ is the zooplankton effiency \gamma (how mich the zooplankton eat is made into biomass) times the amount of zooplankton grazing (discussed above).
+  - $\epsilon*Z$ is the quadratic (non-linear) density dependent function of zooplankton mortality.
+
+  - *Done*
+  $$ \frac{dN}{dt} = -\frac{\mu_p*I(t)*N}{k+N}*P + (1-\gamma)*\mu_z*P*Z + S(t) $$
+
+  - $-\frac{\mu_p*I(t)*N}{k+N}*P$ the amount of nutrients being used by phytoplankton (discussed above)
+  - $(1-\gamma)*\mu_z*P*Z$ the nutrients eaten by zooplankton but not assimilated. Think messy feeding.
+  - $S(z)$ source of nutrients from deep boundary layer mixing
+

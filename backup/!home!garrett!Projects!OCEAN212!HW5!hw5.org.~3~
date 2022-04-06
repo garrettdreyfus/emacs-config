@@ -1,0 +1,28 @@
+#+title: AOS 212A - Homework 5
+#+author: Garrett Finucane
+#+OPTIONS: toc:nil
+
+* Spectral Method
+  I did the Fourier Galerkin with AB3 dealiasing and full factorization of diffusion. At 32 modes its a bit rough but noticably better at 256 modes. 
+  - 32 modes
+    - file name: spectral32.gif
+    - $\Delta t$: 0.01
+    - Run time: 13.7 seconds
+  - 256 modes
+    - file name: spectral256.gif
+    - $\Delta t$: 0.01
+    - Run time: 11.99 seconds (somehow faster don't ask me how)
+
+      
+* Finite Difference
+  I chose to do the second option which was euler forward time discretization with an upwind differentiation scheme and Euler backwards. I was really surprised by how well it performed.
+  - 32 modes
+    - file name: finitediff32.gif
+    - $\Delta t$: 0.001
+    - Run time: 12.7 seconds
+  - 256 modes
+    - file name: finitediff256.gif
+    - $\Delta t$: 0.001
+    - Run time: 19.7 seconds (somehow faster don't ask me how)
+
+

@@ -1,0 +1,68 @@
+% Created 2022-01-21 Fri 11:54
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\date{\today}
+\title{AOS 212A - Homework 1}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={AOS 212A - Homework 1},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.4.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+\section{Problem 1}
+\label{sec:org14d22f9}
+
+\subsection{a}
+\label{sec:org900ff98}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./problem1_first.png}
+\end{center}
+
+\subsection{b}
+\label{sec:org897afcd}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./problem1_second.png}
+\end{center}
+\subsection{c}
+\label{sec:orgb2ee29f}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./problem1_richardson.png}
+\end{center}
+
+\section{Problem 2}
+\label{sec:orga8b55a4}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./p2_overview.png}
+\end{center}
+
+\subsection{a}
+\label{sec:orgbc3348e}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./p2_a.png}
+\end{center}
+
+\subsection{b}
+\label{sec:org71a8a2a}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./p2_b.png}
+\end{center}
+\end{document}

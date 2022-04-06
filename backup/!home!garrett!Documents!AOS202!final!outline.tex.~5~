@@ -1,0 +1,82 @@
+% Created 2022-03-15 Tue 13:58
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{setspace}
+\author{Garrett Finucane}
+\date{\today}
+\title{AOS 202A - Hydraulic Control}
+\hypersetup{
+ pdfauthor={Garrett Finucane},
+ pdftitle={AOS 202A - Hydraulic Control},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.4.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+My aim in this paper is to provide a whirlwind tour of hydraulic control of rotating fluids and briefly try my own hand at estimating whether ice shelf cavities are hydraulically controlled. Much of the background summary information comes from Whitehead and Pratt's "Rotating Hydraulics", I then discuss Whitehead 1973, and Zhao 2019.
+
+In class much of our discussion of ocean dynamics was set in the large ocean interior where water is able to move more or less freely constrained only by the size of the basin. In the hydraulically controlled case, the circulation is fundamentally altered (controlled really) by the presence of an obstruction in its way. In Whitehead and Pratt's "Rotating Hydraulics" they begin with a discussion of the flow of information propagation along the flow. Below (Figure 1) is an example of a hydraulically controlled flow over a dam. One can imagine that if we were to start with the water surface in the shape of Figure 1 ,  we'd expect the water to equilibrate to be driven horizontal by surface gravity waves in no time especially down stream of the dam where the surface is nearly vertical. In the hydraulically controlled case where there is a significant up stream velocity which only accelerates as it passes over the dam the water is travelling faster than surface gravity waves and therefore whatever is happening downstream of the dam does not affect what is happening up stream. When the velocity of the flow exceeds the velocity of the waves it is dubbed \emph{supercritical}, when the velocity is less than the speed of the waves the flow is \emph{subcritical}, and when the velocity is equivalent to the speed of the waves such that they are frozen in space the flow is \emph{critical}.
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./Figure1.png}
+\end{center}
+
+While dam's are fun to look at for the curious fluid dynamics student, the chance that one would see this phenomenon in the ocean can at first seem small. Afterall an ocean current would have to  exceed 30 m/s even in a relatiavely shallow 100m depth to exceed the speed of surface gravity waves. However, if we consider the chance that an ocean current would exceed the speed of the propagation of internal gravity waves which travel along density interfaces with a speed relative to the background vertical density gradient, it becomes far less far fetched. 
+
+The 1974 paper "Rotating Hydraulics of Strait and Sill Flows" written by Whitehead et al. explores the theory of the hydraulic control of a rotating two layer fluid. Their idealised setup considers the flow from one basin to another (Figure 2) through a constriction, in which the cross stream is geostrophically balanced and potential vorticity is conserved. In other words it is semi-geostrophic.
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./Figure2.png}
+\end{center}
+
+semi-geostrophic assumption, potential vorticity assumption, state assumption
+
+
+\section{Sources}
+\label{sec:org1c193fe}
+\begin{itemize}
+\item definition of hydraulic:
+\begin{itemize}
+\item at the risk of being cliche: denoting, relating to, or operated by a liquid moving in a confined space under pressure.
+\end{itemize}
+\item Whitehead 1973 \url{https://www.tandfonline.com/doi/abs/10.1080/03091927409365790}
+\begin{itemize}
+\item aim not to produce detailed models but understanding the most elementary schemes
+\item laboratory experiments
+\item cool estimates of real life sills
+\end{itemize}
+\item Gill 2006 \url{https://www.cambridge.org/core/journals/journal-of-fluid-mechanics/article/abs/hydraulics-of-rotatingchannel-flow/9F60E4E7F489AB8B0E6A29F722F1913F}
+\item Zhao 2019
+\item Pratt and Armi \url{https://doi.org/10.1007/BF00876224}
+\item the book andrew sent
+\end{itemize}
+
+
+\begin{itemize}
+\item Talk about Gil
+\begin{itemize}
+\item one layer
+\end{itemize}
+\item Talk about Whitehead
+\begin{itemize}
+\item two layer
+\end{itemize}
+\item Talk about Zhao
+\item Do some scale analysis with GLIBs
+\end{itemize}
+\end{document}

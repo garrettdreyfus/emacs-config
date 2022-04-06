@@ -1,0 +1,67 @@
+% Created 2022-03-13 Sun 16:18
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Garrett Finucane}
+\date{\today}
+\title{AOS 212A - Homework 5}
+\hypersetup{
+ pdfauthor={Garrett Finucane},
+ pdftitle={AOS 212A - Homework 5},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.4.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+\section{Spectral Method}
+\label{sec:orga6ea0f1}
+I did the Fourier Galerkin with AB3 dealiasing and full factorization of diffusion. At 32 modes its a bit rough but noticably better at 256 modes. 
+\begin{itemize}
+\item 32 modes
+\begin{itemize}
+\item file name: spectral$\backslash$\textsubscript{32.gif}
+\item \(\Delta t\): 0.01
+\item Run time: 13.7 seconds
+\end{itemize}
+\item 256 modes
+\begin{itemize}
+\item file name: spectral$\backslash$\textsubscript{256.gif}
+\item \(\Delta t\): 0.01
+\item Run time: 11.99 seconds (somehow faster don't ask me how)
+\end{itemize}
+\end{itemize}
+
+
+\section{Finite Difference}
+\label{sec:org6209479}
+I chose to do the second option which was euler forward time discretization with an upwind differentiation scheme and Euler backwards. I was really surprised by how well it performed.
+\begin{itemize}
+\item 32 modes
+\begin{itemize}
+\item file name: finite$\backslash$\textsubscript{diff}$\backslash$\textsubscript{32.gif}
+\item \(\Delta t\): 0.001
+\item Run time: 12.7 seconds
+\end{itemize}
+\item 256 modes
+\begin{itemize}
+\item file name: finite$\backslash$\textsubscript{diff}$\backslash$\textsubscript{256.gif}
+\item \(\Delta t\): 0.001
+\item Run time: 19.7 seconds (somehow faster don't ask me how)
+\end{itemize}
+\end{itemize}
+\end{document}

@@ -1,0 +1,65 @@
+:PROPERTIES:
+:ID:       50feab23-6c0e-484e-ac52-aa1ffaf6eadd
+:END:
+#+title: AOS 200D
+
+#+author: Garrett Finucane
+#+OPTIONS: toc:nil
+
+* Homework 1
+** Step 1
+*** Necessary Conditions for Warm Inflow Toward the Filchner Ice Shelf, Weddell Sea (Daae et al. 2020)
+     - *What are the key story points?*
+       - Currently melt rates in the Filchner-Ronne ice shelf are low. What would conditions would need to be met for that to change?
+       - To investigate a regional model is setup and the effects of three changes independently and combined are explored: (i) lifting of the thermocline (ii) fresher surface waters due to melt (iii) changes in surface stress.
+       - They find that (i) and (ii) independently do little, but together they do a lot.
+     - *Did the authors do good job of highlighting that story?*
+       - I think they did a very good job of highlighting the story. I enjoyed how they laid out exactly what they would do and then the results with little equivocating. It followed the scientific maxim of saying what you're going to do, doing what you said you'd do, and then saying what you did.
+     - *How far along the flow from data to understanding did the paper go?*
+       - I think it went very far. It clearly outlined what mechanisms are required to change conditions in the Filchner-Ronne. It didn't explain how/when those conditions would be met but that was out of scope of their study.
+     - *Could they have taken it further?*
+       - I think it is a perfect length because it clearly and concisely answers the question it was interested in. Any further work would have required widening the scope of the study.
+*** Topography-mediated Transport of Warm Deep Water across the Continental Shelf Slope, East Antarctica (Liu et al. 2022)
+     - What are the key story points?
+       - How does warm deep water get transported on shelf in submarine troughs?
+       - Three mechanisms are explored in high resolution coupled ice ocean models (i) bottom pressure torque (ii) bathymetry beta spiral (iii) topography Rossby waves.
+       - 
+     - Did the authors do good job of highlighting that story?
+       - Their boundary conditions choice of modelling seasons by tripling the volume flux but leaving the temperature and salinity unchanged was very confusing to me.
+       - I found the discussion of bottom pressure torque unintuitive and confusing.
+       - I think they spend too much time explaining the math without giving intuition or explanation of it.
+     - How far along the flow from data to understanding did the paper go?
+       - I found it not far enough on the route to understanding. I felt it was heavy on model results and math, but I wasn't thoroughly convinced of their conclusions purpose or realism.
+     - Could they have taken it further?
+       - I think they could have. I think this study is reminiscent of similar studies of troughs in ice shelf cavities and doesn't add very much. One question that is pressing to me is if this very idealized channel geometry adequately affects real troughs, and if their choice of side boundary conditions is artificially skewing their results.
+*** Multidecadal warming of Antarctic waters (Schmidtko et al. 2014)
+     - What are the key story points?
+       - Ice shelf melting is largely driven by ocean basal melting.
+       - Changes in antarctic shelf bottom water are representative of processes changing across Antarctica as a whole.
+       - Compiled large observational datasets to find the regional and temporal patterns of ASBW change.
+       - Temperature trends are uniform across shelf, but salinities have a cross shelf gradient.
+       - CDW is warming and shallowing basically everywhere but northeastern Antarctica.
+       - CDW warming is driving ASBW warming which leads to basal melt.
+     - Did the authors do good job of highlighting that story?
+       - I thought so yes! They clearly analyzed the data to find trends in CDW and ASBW and discussed how their correlation affected basal melt rate. 
+     - How far along the flow from data to understanding did the paper go?
+       - I thought it was closer to data... but not in a bad way. I think sometimes it's good to establish things as a good reference and touch stone. I think there is a reason why grad students like me are still reading this in 2014.
+     - Could they have taken it further?
+       - I don't think they should have. I think it is clear concise and useful as it is. I really like it!
+*** Bistability of the Filchner-Ronne Ice Shelf Cavity Circulation and Basal Melt (Stewart et al. 2020)
+     - What are the key story points? 
+     - Did the authors do good job of highlighting that story?
+     - How far along the flow from data to understanding did the paper go?
+     - Could they have taken it further?
+** Step 2
+*** Opening
+    In the Antarctic warm salty water which is hot enough to melt ice shelves lies underneath cold fresh water. Human caused climate change is warming this water further and making it more shallow. Understanding how this warm water is able to access the grounding line of ice shelves is essential to predicting future melt. 
+*** Question
+     Can we estimate the mass loss of an ice shelf solely from the shape of its bathymetry and the depth of warm water at the shelf break?
+*** Key Points
+     - We have introduced a metric called the GLIB which estimates the depth which warm water must reach to access the grounding line of an ice shelf.
+     - We have shown with observations that ice shelves whose GLIB's lie beneath the depth of the warm water have significantly more ice shelf mass loss.
+     - We have demonstrated the dynamics that drive the relationships we found in observations with numerically modelling.
+*** Main conclusion
+    In this work we have shown through observations and numerical modelling that the relationship between the depth of warm water off the shelf and the bathymetry of an ice shelf is the most important factor for ocean driven ice shelf melting. Using the relationship we have found between the ice shelf's bathymetry and ice shelf mass loss will allow us to make predictions of future melt.
+    

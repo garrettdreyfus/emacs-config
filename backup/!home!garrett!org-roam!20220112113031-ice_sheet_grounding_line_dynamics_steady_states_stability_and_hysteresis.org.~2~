@@ -1,0 +1,22 @@
+:PROPERTIES:
+:ID:       d6a68843-daa5-49af-ba18-194e7421c8f4
+:END:
+#+title: Ice sheet grounding line dynamics: Steady states, stability, and hysteresis
+
+* Reading Notes
+  - hysteris is when outcome lags forcing
+  - Schoof says that downward sloping grounding lines are unstable so most of WAIS is likely unstable. That seems like maybe it could be true but only on really long time frames right? and at that point is it kinda a moot point
+  - (1) divergence of ice height is equivalent to change in height with time + accumulation
+  - longitudinal stress + shear stress + driving stress = 0
+  - longitudinal stress is what exactly
+  - rho ice * h = rho water * depth, I dont really understnad this at all
+  - At the calving front there is an imbalance between hydrostatic pressure in ice and water due to the buoyancy of ice. Why?
+  - They say calving rate doesn't matter... to me it follows that if calving rate exceeds ice production you have problems
+  - */NO ICE RUMPLES/*
+  - Figure 3 seems contradictory to me
+  - kinda confused by the difference between the two models
+
+* Thoughts
+  - Would be fun to run these tests with bahtymetry representative of various ice shelves
+    - spline fit the bathymetry roughly normal to the ice shelf front
+    - 

@@ -1,0 +1,124 @@
+% Created 2022-02-15 Tue 17:09
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Garrett Finucane}
+\date{\today}
+\title{AOS 202A - Homework 5}
+\hypersetup{
+ pdfauthor={Garrett Finucane},
+ pdftitle={AOS 202A - Homework 5},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.4.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+\section{}
+\label{sec:orgc6b524f}
+\subsection{}
+\label{sec:orgf083b01}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./1a.png}
+\end{center}
+\subsection{}
+\label{sec:org03c9e46}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./1b.png}
+\end{center}
+\subsection{}
+\label{sec:orgb97837d}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./1c.png}
+\end{center}
+\subsection{}
+\label{sec:org9cb2e72}
+If Q isn't 0 that extra energy has to be advected (or I guess diffused) out of the one column we're considering.
+\subsection{}
+\label{sec:org57ae7de}
+If Q is non zero that means the water column is either cooling or heating from above. If it was heating we would expect the profile to be warmer, and for the water column to become more stably stratified making the mean h shallower. If it was cooling the column would be becoming less stably stratified and therefore for mean h to be deeper
+
+\section{}
+\label{sec:orgda272b7}
+$$ h = \frac{2*m*u_*^3}{g*\alpha_T*H/(\rho*C_p)} $$
+\subsection{}
+\label{sec:org40773c9}
+$$ h = \frac{(m/s)^3}{(m/s^2)*K^{-1}*J*s^{-1}*m^{-2}/(kg* m^{-3} (J kg^{-1} K^{-1}))} $$
+$$ h = \frac{m^3/s^3}{(m/s^2)*J*s^{-1}*m^{-2}/(m^{-3} J ))} $$
+$$ h = \frac{m^3/s^3}{(m*s^{-3})*m^{-2}/(m^{-3}))} $$
+$$ h = \frac{m^3}{(m)*m^{-2}/(m^{-3}))} $$
+$$ h = \frac{m^2}{m} = m $$
+\subsection{}
+\label{sec:org2c8d029}
+$$ \tau = \rho_{air}*c_d*u_{air}^2 $$
+$$ \tau = 1.2 kg*m^{-3} *1.14*10^{-3}*(10ms^{-1})^2 = 0.137 kg/(m*s^2)$$
+$$ u_* = (\frac{\tau}{\rho})^{-2} = (\frac{0.137 kg/(m*s^2)}{1000 kg*m^{-3}})^{-2} = 0.012 ms^{-1}$$
+\subsection{}
+\label{sec:org4525d31}
+$$ h = \frac{2*m*u_*^3}{g*\alpha_T*H/(\rho*C_p)} $$
+$$ h = \frac{2*1.5*10^{-3}*(\frac{1000 kgm^{-3}}{1.2*1.14*10^{-3}})^{0.5}*(0.012 ms^{-1})^3}{(9.81 ms^{-2})*2*10^{-4}K^{-1}*200Wm^{-2}/(10^3kgm^{-3}*4186 Jkg^{-1}*K^{-1})} $$
+$$ h =  48 m$$
+\subsection{}
+\label{sec:orgfce75cc}
+u\textsubscript{*} varies linearly with u\textsubscript{air}, which means that a doubling of u\textsubscript{air} would lead to a 2\textsuperscript{3} = 8 fold increase in h. H is inveresly related to h so a doubling of surface heating would halve h.
+
+
+\section{{\bfseries\sffamily INPROGRESS} }
+\label{sec:org052e8d5}
+\subsection{}
+\label{sec:orgb94df70}
+TKE is a measure of the amount of turbulence therefore dissapation. Regions of higher TKE correspond to regions of more uniform T and S. Put another way \(\frac{dT}{dz}\) and \(\frac{dS}{dz}\) are inversley related to TKE.
+\subsection{}
+\label{sec:org41f6253}
+In the after heating profile we would expect dissapation to increase with depth as the temperature becomes more uniform with depth. The strong buoyancy gradient of the thermocline should suppress and limit the amount of TKE and dissapation.
+
+In the after wind mixing profile we would expect very high TKE and dissapation in the well mixed layer over which temperature is relatively uniform. The TKE and disspation will decline very steeply at the nearly horizontal gradient of temperature at the base of mixed layer.
+
+In the after cooling mixed layer, we would expect substansial TKE over basically the whole depth of the temperature profile as temperature is largely homogenous with depth.
+\subsection{}
+\label{sec:orged94d12}
+I decided to do this in list form
+
+Similarities
+\begin{itemize}
+\item cycles of heating and cooling which stabilize and destabilize the boundary layer
+\item increases in primary productivity during day/seasons of more light
+\item Mixing during night/winter makes nutrients avaible for times when there is sun (spring/day)
+\end{itemize}
+
+Differences
+\begin{itemize}
+\item different time scales
+\item on the seasonal time scale there are much larger differences in phytoplankton biomass
+\item Much larger and persistent changes in mixed layer depth on the annual time scale
+\end{itemize}
+
+\section{DONE}
+\label{sec:org976bf97}
+Surface waves cause stokes drift transport which interacts with the wind induced current to drive langmuir circulation which greatly enhances the vertical mixing. This acts to deepen the wind-driven boundary layer. I thought the simulation on slide 29 of the surface layer physics lecture did a great job of showing the dramatic increase in the turbulent boundary layer that occurs when there are strong surface waves.
+
+\section{{\bfseries\sffamily DONE} }
+\label{sec:org57fc85e}
+There are cold core and warm core eddies which drive the thermocline shallower and deeper respectively. A passing cold core eddie would decrease the temperature and depth of the mixed layer. A warm core eddie on the other hand would increase the temperature and increase the depth of the mixed layer.
+
+\section{{\bfseries\sffamily DONE} }
+\label{sec:orga0aaa74}
+If photosynthesis exceeds respiration there is a net gain in organic matter, if respiration exceeds photosynthesis there is a net loss in organic matter. Photosynthesis is high in the euphotic zone and decays exponentially with depth due to lack of light. On the other hand, respiration is nearly constant with depth as heterotrophs do not depend on light. Sverdrup's critical depth is the depth at which the vertically integrated respiration is equivalent to the vertically integrated photosynthesis. If the mixed layer is shallower than the critical depth than primary producers are performing photosynthesis more than they are being eaten. If the mixed layer depth is deeper than the critical depth than primary producers are being eating more than they are able to photosynthesize. Therefore, the critical depth is the depth the mixed layer must be shallower than for there to be an algal bloom.
+
+\section{{\bfseries\sffamily TODO} }
+\label{sec:org30e3609}
+\end{document}

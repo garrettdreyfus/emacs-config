@@ -1,0 +1,149 @@
+% Created 2022-02-08 Tue 14:47
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Garrett Finucane}
+\date{\today}
+\title{AOS 202A - Homework 4}
+\hypersetup{
+ pdfauthor={Garrett Finucane},
+ pdftitle={AOS 202A - Homework 4},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.4.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+\section{{\bfseries\sffamily DONE} }
+\label{sec:orgcbc5804}
+\subsection{Calculations}
+\label{sec:orgc8218f7}
+WF Q12.1 tells us we can use the equation \(\rho * C_p \Delta\theta *T\) where T is volume transport in \(m^3s^{-1}\).
+We can treat \(\rho\) and C\textsubscript{p} as constants with values \(1025.0 \frac{kg}{m^3}\) and \(3850 \frac{J}{kg K}\)
+Let's use the North Atlantic values from WFQ12.1
+
+\begin{itemize}
+\item Mid latitude Gyre (MLG)
+\begin{itemize}
+\item \(\Delta\theta = 2K\)
+\item \(T = 30 Sv\)
+\end{itemize}
+\item Meridional Overturning Circulation (MOC)
+\begin{itemize}
+\item \(\Delta\theta = 15K\)
+\item \(T = 15 Sv\)
+\end{itemize}
+\end{itemize}
+
+So heat transport for the each is:
+
+\(HT_{MLG} = 1025.0 \frac{kg}{m^3} * 3850 \frac{J}{kg K} * 2K * 30 Sv = 236.8 TW\)
+
+\(HT_{MOC} = 1025.0 \frac{kg}{m^3} * 3850 \frac{J}{kg K} * 15K * 15 Sv = 887.9 TW\)
+
+\subsection{Discussion of sensitivity}
+\label{sec:org89429c6}
+I would expect the equations to be relatively insensitive to variations in the actual density and heat capacity. Here we treated them as constants that are invariant with depth and location. They of course vary but probably by less than 1\% of their total value. Out of the transport and the temperature gradient it seems that the temperature gradient is the more important/sensitive quantity. The MOC and MLG differ in transport by a factor of 2, but differ in temperature gradient by a factor of 7.5. 
+
+\section{{\bfseries\sffamily DONE} }
+\label{sec:orgd9d27c1}
+
+\subsection{Qualitative}
+\label{sec:org5ba7869}
+Without  loss of generality let's focus on the Northern Hemisphere. In the Northern Hemisphere water the balance between pressure gradient force and the coriolis acceleration drives geostrophic velocitys 90 degrees to the right of the pressure gradient. So for the overturning circulation in the northern hemisphere which has water going poleward at the surface and equatorward at depth we would expect \(\frac{dP}{dx}\) to be positive at the surface (increasing eastward) and negative at depth (increasing westward).
+
+\subsection{Quantitative}
+\label{sec:org92205c3}
+Following WF12.2 we can define the total meridional transport by \(\int_{-d_{ref}}^{z=0} \int_{x_w}^{x_e} v_g dxdz\). Substituting in the geostrophic relation \(\frac{1}{\rho_0 f}*\frac{dP}{dx} = v_g\)
+
+\(T_{MOC} = \int_{-d_{ref}}^{z=0} \int_{x_w}^{x_e} \frac{1}{\rho_0 f}*\frac{dP}{dx}  dxdz\)
+
+\(T_{MOC} = \frac{1}{\rho_0 f} * \int_{-d_{ref}}^{z=0} \int_{x_w}^{x_e} \frac{dP}{dx}  dxdz\)
+
+\(T_{MOC} = \frac{1}{\rho_0 f} * \int_{-d_{ref}}^{z=0} (P(x_e)-P(x_w)) dz\)
+
+So using the estimate of 15 Sv as the volume transport of the MOC in the northern hemisphere, we can estimate the pressure gradient by assuming its constant to the level of no motion (it has to reverse underneath the level of no motion to drive water equatorward at depth). Let the level of no motion be about 2500m.
+
+$$(P(x_e)-P(x_w)) = \frac{T_{MOC}*(\rho_0*f)}{d_{ref}} \approx 0.03 dbar \approx 3 cm $$
+
+That means we'd expect a very small 3cm difference between the eastern and western boundary which seems about right.
+
+\section{{\bfseries\sffamily DONE} }
+\label{sec:orgc8487ba}
+\subsection{}
+\label{sec:orgfd2bc10}
+$$\omega \frac{dT}{dz} = \kappa \frac{d T^2}{d z^2} \approx \omega \frac{T}{H} = \kappa \frac{T}{Hz^2^2} \implies \omega = \frac{\kappa}{H}$$ 
+\subsection{}
+\label{sec:orgaa1c21a}
+$$ \beta *v = f \frac{d\omega}{dz} \approx  v = f \frac{\omega}{H * \beta}$$ 
+
+$$ v = f \frac{\omega}{H * \beta} \approx  f \frac{k}{H^2 * \beta} $$ 
+\subsection{}
+\label{sec:orgadfbe4a}
+$$\omega = \frac{\kappa}{H} \approx \frac{10^{-4} m^2 s^{-1}}{3000m} \approx 3.333 * 10^{-8} m s^{-1}$$
+let f = 10\textsuperscript{-4} s\textsuperscript{-1} and \(\beta\) = 10\textsuperscript{-11} s\textsuperscript{-1} m\textsuperscript{-1}
+$$v = f \frac{\omega}{H * \beta} \approx  10^{-4} s^{-1} * \frac{3.333 * 10^{-8} m s^{-1}}{3000m * 10^{-11} s^{-1} m^{-1}} \approx 1.1*10^{-4} m s^{-1}$$
+$$ T = v*H*L_x = 1.1*10^{-4} m s^{-1}*3000 m * 5000000 m = 1.65 Sv$$
+\subsection{}
+\label{sec:org1ba7008}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./3d.png}
+\end{center}
+\subsection{}
+\label{sec:org879a39b}
+A larger mixing value on the eastern boundary would drive more velocity and more transport on the eastern side of the basin. This would mean interior flows would be mostly zonal. 
+\subsection{}
+\label{sec:org85c8ca4}
+I would say the Stommel-Aarons model gives a great first approximation of abyssal ocean circulation. It doesn't account for the complications of topography, both due to mixing and the change in vorticity (see QG model). I think the model does allow for changes in the mixing coefficient but our simple implementation of it doesn't. Is really looking at large spatial scale large temporal scale abyssal flows. 
+
+\section{{\bfseries\sffamily TODO} }
+\label{sec:orgb8fd6da}
+\begin{itemize}
+\item Spring and summer blooms due to sunlight
+\begin{itemize}
+\item nutrients rapidly consumed during bloom halting growth
+\end{itemize}
+\item nutrients come from upwelling of biogenic material but also from dust born nutrients like iron
+\item 
+\end{itemize}
+\section{{\bfseries\sffamily TODO} }
+\label{sec:org12b60c9}
+\section{{\bfseries\sffamily TODO} }
+\label{sec:org1daaba3}
+\section{{\bfseries\sffamily TODO} }
+\label{sec:orgbd72bbe}
+\section{{\bfseries\sffamily TODO} }
+\label{sec:orgfdd11eb}
+I'm going to use the equations from the slides and then plug it into a computer! Sagemath if you were wondering
+
+\begin{verbatim}
+
+sage: D = 2100
+sage: A = 2300
+sage: f1 = C1 + C2 + C3
+sage: f2 = C2 + 2 * C3 - H
+sage: f3 = C1 / pC
+sage: f4 = (C2 * H) / C1
+sage: f5 = (C3 * H) / C2
+sage: K0 = 0.033
+sage: K1 = 1.3*(10^-6)
+sage: K2 = (9.1) * (10 ^ -10)
+sage: solve([f1 == D, f2 == A, f3 == K0, f4 == K1, f5 == K2], C1, C2, C3, H, pC)
+[[C1 == 2100.0, C2 == (-1.18695653464083e-06), C3 == (4.69621927947076e-19), H == -2300.0, pC == 63636.36363636364], [C1 == -217.5450980392157, C2 == 2335.090163934426, C3 == -17.54510800508259, H == (-1.21112515343442e-07), pC == -6592.275862068966], [C1 == 11.64859813084112, C2 == 1876.702702702703, C3 == 211.6485943775101, H == (8.06903316078109e-09), pC == 352.9878048780488]]
+
+\end{verbatim}
+\end{document}

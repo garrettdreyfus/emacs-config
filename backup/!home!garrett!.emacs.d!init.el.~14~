@@ -1,0 +1,217 @@
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("c25d5ef5851d3036897e21f66d26bc1fa2a5ba89dbd15540604884a2fd163cc1" "ec3e6185729e1a22d4af9163a689643b168e1597f114e1cec31bdb1ab05aa539" "ffac21ab88a0f4603969a24b96993bd73a13fe0989db7ed76d94c305891fad64" "b0c5c6cc59d530d3f6fbcfa67801993669ce062dda1435014f74cafac7d86246" "c2efd2e2e96b052dd91940b100d86885337a37be1245167642451cf6da5b924a" "41eb3fe4c6b80c7ad156a8c52e9dd6093e8856c7bbf2b92cc3a4108ceb385087" "f5f3a6fb685fe5e1587bafd07db3bf25a0655f3ddc579ed9d331b6b19827ea46" "04790c9929eacf32d508b84d34e80ad2ee233f13f17767190531b8b350b9ef22" "428bdd4b98d4d58cd094e7e074c4a82151ad4a77b9c9e30d75c56dc5a07f26c5" "c614d2423075491e6b7f38a4b7ea1c68f31764b9b815e35c9741e9490119efc0" "1d079355c721b517fdc9891f0fda927fe3f87288f2e6cc3b8566655a64ca5453" "34ed3e2fa4a1cb2ce7400c7f1a6c8f12931d8021435bad841fdc1192bd1cc7da" default))
+ '(evil-undo-system 'undo-tree)
+ '(helm-minibuffer-history-key "M-p")
+ '(ls-lisp-verbosity nil)
+ '(package-selected-packages
+   '(vterm doom-modeline nano-modeline julia-mode helm-bibtex magit org-roam-ui emacsql-sqlite3 org-roam-bibtex org-roam helm-bibtexkey undo-tree dashboard ivy-bibtex org-ref evil-magit base16-theme treemacs evil-org helm evil)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-scheduled ((t (:foreground "dark orange"))))
+ '(variable-pitch ((t (:family "Source Serif Pro")))))
+(eval-when-compile
+  ;; Following line is not needed if use-package.el is in ~/.emacs.d
+  (require 'use-package))
+
+(use-package evil
+:ensure t
+:init
+(setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+(setq evil-want-keybinding nil)
+(setq org-roam-database-connector 'sqlite3)
+:config
+(evil-mode 1))
+(use-package evil-collection
+:after evil
+:ensure t
+:config (evil-collection-init))
+    (use-package base16-theme )
+    (use-package eradio)
+    (use-package org-download)
+    (use-package origami 
+	:hook (global-origami-mode))
+    (use-package helm )
+    (use-package neotree )
+    (use-package evil-leader )
+    ;(use-package evil-magit )
+    (use-package org-bullets)
+    (use-package helm-bibtex)
+    (use-package evil-org-agenda)
+    (use-package org)
+    (use-package ivy)
+    (use-package eyebrowse)
+    (use-package magit)
+    (use-package poet-theme)
+    (use-package apropospriate)
+    (require 'ls-lisp)
+    (setq ls-lisp-use-insert-directory-program nil)
+    (use-package undo-tree
+    )
+    (use-package org-roam
+	:after org
+	:custom
+	(setq org-roam-directory (file-truename "/home/garrett/org-roam"))
+	:bind
+	("C-c n l" . org-roam)
+	("C-c n t" . (lambda () (interactive) (find-file "~/org-roam/20201020103239-daily.org")))
+	("C-c n f" . org-roam-node-find)
+	("C-c n i" . org-roam-node-insert)
+	("C-c n b" . org-roam-buffer-toggle)
+	)
+    (use-package org-roam-bibtex
+        :config (org-roam-db-autosync-mode) (require 'org-ref)
+        :after org-roam)
+
+    (use-package dashboard :ensure t :config (dashboard-setup-startup-hook))
+
+(evil-mode 1)
+(with-eval-after-load 'evil-maps (define-key evil-motion-state-map (kbd "RET") nil))
+(global-evil-leader-mode)
+(evil-leader/set-leader "<SPC>")
+;(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+(evil-org-agenda-set-keys)
+(evil-leader/set-key
+	"m a" 'org-agenda
+	"a a" 'org-archive-done-tasks
+	"f s" 'save-buffer
+	"<SPC>" 'execute-extended-command
+	"g s" 'magit-status-here
+	"b b" 'helm-recentf
+	"w d" 'evil-window-delete
+	"w v" 'evil-window-vsplit
+	"t l" 'toggle-truncate-lines
+	"m i c" 'orb-insert-link
+	"b n" 'next-buffer
+	"b p" 'previous-buffer
+	"r p" 'eradio-play
+	"r s" 'eradio-stop
+	"n f" 'org-roam-node-find
+	"n i" 'org-roam-node-insert
+	"n b" 'org-roam-buffer-toggle
+	"c r" 'comment-region
+	"c l" 'comment-line
+	"c d" 'org-deadline
+	"l w 0 " 'eyebrowse-switch-to-window-config-0
+	"l w 1 " 'eyebrowse-switch-to-window-config-1
+	"l w 2 " 'eyebrowse-switch-to-window-config-2
+	"l w 3 " 'eyebrowse-switch-to-window-config-3
+	"l w 4 " 'eyebrowse-switch-to-window-config-4
+	"l w 5 " 'eyebrowse-switch-to-window-config-5
+	"l w 6 " 'eyebrowse-switch-to-window-config-6
+	"l w 7 " 'eyebrowse-switch-to-window-config-7
+	"l w 8 " 'eyebrowse-switch-to-window-config-8
+	"l w 9 " 'eyebrowse-switch-to-window-config-9
+	;; "e" 'mu4e
+	"p t" 'neotree-toggle)
+
+(setq org-todo-keywords
+	    '((sequence "TODO" "INPROGRESS" "WAITING" "|" "DONE")))
+    (setq org-todo-keyword-faces
+	    '(("TODO" . "red") ("INPROGRESS" . "orange") ("WAITING" . (:foreground "blue" :weight bold))))
+(add-hook 'org-mode-hook 'evil-org-mode)
+
+(setq org-agenda-block-separator (string-to-char " "))
+    (setq org-deadline-warning-days 0)
+
+    (setq org-agenda-files (list "/home/garrett/org-roam/20200915220906-topobaric.org"
+    	"/home/garrett/org-roam/20200930130018-school.org" 
+    	"/home/garrett/org-roam/20201002151401-argo_moc.org"
+"/home/garrett/org-roam/20201008200919-deep_inverse_modeling.org"
+    	"/home/garrett/org-roam/20201020103239-daily.org"
+    	"/home/garrett/org-roam/20200915230739-gradapps.org"))
+    '(org-agenda-prefix-format "   %-6:c ~>  ")
+    '(org-agenda-show-all-dates nil)
+    '(org-agenda-skip-timestamp-if-deadline-is-shown t)
+    '(org-agenda-todo-ignore-with-date t)
+    (setq org-agenda-hide-tags-regexp "inverse\\|daily\\|school\\|")
+    (setq org-agenda-start-on-weekday nil)
+
+(setq org-roam-v2-ack t)
+   (setq org-roam-completion-system 'ivy)
+   (defconst org-roam-packages
+    '(org-roam org-roam-bibtex))
+
+(setq dashboard-items '((recents . 10)))
+(setq dashboard-set-footer nil)
+(setq dashboard-center-content t)
+(setq dashboard-set-init-info nil)
+
+(setq org-ref-default-bibliography (list "/home/garrett/Zotero/library.bib")
+    org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex)
+(setq bibtex-completion-bibliography (list "/home/garrett/Zotero/library.bib")
+			bibtex-completion-pdf-field "file")
+
+(add-hook 'org-mode-hook 'variable-pitch-mode)
+; (add-hook 'org-agenda-finalize-hook 'variable-pitch-mode)
+ (defun org-line-wrap () (setq-local word-wrap nil))
+
+ (add-hook 'org-mode-hook 'org-line-wrap)
+ (add-hook 'org-mode-hook 'org-bullets-mode)
+
+(setq eradio-channels '(("def con - soma fm" . "https://somafm.com/defcon256.pls")
+                      ("cafe - lainon"     . "https://lainon.life/radio/cafe.ogg.m3u")
+                      ("deep space one"     . "http://somafm.com/m3u/deepspaceone130.m3u")
+                      ("7 inch soul"     . "http://somafm.com/m3u/7soul130.m3u")
+		      ("left coast 70s" . "http://somafm.com/m3u/seventies130.m3u")
+		      ("groove salad" . "http://somafm.com/m3u/groovesalad130.m3u")
+		      ("mostwanted" . "http://5.39.71.159:8169/listen.pls" )
+		      ("jazz24" . "https://live.wostreaming.net/playlist/ppm-jazz24aac256-ibc1.m3u")))
+
+(load-theme 'base16-darcula t)
+   (eyebrowse-mode t)
+(global-display-line-numbers-mode)
+   (setq-default truncate-lines t)
+   
+   (ivy-mode 1)
+   (global-undo-tree-mode)
+   (toggle-scroll-bar -1)
+   (tool-bar-mode -1)
+   (menu-bar-mode -1)
+   (setq org-return-follows-link t)
+   (add-to-list 'default-frame-alist
+	       '(font . "Source Code Pro"))
+   (setq-default ls-lisp-verbosity nil)
+(setq line-number-mode t)
+
+(defun org-archive-done-tasks ()
+  (interactive)
+  (org-map-entries
+   (lambda ()
+     (org-archive-subtree)
+     (setq org-map-continue-from (org-element-property :begin (org-element-at-point))))
+   "/DONE" 'tree))
+'(helm-minibuffer-history-key "M-p")
+ '(ls-lisp-verbosity nil)
+ '(orb-insert-interface 'helm-bibtex)
+ '(org-agenda-window-setup 'current-window)
+ '(org-file-apps
+   '((auto-mode . emacs)
+     ("\\.mm\\'" . default)
+     ("\\.x?html?\\'" . default)
+     ("\\.pdf\\'" . "evince %s")))
+ '(org-format-latex-options
+   '(:foreground default :background default :scale 1.6 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
+		 ("begin" "$1" "$" "$$" "\\(" "\\[")))
+ '(org-publish-project-alist '((publishing-directory . "~/org-roam/exports/")))
+ '(projectile-mode t nil (projectile))
+ '(warning-suppress-log-types '((comp)))
+
+
+(setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
+  backup-by-copying t    ; Don't delink hardlinks
+  version-control t      ; Use version numbers on backups
+  delete-old-versions t  ; Automatically delete excess backups
+  kept-new-versions 20   ; how many of the newest versions to keep
+  kept-old-versions 5    ; and how many of the old
+  )

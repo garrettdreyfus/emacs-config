@@ -1,0 +1,376 @@
+using Statistics
+using JLD
+using BandedMatrices
+import LinearAlgebra: norm
+using LinearAlgebra
+using Plots
+using SparseArrays
+using LaTeXStrings
+using Printf
+
+### Progress
+
+#1 [X|X|X]
+#2 [X|X]
+
+
+### Function to calculate the second derivative of u at x
+function usecondderivative(vec)
+    return map(x-> -sin((3*pi*x)/2), vec)
+    #return map(x-> 6x, vec)
+end
+
+### Function to calculate the analytical solution
+function analyticalu(unknowns)
+    vec = LinRange(0,1,unknowns+1)
+    return map(x-> (4/(9*(pi^2)))*sin((3*pi*x)/2),vec)
+    #return map(x-> x^3,vec)
+end
+
+function usolver(unknowns, boundary_order="second")
+    deltax = 1/unknowns
+    ## define our stencil 
+    unknowns=unknowns+1
+    xs = LinRange(0,1,unknowns)
+    #create our b in Ax=b
+    uvector = usecondderivative(xs)
+
+    A = Matrix{Float64}(undef,unknowns,unknowns)
+    A = Tridiagonal(A)
+    A[1:end,1:end] = zeros(unknowns,unknowns)
+
+    #Here's our first boundary condition. Everything else in the row has already been set to zero
+    A[1,1] = 1
+
+    ## Second order centered finite difference scheme
+    for i in range(2,length=unknowns-2)
+	A[i,i-1]=(1/(deltax^2))
+	A[i,i]=(-2/(deltax^2))
+	A[i,i+1]=(1/(deltax^2))
+    end
+
+    ## Second boundary condition setting u_n = u_n-1
+    if boundary_order == "first"
+        A[unknowns,unknowns-1] = -1
+        A[unknowns,unknowns]= 1
+        uvector[end]=0
+    end
+    if boundary_order == "second"
+        A[unknowns,unknowns-1]= 2/(deltax^2)
+        A[unknowns,unknowns]= -2/(deltax^2)
+        uvector[end]=uvector[end-1]
+    end
+    solution = inv(A) *uvector
+    return solution 
+end
+
+function problem1_ab_graphs(boundary)
+    errors = Matrix{Float64}(undef,3,1)
+    ### Problem 1a plot
+    unknowns = 8
+    xs = LinRange(0,1,unknowns+1)
+    solution = usolver(unknowns,boundary)
+    plt = plot(xs,solution, label=L"u | \Delta x  = 1/8", xlabel="x", ylabel="u(x)", border=:dotted)
+    errors[1] = norm(solution.-analyticalu(unknowns),length(solution))
+
+    unknowns = 16
+    xs = LinRange(0,1,unknowns+1)
+    solution = usolver(unknowns,boundary)
+    plt = plot!(plt,xs,solution,label=L"u | \Delta x  = 1/16", xlabel="x", ylabel="y", border=:dotted)
+    errors[2] = norm(solution.-analyticalu(unknowns),length(solution))
+
+    unknowns = 32
+    xs = LinRange(0,1,unknowns+1)
+    solution = usolver(unknowns,boundary)
+    plt = plot!(plt,xs,solution,label=L" u | \Delta x  = 1/32", xlabel="x", ylabel="y", border=:dotted)
+    errors[3] = norm(solution.-analyticalu(unknowns),length(solution))
+
+    unknowns = 32
+    xs = LinRange(0,1,unknowns+1)
+    uvector_sol = analyticalu(unknowns)
+    plt1 = plot!(plt,xs,uvector_sol,label="analytical")
+    display(errors)
+    xs = [1/8,1/16,1/32]
+    slope = (log10(errors[2])-log10(errors[1]))/(log10(xs[2])-log10(xs[1]))
+    println(slope)
+    plt2 = scatter(xs,errors,xaxis=:log,yaxis=:log,xlabel = L"log10(\Delta x)", ylabel = "log10(Max Error)", legend=false)
+    l = @layout [a ; b]
+    plt = plot(plt1, plt2, layout = l)
+    println("**")
+    @printf("problem 1 a/b %.2f", slope)
+    println("**")
+    savefig(plt,"problem1_"*boundary)
+end
+
+function richardson_extrap(unknowns)
+    # unknowns 1/deltax
+    whole = usolver(unknowns)
+    half = usolver(unknowns*2)
+    quarter = usolver(unknowns*4)
+    new = Matrix{Float64}(undef,unknowns+1,1)
+    a = 1.0/45.0
+    b = -4.0/9.0
+    c = 64.0/45.0
+    new = whole.*a + half[1:2:end].*b + quarter[1:4:end].*c
+    xs = LinRange(0,1,unknowns+1)
+    return xs,new
+end
+
+function richardson_twopanel()
+    xs8,solution8 = richardson_extrap(8)
+    xs12,solution12 = richardson_extrap(12)
+    errors = Matrix{Float64}(undef,2,1)
+    errors[1] = norm(solution8[1:end].-analyticalu(8)[1:end],Inf)
+    errors[2] = norm(solution12[1:end].-analyticalu(12)[1:end],Inf)
+    xs = [1/8,1/12]
+    plt = plot(xs,errors)
+    slope = (log10(errors[2])-log10(errors[1]))/(log10(xs[2])-log10(xs[1]))
+    @printf("problem 1 rich slope %.2f", slope)
+    plt1 = plot(xs8,solution8, label = "Richardson on 1/8 grid",xlabel="x",ylabel="y")
+    plt1 = plot!(plt1,xs8,analyticalu(8), label = "Analytical on 1/8 grid")
+    plt1 = plot!(plt1,xs8,usolver(8), label = "Normal Numerical on 1/8 grid")
+
+    plt2 = scatter(xs,errors,xaxis=:log,yaxis=:log,legend=false,xlabel=L"\Delta x",ylabel="Max Error")
+
+    l = @layout [a ; b]
+    plt = plot(plt1, plt2, layout = l)
+    savefig(plt,"problem1_richardson.png")
+end
+
+
+# problem1_ab_graphs("first")
+# problem1_ab_graphs("second")
+#richardson_twopanel()
+
+####################
+# Problem 2
+#######################
+
+
+function zeta(x,y,gamma,x0,y0)
+    rx = (x-x0)
+    ry = (y-y0)
+    return (4*(gamma^2)*((rx^2)+(ry^2))-4*gamma)*exp(-gamma*(rx^2))*exp(-gamma*(ry^2))
+end
+
+function exact_phi(x,y,gamma,x0,y0)
+    rx = (x-x0)
+    ry = (y-y0)
+    return exp(-gamma*rx^2)*exp(-gamma*ry^2)
+end
+
+function neighbor_indexes(i,j,LI)
+    above = LI[i-1,j]
+    below = LI[i+1,j]
+    center = LI[i,j]
+    left = LI[i,j-1]
+    right = LI[i,j+1]
+    return above, below, center, left, right
+end
+
+function phi_x(x,y,gamma,x0,y0)
+    rx = (x-x0)
+    ry = (y-y0)
+    return -gamma*2*rx*exp(-gamma*rx^2)*exp(-gamma*ry^2)
+end
+
+function phi_y(x,y,gamma,x0,y0)
+    rx = (x-x0)
+    ry = (y-y0)
+    return -gamma*2*ry*exp(-gamma*rx^2)*exp(-gamma*ry^2)
+end
+
+function phi_A_creator(delta,gamma,x0,y0)
+    ## define our stencil 
+    unknowns = Integer((1/delta)+1)
+    xs = LinRange(0,1,unknowns)
+    #create our b in Ax=b
+    A = BandedMatrix{Float64}(undef,(unknowns*unknowns,unknowns*unknowns),(unknowns+1,unknowns+1))
+    solution_mat = Matrix{Float64}(undef,unknowns,unknowns)
+    LI = LinearIndices(solution_mat)
+    A[1:end,1:end] = zeros(unknowns*unknowns,unknowns*unknowns)
+    b = zeros(unknowns*unknowns)
+
+    for i in range(1,length=unknowns)
+        for j in range(1,length=unknowns)
+            center = LI[i,j]
+            if i==3 && j ==3
+                above,below,center,left,right = neighbor_indexes(i,j,LI)
+                A[center,center] = 1
+                b[center] = 0 #exact_phi(xs[i],xs[j],gamma,x0,y0)
+            elseif i !=1 && i != unknowns && j !=1 && j!= unknowns
+                above,below,center,left,right = neighbor_indexes(i,j,LI)
+		    A[center,above] = 1
+		    A[center,below] = 1
+		    A[center,left] = 1
+		    A[center,right] = 1
+		    A[center,center] = -4
+		    b[center] = zeta(xs[i],xs[j],gamma,x0,y0)*(delta^2)
+            elseif i==1
+                adj = LI[i+1,j]
+                b[center] = phi_x(xs[i],xs[j],gamma,x0,y0)*delta
+                A[center,center] = -1
+                A[center,adj] = 1
+            elseif i==unknowns
+                adj = LI[i-1,j]
+                b[center] = phi_x(xs[i],xs[j],gamma,x0,y0)*delta
+                A[center,center] = 1
+                A[center,adj] = -1
+            elseif j==1
+                adj = LI[i,j+1]
+                b[center] = phi_y(xs[i],xs[j],gamma,x0,y0)*delta
+                A[center,center] = -1
+                A[center,adj] = 1
+            elseif j==unknowns
+                adj = LI[i,j-1]
+                b[center] = phi_y(xs[i],xs[j],gamma,x0,y0)*delta
+                A[center,center] = 1
+                A[center,adj] = -1
+            end
+        end
+    end
+    return A,b
+end
+
+function direct_phi_solver(delta,gamma,x0,y0)
+    A,b = phi_A_creator(delta,gamma,x0,y0)
+    unknowns = Integer((1/delta)+1)
+    solution_mat = Matrix{Float64}(undef,unknowns,unknowns)
+    LI = LinearIndices(solution_mat)
+    solution = A \ b
+    for i in range(1,length=unknowns)
+        for j in range(1,length=unknowns)
+            center = LI[i,j]
+            solution_mat[i,j] = solution[center]
+        end
+    end
+    return solution_mat
+end
+
+function convergence_criteria(R,zeta_mat,phi,delta)
+    return maximum(abs.(R))/(4*(delta^(-2))*norm(phi,1) + maximum(abs.(zeta_mat)))
+    #return norm(R,Inf)/(norm(A,Inf)*norm(x,1)+norm(b,1))
+end
+
+function iterative_phi_solver(delta,gamma,x0,y0)
+    A,b = phi_A_creator(delta,gamma,x0,y0)
+
+    D = Diagonal(A)
+    solution = zeros(length(b))
+    epsilon=1
+    unknowns = Integer(1/delta)+3
+    solution_mat = Matrix{Float64}(undef,unknowns,unknowns)
+    solution_mat.=0
+    zeta_mat = exact_zeta_matrix(delta,gamma,x0,y0)
+    phi_mat = exact_phi_matrix(delta,gamma,x0,y0)
+    epsilon=1
+    xs = LinRange(-1*delta,1+delta,unknowns)
+    iterations = 0
+    while epsilon>(10^(-9))
+        iterations+=1
+        residual_mat = Matrix{Float64}(undef,unknowns,unknowns)
+        residual_mat.=0
+        for i in 1:unknowns
+            for j in 1:unknowns
+                if 1<i<unknowns && 1<j<unknowns
+                    R = (1/(delta^2))*(solution_mat[i-1,j]-2*solution_mat[i,j]+solution_mat[i+1,j])
+                    R += (1/(delta^2))*(solution_mat[i,j-1]-2*solution_mat[i,j]+solution_mat[i,j+1])
+                    R -= zeta(xs[i],xs[j],gamma,x0,y0)
+                    residual_mat[i,j]=R
+                    solution_mat[i,j] = solution_mat[i,j] + (1/(4*(delta^-2)))*(R)
+                elseif i==1
+                    slope = (1/delta)*(solution_mat[i+1,j]-solution_mat[i,j])
+                    solution_mat[i,j] = solution_mat[i+1,j]-delta*slope
+                elseif i==unknowns
+                    slope = (1/delta)*(solution_mat[i,j]-solution_mat[i-1,j])
+                    solution_mat[i,j] = solution_mat[i-1,j]+delta*slope
+                elseif j==1
+                    slope = (1/delta)*(solution_mat[i,j+1]-solution_mat[i,j])
+                    solution_mat[i,j] = solution_mat[i,j+1]-delta*slope
+                elseif j==unknowns
+                    slope = (1/delta)*(solution_mat[i,j]-solution_mat[i,j-1])
+                    solution_mat[i,j] = solution_mat[i,j-1]+delta*slope
+                end
+            end
+        end
+        epsilon = convergence_criteria(residual_mat,zeta_mat,phi_mat,delta)
+    end
+
+    return solution_mat[2:end-1,2:end-1],iterations
+end
+
+
+function exact_phi_matrix(delta,gamma,x0,y0)
+    ## define our stencil 
+    unknowns = Integer((1/delta)+1)
+    xs = LinRange(0,1,unknowns)
+    solution_mat = Matrix{Float64}(undef,unknowns,unknowns)
+    for i in range(1,length=unknowns)
+        for j in range(1,length=unknowns)
+            solution_mat[i,j] = exact_phi(xs[i],xs[j],gamma,x0,y0)
+        end
+    end
+    return solution_mat
+end
+
+function exact_zeta_matrix(delta,gamma,x0,y0)
+    ## define our stencil 
+    unknowns = Integer((1/delta)+1)
+    xs = LinRange(0,1,unknowns)
+    solution_mat = Matrix{Float64}(undef,unknowns,unknowns)
+    for i in range(1,length=unknowns)
+        for j in range(1,length=unknowns)
+            solution_mat[i,j] = zeta(xs[i],xs[j],gamma,x0,y0)
+        end
+    end
+    return solution_mat
+end
+
+
+
+function problem2_overview_figure()
+    l = @layout [a ; b ; c]
+    h1 = heatmap(iterative_phi_solver(1/100,10,0.6,0.6)[1],title="Iterative method",guidefontsize=12)
+    h2 = heatmap(direct_phi_solver(1/100,10,0.6,0.6),title = "Direct solver",guidefontsize=12)
+    h3 = heatmap(exact_phi_matrix(1/100,10,0.6,0.6), title = "Exact solution",guidefontsize=12)
+    plt = plot(h1, h2,h3,layout = l, size=(500*0.8,900*0.8))
+    savefig(plt,"p2_overview.png")
+end
+
+function problem2a_error(deltaxs)
+    maxerrors = Array{Float64}(undef,length(deltaxs),1)
+    for i in 1:length(deltaxs)
+        deltax=deltaxs[i]
+        error = direct_phi_solver(deltax,10,0.6,0.6) - exact_phi_matrix(deltax,10,0.6,0.6)
+        maxerrors[i] = norm(error,Inf)
+    end
+    plt = plot(deltaxs,maxerrors,xaxis=:log,yaxis=:log,title="Direct", xlabel=L"\Delta x", ylabel="Max Error")
+    deltaxs = log10.(deltaxs)
+    maxerrors = log10.(maxerrors)
+    println("slope: " * string((maxerrors[3]-maxerrors[1])/(deltaxs[3]-deltaxs[1])))
+    return plt
+end
+
+function problem2b_error(deltaxs)
+    maxerrors = Array{Float64}(undef,length(deltaxs),1)
+    iterations=Array{Float64}(undef,length(deltaxs),1)
+    for i in 1:length(deltaxs)
+        deltax=deltaxs[i]
+        sol, iter = iterative_phi_solver(deltax,10,0.6,0.6)
+        iterations[i] = iter
+    end
+    plt = plot(deltaxs,iterations,title="Iterative",xlabel=L"\Delta x", ylabel = "# of iterations")
+    return plt
+end
+
+#problem2_overview_figure()
+it1 = problem2b_error([1/50,1/100,1/200])
+direct1 = problem2a_error([1/50,1/100,1/200])
+l = @layout [a ; b]
+plt = plot(direct1, it1,layout = l)
+savefig(plt,"p2_errors.png")
+
+# h1 = heatmap(iterative_phi_solver(1/100,10,0.6,0.6),title="Iterative method",guidefontsize=12)
+# gui(h1)
+# readline()
+

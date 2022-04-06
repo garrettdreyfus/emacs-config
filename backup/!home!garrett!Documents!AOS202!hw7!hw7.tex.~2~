@@ -1,0 +1,98 @@
+% Created 2022-02-27 Sun 13:41
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Garrett Finucane}
+\date{\today}
+\title{AOS 202A - Homework 7}
+\hypersetup{
+ pdfauthor={Garrett Finucane},
+ pdftitle={AOS 202A - Homework 7},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.4.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+\section{{\bfseries\sffamily INPROGRESS} }
+\label{sec:org069a390}
+\subsection{}
+\label{sec:org21b9d3b}
+Potential Energy = \(\int \rho g dz\)
+
+Change in potential energy after mixing:
+
+$$\Delta PE = g(\rho_a*z_a + \rho_b*z_b) - g(\rho_a*z_b + \rho_b*z_a)$$
+
+$$\Delta PE = g(\rho_a - \rho_b)*(z_a-z_b)$$
+
+There are two angles we care about. The angle of the isopycnals \(\phi\) and the angle of parcel exchange \(\alpha\).
+
+We can assume that both angles are very small compared to the vertical displacement \(\Delta\) z . This means we can approximate sin(\(\alpha\)) as \(\alpha\) and cos(\(\alpha\)) as 1. 
+
+$$\Delta \rho = \Delta y * \frac{d\rho}{dy} + \Delta z * \frac{d\rho}{dz} = L*cos(\alpha) * cos(\alpha)*\frac{d\rho}{dy} + L*sin(\alpha)*\frac{d\rho}{dz} = L* \frac{d\rho}{dy} + L*\alpha*\frac{d\rho}{dz}$$
+
+$$\Delta PE = g(\Delta \rho)*(\Delta z) = g*\alpha*L*(L* \frac{d\rho}{dy} + L*\alpha*\frac{d\rho}{dz})$$
+$$\Delta PE = g*\alpha*L^2*(1-\frac{\alpha}{\phi}) -$$
+
+So change in potential energy is 0 when alpha is 0 or it stirs along isopycnals.
+
+\subsection{}
+\label{sec:orgee4bc9c}
+First lets find \(\phi\).
+$$ \phi = -\frac{d\rho}{dy}/\frac{d\rho}{dz}$$
+That's really just the slope of the isopycnal
+$$ \phi \approx \frac{400m}/{2*111000m} = 0.0018$$
+
+Let's choose the maximum kinetic energy scenario where \(\alpha\) = \(\phi\)/2.
+
+Then $$\Delta PE = \frac{g\alpha L^2}{2}\frac{d\rho}{dy} \approx \frac{9.8 ms^{-2} * 0.0009 * 2*111000}{2}\frac{0.6 kg m^{-3}}{2*111000 m} = 1174 J m^{-3}$$
+
+From there we can calculate the change in velocity for the fluid parcel as $$\Delta PE = \Delta KE == \bar{\rho}*\Delta v ^2 $$
+So $$\Delta v = (1174 J/s * 1027.3 kg m^{-3})  =1.07 m s^{-1}$$
+
+But that is not the eddy velocity! Working off of Box 9.3 from WF, we can see that $$U_{eddy} = \frac{H}{2} |\frac{du}{dz}|$$. From the velocity depth profile on the same slide of the circulation lecture.
+
+$$ U_{eddy} \approx \frac{500m}{2} \frac{0.75-0.1}{500m} = 0.325$$
+
+
+
+
+
+
+
+\section{{\bfseries\sffamily TODO} }
+\label{sec:org536362c}
+
+\section{{\bfseries\sffamily TODO} }
+\label{sec:orga958372}
+
+\section{{\bfseries\sffamily TODO} }
+\label{sec:org6c749cd}
+
+\section{{\bfseries\sffamily TODO} }
+\label{sec:orgd4954df}
+
+\section{{\bfseries\sffamily TODO} }
+\label{sec:org137533a}
+
+\section{{\bfseries\sffamily TODO} }
+\label{sec:org6e637d4}
+
+\section{{\bfseries\sffamily TODO} }
+\label{sec:org1fd83f3}
+\end{document}

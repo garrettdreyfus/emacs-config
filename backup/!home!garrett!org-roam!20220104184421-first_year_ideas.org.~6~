@@ -1,0 +1,120 @@
+:PROPERTIES:
+:ID:       862bd726-901a-4cca-845f-0e8fadb22e8c
+:END:
+#+title: First Year Ideas
+#+title: Idealized ice shelf modelling
+#+CATEGORY: ice shelf
+#+filetags: :ice shelf:
+
+* Meeting notes
+** 10/14 meeting
+   - Maybe I should reach out to ruth, would like to read EW AS paper
+   - MisoMip
+     - ice modelling is hard
+   - Geometric and oceanographic controls on melting beneath PIG
+     - static ice shelf is very interesting....
+     - maybe the reason people haven't done this is because coupled ice models are really hard to model
+     - their model setup is similar to what I was thinking
+     - Figure 4 is cool
+     - find figure orientation confusing
+     - dont like salinity colorbar figure 5
+     - rabbit hole of learning about ice
+     - shows something... I guess?
+     - Temperature inversion is interesting....
+     - no dense water production right?
+     - Maybe already initializing in a particular state
+   - On the role of coastal troughs
+     - Three mechanisms
+       - meridional meltdriven flow
+       - interaction of mean flow with topography
+       - rossby wave and topography
+       - this to me is no offense classic ice shelf cavity paper
+** 10/21 meeting
+   - any thoughts on ML project? ICE stuff?
+   - To read
+     - subglacial plumes https://www.annualreviews.org/doi/full/10.1146/annurev-fluid-010719-060252
+     - https://www.nature.com/articles/nature20825
+       - tidal resonance AA
+       - tidal resonance ice shelf cavities
+       - ok obviously this isn't a thesis project.... but why isn't there like a truly ice ocean model?
+       - mmmm this one is confusing to me, maybe im struggling with the personification
+       - rising theres rotation instabilitiy created it diffuses stays low
+     - De rydt 2016 https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2015JF003791
+       - At each coupling time step, the ice shelf geometry is transferred to MITgcm, which is spun up to a new steady state, and values for the updated ice shelf fresh water ﬂux are used by Úa to advance the ice geometry until the next coupling time step. We show that results for this approach converge in the limit of a small coupling time step, and the method is optimized to simulate the inherent feedbacks between cavity geometry,
+	 - are you gonna get like continuous phenomena?
+	 - seems kinda not real
+       - Interesting that these papers look at what would happen if water became cold again. Seems hopeful? was this like in vogue in years past
+       - factor of 10 melt rate difference
+       - Figure 11 shows discontinuity I assume due to coupling scheme
+       - hmmmmm... why is it so hard to just actually couple ice and ocean? Both are water (jk)
+** zoop
+   - Tides and the flow of Rutford Ice Stream, West Antarctic
+   - An improved model for tidally modulated grounding-line migration
+   - A model of tidally dominated ocean processes near ice shelf grounding lines
+** 10/29
+*** tomura ice shelf production rate estimates
+    - https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2015JC011537 
+    - https://ieeexplore.ieee.org/abstract/document/8013649
+    - sea ice drift
+    - sea ice production rates
+    - ocean hydrographic
+    - thermocline depth
+    - why are some ice shelves warm and some are cold and what controls that
+    - highest isobath whcih spans ice sheet
+    - bathymetric breadfirst search find shallowest isobath
+** 11/4 meeting
+*** for every ice production spot figure out if its enclosed by BFS out from depth at that point and see if it hits sea. Then if it doesn't add that to running sum. That might be the metric right there.
+** 1/6 meeting
+   - what matters really is pycnocline depth/ thermocline depth
+   - CDW investigation
+     - how much do they vary
+     - time dependence
+     - part of story but not whole story
+     - processes that mediate tranfer to shelf
+     - geometry
+   - tsai et al. stewart second author
+   - schoof
+** 1/13 meeting
+   - pre notes
+     - Julia is amazing andrew should try it
+     - switched OS's again
+     - paper in nearly sendable state
+     - registered for OSM
+     - Jim's class....
+     - went on walk with sunny
+   - notes
+     - viscous stress longitudinal stress
+     - other schoof paper
+     - kens paper gives water theory
+       - distribution of melt
+       - h dot
+** 1/20 meeting
+    - julia woes
+    - machine learning paper
+    - survey blog
+    - z coordinates in model
+    - latexification
+    - De Rydt Coupled ice shelf-ocean modeling and complex grounding line retreat from a seabed ridge
+    - Coupling of ice-shelf melting and buttressing is a key process in ice-sheets dynamics
+    - Grounding line movement and ice shelf buttressing in marine ice sheets
+    - Ice-shelf buttressing and the stability of marine ice sheets
+** 1/27 meeting
+    - Choosing grounding line points
+    - sorting by shallower first
+    - using label function
+    - Surprising no points in Ronne
+      - but actually makes sense, grounding line points there are elevated above.
+    - Depth cdw would have to be to reach those points, either grounding line depth or GLB
+    - pycnocline depth
+    - centroid of temperature
+    - defining bathymetry, key parameters ice shelf slope etc...
+    - mass loss scholdlok 2015
+
+* Papers
+  - cdw
+    - [[id:d357cd8b-ac49-4532-a3f6-3c834fc3e0fe][Multidecadal warming of Antarctic waters]]
+    - [[id:037f9aa9-d8f7-42ae-a377-cfccf3abfbb6][Modelling landfast sea ice and its influence on ocean–ice interactions in the area of the Totten Glacier, East Antarctica]]
+  - idealized modelling
+    - [[id:df85cf37-07cf-4d16-8a0d-53804ba55528][Marine ice-sheet profiles and stability under Coulomb basal conditions]]
+    - [[id:73910878-9638-4acc-b71f-cfedd23e023c][Sill-Influenced Exchange Flows in Ice Shelf Cavities]]
+    -[[id:d6a68843-daa5-49af-ba18-194e7421c8f4][ Ice sheet grounding line dynamics: Steady states, stability, and hysteresis]] 

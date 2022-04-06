@@ -1,0 +1,95 @@
+% Created 2022-01-21 Fri 12:11
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Garrett Finucane}
+\date{\today}
+\title{AOS 212A - Homework 1}
+\hypersetup{
+ pdfauthor={Garrett Finucane},
+ pdftitle={AOS 212A - Homework 1},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.4.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+\section{Problem 1}
+\label{sec:org8fbe802}
+
+\subsection{a}
+\label{sec:org9b67545}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./problem1_first.png}
+\end{center}
+\begin{itemize}
+\item Like the problem asked I solved this using a second order finite difference and first order Neumann boundary condition scheme
+\item The slope is about \textasciitilde{}1 in loglog space which means the error goes with \(\Delta\) x
+\end{itemize}
+\subsection{b}
+\label{sec:org3702581}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./problem1_second.png}
+\end{center}
+\begin{itemize}
+\item Like the problem asked I solved this using a second order finite difference and second order Neumann boundary condition scheme
+\item This boundary condition does a far better job than the first one
+\item The slope is about \textasciitilde{}4 in loglog space which means the error goes with (\(\Delta\) x)\textsuperscript{4}
+\end{itemize}
+\subsection{c}
+\label{sec:orga2b34e7}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./problem1_richardson.png}
+\end{center}
+\begin{itemize}
+\item The richardson extrapolation does far better than the normal numerical solution
+\item The convergence rate isn't appreciably larger than part b it looks like it is also around a slope of 4.
+\item I really don't get why that is when the absolute error is so clearly way smaller.
+\end{itemize}
+
+\section{Problem 2}
+\label{sec:org32bc9c3}
+
+\begin{center}
+\includegraphics[width=200px]{./p2_overview.png}
+\end{center}
+
+\begin{itemize}
+\item Here's a pretty picture I made with the iterative, direct and analytical solution all next to each other.
+\end{itemize}
+
+\subsection{a}
+\label{sec:org199c629}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./p2_a.png}
+\end{center}
+\begin{itemize}
+\item Here's the error vs deltax for the direct solver. The slopes about 0.75 so the error goes as \(\Delta x^{3/4}\)
+\item I used Julia's built in inverse but marked the matrix as a banded matrix so it was quite fast.
+\end{itemize}
+
+\subsection{b}
+\label{sec:orga23c97d}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./p2_b.png}
+\end{center}
+\begin{itemize}
+\item Here's the number of iterations for the convergence criteria (taken from the homework sheet) to be less than a tolerance of 10\textsuperscript{-9}
+\item It is clear that the smaller grid takes longer to converge.
+\item I enforced the boundary condition using ghost nodes per our discussion in Friday (1/21)'s class.
+\end{itemize}
+\end{document}

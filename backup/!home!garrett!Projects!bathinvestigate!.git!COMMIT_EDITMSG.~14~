@@ -1,0 +1,29 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch main
+# Changes to be committed:
+#	modified:   workspace.py
+#
+# Changes not staged for commit:
+#	modified:   bathtub.py
+#	deleted:    pics/Amery.jpg
+#	deleted:    pics/FRIS-newmethod.png
+#	deleted:    pics/FRIS.jpg
+#	deleted:    pics/Larsen C.jpg
+#	deleted:    pics/PIG.jpg
+#	deleted:    pics/Riiser-Larsen.jpg
+#	deleted:    pics/Ross.jpg
+#	deleted:    pics/Wilkins.jpg
+#	deleted:    pics/fracs.png
+#	deleted:    pics/fullmap.png
+#	deleted:    pics/metricd.png
+#	deleted:    pics/path.jpg
+#	deleted:    pics/search.png
+#	modified:   workspace.py
+#
+# Untracked files:
+#	__pycache__/bathtub.cpython-310.pyc
+#	__pycache__/cdw.cpython-310.pyc
+#

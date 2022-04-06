@@ -1,0 +1,38 @@
+#+title: AOS 202A - Homework 4
+#+author: Garrett Finucane
+  
+#+OPTIONS: toc:nil
+
+* INPROGRESS 
+** 
+   $$\frac{2*m*u_*^3}{g*\alpha_T*H/(\rho*C_p)}$$
+* TODO 
+  
+* INPROGRESS 
+** 
+   TKE is a measure of the amount of turbulence therefore dissapation. Regions of higher TKE correspond to regions of more uniform T and S. Put another way $\frac{dT}{dz}$ and $\frac{dS}{dz}$ are inversley related to TKE.
+** 
+   In the after heating profile we would expect dissapation to increase with depth as the temperature becomes more uniform with depth. The strong buoyancy gradient of the thermocline should suppress and limit the amount of TKE and dissapation.
+
+   In the after wind mixing profile we would expect very high TKE and dissapation in the well mixed layer over which temperature is relatively uniform. The TKE and disspation will decline very steeply at the nearly horizontal gradient of temperature at the base of mixed layer.
+
+   In the after cooling mixed layer, we would expect substansial TKE over basically the whole depth of the temperature profile as temperature is largely homogenous with depth.
+** 
+   DO THIS PART
+
+* DONE ish
+  Surface waves cause stokes drift transport which interacts with the wind induced current to drive langmuir circulation which greatly enhances the vertical mixing. This acts to deepen the wind-driven boundary layer. I thought simulation on slide 29 of the surface layer physics lecture did a great job of showing the dramatic increase in the turbulent boundary layer that occurs when there are strong surface waves.
+  
+* DONE ish
+  There are cold core and warm core eddies which drive the thermocline shallower and deeper respectively. A passing cold core eddie would decrease the temperature and depth of the mixed layer. A warm core eddie on the other hand would increase the temperature and increase the depth of the mixed layer.
+  
+* DONE 
+ If photosynthesis exceeds respiration there is a net gain in organic matter, if respiration exceeds photosynthesis there is a net loss in organic matter. Photosynthesis is high in the euphotic zone and decays exponentially with depth due to lack of light. On the other hand, respiration is nearly constant with depth as heterotrophs do not depend on light. Sverdrup's critical depth is the depth at which the vertically integrated respiration is equivalent to the vertically integrated photosynthesis. If the mixed layer is shallower than the critical depth than primary producers are performing photosynthesis more than they are being eaten. If the mixed layer depth is deeper than the critical depth than primary producers are being eating more than they are able to photosynthesize. Therefore, the critical depth is the depth the mixed layer must be shallower than for there to be an algal bloom.
+  
+* TODO 
+
+
+
+- Questions
+  - question 6 is it enough to just discuss the differences between warm core cold core eddies
+  - is it enough to say that the waves just drive stokes drift transport which drives langmuir circulation

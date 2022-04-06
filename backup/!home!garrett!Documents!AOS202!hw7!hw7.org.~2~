@@ -1,0 +1,60 @@
+#+title: AOS 202A - Homework 7
+#+author: Garrett Finucane
+  
+#+OPTIONS: toc:nil
+
+* INPROGRESS 
+** 
+   Potential Energy = $\int \rho g dz$
+  
+   Change in potential energy after mixing:
+  
+   $$\Delta PE = g(\rho_a*z_a + \rho_b*z_b) - g(\rho_a*z_b + \rho_b*z_a)$$
+  
+   $$\Delta PE = g(\rho_a - \rho_b)*(z_a-z_b)$$
+  
+   There are two angles we care about. The angle of the isopycnals \phi and the angle of parcel exchange \alpha.
+
+   We can assume that both angles are very small compared to the vertical displacement \Delta z . This means we can approximate sin(\alpha) as \alpha and cos(\alpha) as 1. 
+
+   $$\Delta \rho = \Delta y * \frac{d\rho}{dy} + \Delta z * \frac{d\rho}{dz} = L*cos(\alpha) * cos(\alpha)*\frac{d\rho}{dy} + L*sin(\alpha)*\frac{d\rho}{dz} = L* \frac{d\rho}{dy} + L*\alpha*\frac{d\rho}{dz}$$
+  
+   $$\Delta PE = g(\Delta \rho)*(\Delta z) = g*\alpha*L*(L* \frac{d\rho}{dy} + L*\alpha*\frac{d\rho}{dz})$$
+   $$\Delta PE = g*\alpha*L^2*(1-\frac{\alpha}{\phi})$$
+
+   So change in potential energy is 0 when alpha is 0 or it stirs along isopycnals.
+  
+** 
+   First lets find \phi.
+   $$ \phi = -\frac{d\rho}{dy}/\frac{d\rho}{dz}$$
+   That's really just the slope of the isopycnal
+   $$ \phi \approx \frac{400m}/{2*111000m} = 0.0018$$
+
+   Let's choose the maximum kinetic energy scenario where \alpha = \phi/2.
+
+   Then $$\Delta PE = \frac{g\alpha L^2}{2}\frac{d\rho}{dy} \approx \frac{9.8 ms^{-2} * 0.0009 * 2*111000}{2}\frac{0.6 kg m^{-3}}{2*111000 m} = 1174 J m^{-3}$$
+
+   From there we can calculate the change in velocity for the fluid parcel as $$\Delta PE = \Delta KE == \bar{\rho}*\Delta v ^2 $$
+
+   Working off of Box 9.3 from WF
+
+   
+   
+
+* TODO 
+
+* TODO 
+
+* TODO 
+
+* TODO 
+
+* TODO 
+
+* TODO 
+
+* TODO 
+
+  
+
+  

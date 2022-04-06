@@ -1,0 +1,160 @@
+% Created 2022-03-02 Wed 10:17
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Garrett Finucane}
+\date{\today}
+\title{AOS 202A - Homework 7}
+\hypersetup{
+ pdfauthor={Garrett Finucane},
+ pdftitle={AOS 202A - Homework 7},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.4.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+\section{}
+\label{sec:org398d96b}
+\subsection{}
+\label{sec:org1b184ff}
+Potential Energy = \(\int \rho g dz\)
+
+Change in potential energy after mixing:
+
+$$\Delta PE = g(\rho_a*z_a + \rho_b*z_b) - g(\rho_a*z_b + \rho_b*z_a)$$
+
+$$\Delta PE = g(\rho_a - \rho_b)*(z_a-z_b)$$
+
+There are two angles we care about. The angle of the isopycnals \(\phi\) and the angle of parcel exchange \(\alpha\).
+
+We can assume that both angles are very small compared to the vertical displacement \(\Delta\) z . This means we can approximate sin(\(\alpha\)) as \(\alpha\) and cos(\(\alpha\)) as 1. 
+
+$$\Delta \rho = \Delta y * \frac{d\rho}{dy} + \Delta z * \frac{d\rho}{dz} = L*cos(\alpha) * cos(\alpha)*\frac{d\rho}{dy} + L*sin(\alpha)*\frac{d\rho}{dz} = L* \frac{d\rho}{dy} + L*\alpha*\frac{d\rho}{dz}$$
+
+$$\Delta PE = g(\Delta \rho)*(\Delta z) = g*\alpha*L*(L* \frac{d\rho}{dy} + L*\alpha*\frac{d\rho}{dz})$$
+$$\Delta PE = g*\alpha*L^2*(1-\frac{\alpha}{\phi}) -$$
+
+So change in potential energy is 0 when alpha is 0 or it stirs along isopycnals.
+
+\subsection{}
+\label{sec:orgf2fbc9b}
+First lets find \(\phi\).
+$$ \phi = -\frac{d\rho}{dy}/\frac{d\rho}{dz}$$
+That's really just the slope of the isopycnal
+$$ \phi \approx \frac{400m}/{2*111000m} = 0.0018$$
+
+Let's choose the maximum kinetic energy scenario where \(\alpha\) = \(\phi\)/2.
+
+Then $$\Delta PE = \frac{g\alpha L^2}{2}\frac{d\rho}{dy} \approx \frac{9.8 ms^{-2} * 0.0009 * 2*111000}{2}\frac{0.6 kg m^{-3}}{2*111000 m} = 1174 J m^{-3}$$
+
+From there we can calculate the change in velocity for the fluid parcel as $$\Delta PE = \Delta KE == \bar{\rho}*\Delta v ^2 $$
+So $$\Delta v = (1174 J/s * 1027.3 kg m^{-3})  =1.07 m s^{-1}$$
+
+But that is not the eddy velocity! Working off of Box 9.3 from WF, we can see that $$U_{eddy} = \frac{H}{2} |\frac{du}{dz}|$$. From the velocity depth profile on the same slide of the circulation lecture.
+
+$$ U_{eddy} \approx \frac{500m}{2} \frac{0.75-0.1}{500m} = 0.325 m/s$$
+
+\section{}
+\label{sec:org5bd640e}
+Eddy kinetic energy is largest the western boundary currents, near the equator and in the southern ocean. Coincidentally this is exactly where surface currents are strongest. I think this makes alot of intuitive sense especially after we saw how the Gulf Stream pinches off eddies. It also matches with the approximation in box 9.3 from WF which says that eddie velocity is proportional to the velocity shear. We know that bottom currents are orders of magnitude smaller than surface currents, so areas of large surface currents would have larger shear as well and higher velocities. Also, the mean surface currents are largely driven by isopycnal gradients which allow for baroclinic instability. 
+
+\section{}
+\label{sec:org39e62cf}
+The ACC is largely forced by the westerly wind jet. The westerly wind drive eastward currents which due to ekman transport tilt the pycnocline upward toward the contintental shelf. This tilted isopycnal leads to baroclinic instability which creates eddies that transport cold water northward and warm waters poleward.
+
+The westerly wind jets are forced by/part of the hadley cell circulation in the atmosphere. The descending high-pressure limb of the hadley cell drives wind poleward which is then deflected by the coriolis acceleration resulting in westerly jets. This jet seperates cold higher latitude air, from warmer lower latitude air. While these jets primarly transport heat zonally, the meandering of the jet creates weather systems (eddies) which drive poleward heat transport.
+
+Both systems transport heat poleward which helps maintain climate equilibrium by lessening latitudinal temperature gradients. Without them one expect much hotter tropics and much colder poles.
+
+\section{}
+\label{sec:orgbe1bcd2}
+Mesoscale eddies spread anomalous water masses through advection and diffusion. The diffusion is down gradient stirring by eddies, and the advection can move tracers up or down gradient. In the case of the Meditteranean mode waters spill out into the Atlantic and transport the water trapped within them across the Atlantic.
+
+From the map in chapter 9 of Williams and Follows it seems a reasonable eddy velocity would be about 10 cm/s in the atlantic. The Atlantic is about 4000km wide so a basin-scale transit time by the advective term would be about 463 days.
+
+As for the diffusive flux, the lecture slides say a representative value would be about 1000 m\textsuperscript{2} s\textsuperscript{-1} . This could be measured by the spread of a dye release on isopycnals. I may really be overthinking it or I am just not understanding the question but I can't figure out for the life of me how to back out a characteristic spreading rate from this coefficient. Sorry about that!
+
+For coherent SCVS from the mediterranean, based on the map the eddy velocity would be significantly less, between 0 and 5 cm/s. This would result in a bsin-scale transit time of years which is what it is mentioned in the slides.
+
+
+\section{}
+\label{sec:org4be39a1}
+\begin{itemize}
+\item Mesoscale eddies
+\begin{itemize}
+\item In class we discussed how mesoscale eddies are mostly barotropic (or very close to it) meaning they are almost full depth. Mesoscale eddies are associated with either suction (raised isopycnals) or pumping (depressed isopycnals).
+\end{itemize}
+\item Submesoscale Coherent Vortices
+\begin{itemize}
+\item SCVs are often baroclinic (not full-depth) and can lie at mid-depth. In lecture we saw a Meddy scv which exhibited a lens like isopycnal structure.
+\end{itemize}
+\item Large scale mean currents (Gyres)
+\begin{itemize}
+\item I think the large scale currents are not completely full depth like mesoscale eddies and have less kinetic energy than mesoscale eddies (per slide 16).
+\end{itemize}
+\end{itemize}
+\section{}
+\label{sec:orgc2f9a5e}
+\begin{itemize}
+\item Baroclinic and Barotopic instabiilties of "mean currents"
+\begin{itemize}
+\item These instabilities extract energy from large scale mean current isopycnal gradients
+\item They are the source of mesoscale eddies throughout the ocean
+\item They are the result of unstable modes in the mean flow and limit the mean flows magnitude
+\end{itemize}
+\item Tropical instability waves
+\begin{itemize}
+\item These occur due to the barotropic instability of shear at the equator
+\item Directly at the equator the water is moving west, but just north of it the North Equatorial Counter Current is going east. This creates a shear and then instability.
+\item They result in meriodinal currents which create cusps in the SST pattern
+\end{itemize}
+\item Submesoscale instabilities
+\begin{itemize}
+\item Submesoscale instabilities have a number of causes:
+\begin{itemize}
+\item One is island wakes
+\item Another is frontogenesis in which mesoscale features create convergence and "mixed-layer" baroclinic instabilities
+\end{itemize}
+\end{itemize}
+\item Stratified shear instabilities (Kelvin Helmholtz)
+\begin{itemize}
+\item Stratified shear instabilities occur whenever the Reynolds number which is the ratio of stratification to vertical shear is less than 0.25. It can create vortex rollups that drive mixing.
+\end{itemize}
+\end{itemize}
+
+\section{}
+\label{sec:orgd54c4e3}
+\begin{itemize}
+\item Double diffusion
+\begin{itemize}
+\item Double diffusion is driven by the fact that heat diffuses almost two orders of magnitude faster than salt. Due to the non-linearities of the equation of state, this means that a stabily stratified density profile can exhibit diapycnal mixing over time. Double diffusion is charactized by a "staircase" like mixing pattern with warm salty water above cold fresh water. I believe this can be characterized by spice!
+\end{itemize}
+\item Inertia-Gravity waves
+\begin{itemize}
+\item Inetria-Gravity waves are driven by a combination of the earth's rotation and stable stratification. They can be generated by the tides over rough bathymetry (they radiate out like beams right?), wind changes, and boundary layer turbulence. These waves will eventually break mixing diapycnally in the interior.
+\end{itemize}
+\item Kelvin Helmholtz
+\begin{itemize}
+\item Kelvin Helmholtz takes over when the Reynold's number, the ratio of stratification to vertical shear, is low. When the Reynold's number is sufficiently low, under 0.25 is rare in the ocean, that means the shear is overpowering the circulation and Kelvin Helmholtz instability takes over and mixes diapycnally.
+\end{itemize}
+\end{itemize}
+
+\section{}
+\label{sec:org241b1ab}
+The Cox-Osborne model assumes that the vertical profile is in a steady state (that production equals disspation), and that things aren't mixing too heavily laterally. The Cox-Osborne model estimates the eddy viscosity and vertical diapycnal mixxing based on measured micro-structure velocity, temperature, mean vertical shear, and mean vertical temperature gradient. From that you can further estimate \(\epsilon\) and \(\epsilon_T\)
+\end{document}
